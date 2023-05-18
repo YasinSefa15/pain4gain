@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pain4gain/components/CustomBottomNavigationBar.dart';
 import 'package:pain4gain/pages/home_page/HomePage.dart';
-import 'package:pain4gain/pages/home_page/ListsPage.dart';
+import 'package:pain4gain/pages/ListsPage/ListsPage.dart';
 
 class AppPage extends StatefulWidget {
   const AppPage({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../pages/home_page/HomePage.dart';
-import '../pages/home_page/ListsPage.dart';
+import '../pages/ListsPage/ListsPage.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final int selectedIndex;
