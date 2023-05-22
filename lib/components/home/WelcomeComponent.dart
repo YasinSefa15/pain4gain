@@ -5,25 +5,26 @@ class WelcomeComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(screenWidth * 0.05),
       child: Column(
         children: [
-          const SizedBox(height: 10.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Column(
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Hi, Sefa Welcome!',
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8.0),
-                  Text(
+                  SizedBox(height: screenWidth * 0.02),
+                  const Text(
                     'Let\'s check your activity today!',
                     style: TextStyle(
                       fontSize: 16.0,
@@ -32,11 +33,11 @@ class WelcomeComponent extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(width: 55.0),
-              const ClipOval(
+              SizedBox(width: screenWidth * 0.17),
+              ClipOval(
                 child: Image(
-                  image: AssetImage('assets/default_user_avatar.png'),
-                  width: 70.0,
+                  image: const AssetImage('assets/default_user_avatar.png'),
+                  width: screenWidth * 0.18,
                   fit: BoxFit.cover,
                 ),
               )

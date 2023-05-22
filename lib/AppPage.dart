@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pain4gain/components/CustomBottomNavigationBar.dart';
+import 'package:pain4gain/pages/diet_page/DietPage.dart';
 import 'package:pain4gain/pages/home_page/HomePage.dart';
 import 'package:pain4gain/pages/ListsPage/ListsPage.dart';
+import 'package:pain4gain/pages/profile_page/ProfilePage.dart';
 
 class AppPage extends StatefulWidget {
   const AppPage({Key? key}) : super(key: key);
@@ -14,7 +16,8 @@ class _AppPageState extends State<AppPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     ListsPage(),
-    HomePage()
+    DietPage(),
+    ProfilePage()
   ];
 
   int _selectedIndex = 0;

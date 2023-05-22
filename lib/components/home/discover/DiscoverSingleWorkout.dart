@@ -16,11 +16,14 @@ class DiscoverSingleWorkout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
-      width: 270,
-      height: 180,
+      width: screenWidth * 0.6,
+      height: screenWidth * 0.4,
       color: Colors.green,
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -33,7 +36,7 @@ class DiscoverSingleWorkout extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
@@ -62,12 +65,12 @@ class DiscoverSingleWorkout extends StatelessWidget {
                 children: [
                   Text(
                     time,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  Text(
+                  const Text(
                     "Minutes",
                     style: TextStyle(
                         fontSize: 20,
@@ -84,14 +87,13 @@ class DiscoverSingleWorkout extends StatelessWidget {
               Image(
                 image: AssetImage(
                     imagePath == "" ? "assets/jogging.png" : imagePath),
-                width: 100,
-                height: 100,
+                width: screenWidth * 0.3,
+                height: screenWidth * 0.2,
               ),
             ],
           )
         ],
       ),
     );
-    ;
   }
 }
