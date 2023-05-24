@@ -105,7 +105,6 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       // Navigate back to the previous screen
       Future.delayed(const Duration(seconds: 2), () {
-        Navigator.pop(context);
       });
     });
   }
