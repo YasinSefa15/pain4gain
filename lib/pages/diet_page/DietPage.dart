@@ -9,6 +9,7 @@ class DietPage extends StatelessWidget {
       body: Center(
         child: Text(
           'Merhaba, Burası Diet Sayfası.',
+          //deneme
           style: TextStyle(fontSize: 24),
         ),
       ),
