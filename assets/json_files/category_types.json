@@ -1,0 +1,14 @@
+{
+  "categories": {
+    "1": {
+      "name": "Category 1",
+      "description": "This is category 1",
+      "icon": "Icons.abc"
+    },
+    "2": {
+      "name": "Category 2",
+      "description": "This is category 2",
+      "icon": "Icons.alarm_add_sharp"
+    }
+  }
+}

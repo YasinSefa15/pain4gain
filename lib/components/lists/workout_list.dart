@@ -5,7 +5,8 @@ class WorkoutList extends StatelessWidget {
   final double desiredWidth;
   final String title;
   final String imagePath;
-  const WorkoutList({Key? key, required this.color, required this.desiredWidth, required this.title, required this.imagePath}) : super(key: key);
+  final double desiredHeight;
+  const WorkoutList({Key? key, required this.color, required this.desiredWidth, required this.title, required this.imagePath, required this.desiredHeight}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class WorkoutList extends StatelessWidget {
 
     return Container(
       width: desiredWidth,
-      height: 250,
+      height: desiredHeight,
       margin: const EdgeInsets.all(10),
       //generate random color
       color: color,

@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutType extends StatelessWidget {
-  const WorkoutType({Key? key}) : super(key: key);
+  final IconData icon;
+  const WorkoutType({Key? key, required this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +12,8 @@ class WorkoutType extends StatelessWidget {
       width: 30,
       height: 30,
       color: Colors.blue,
-      child: const Icon(
-        Icons.favorite,
+      child: Icon(
+        icon,
         color: Colors.white,
         size: 20,
       ),
