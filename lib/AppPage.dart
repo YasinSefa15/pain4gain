@@ -13,11 +13,11 @@ class AppPage extends StatefulWidget {
 }
 
 class _AppPageState extends State<AppPage> {
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const HomePage(),
     ListsPage(),
-    DietPage(),
-    ProfilePage()
+    const DietPage(),
+    const ProfilePage()
   ];
 
   int _selectedIndex = 0;
