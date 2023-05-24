@@ -104,7 +104,19 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       // Navigate back to the previous screen
-      Future.delayed(const Duration(seconds: 2), () {
+      _nameController.clear();
+      _ageController.clear();
+      _heightController.clear();
+      _weightController.clear();
+      _workoutDaysController.clear();
+      _gender = '';
+
+      // Remove the focus from the input fields
+      FocusScope.of(context).unfocus();
+
+      setState(() {
+        // Clear the error messages
+        _errors = {};
       });
     });
   }
@@ -116,6 +128,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     await prefs.setDouble('height', double.parse(_heightController.text));
     await prefs.setDouble('weight', double.parse(_weightController.text));
     await prefs.setString('gender', _gender);
+    await prefs.setInt('workoutDays', int.parse(_workoutDaysController.text));
   }
 
   @override
@@ -135,7 +148,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -146,7 +159,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                     'Name',
                     style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 6.0),
                   TextField(
                     controller: _nameController,
                     decoration: InputDecoration(
@@ -170,7 +183,6 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 24.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -178,7 +190,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                     'Age',
                     style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 6.0),
                   TextField(
                     controller: _ageController,
                     keyboardType: TextInputType.number,
@@ -204,7 +216,6 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 24.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -212,7 +223,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                     'Height',
                     style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 6.0),
                   TextField(
                     controller: _heightController,
                     keyboardType: TextInputType.number,
@@ -238,7 +249,6 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 24.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -246,7 +256,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                     'Weight',
                     style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 6.0),
                   TextField(
                     controller: _weightController,
                     keyboardType: TextInputType.number,
@@ -272,7 +282,6 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 24.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -280,7 +289,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                     'Workout Days',
                     style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 6.0),
                   TextField(
                     controller: _workoutDaysController,
                     keyboardType: TextInputType.number,
@@ -306,7 +315,6 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 24.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -314,7 +322,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                     'Gender',
                     style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 6.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -343,14 +351,27 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                   if (_errors.containsKey('gender'))
                     Text(
                       _errors['gender']!,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
                 ],
               ),
               const SizedBox(height: 24.0),
-              ElevatedButton(
-                onPressed: _saveProfile,
-                child: const Text('Save'),
+              Align(
+                alignment: Alignment.center,
+                child: ElevatedButton.icon(
+                  onPressed: _saveProfile,
+                  icon: const Icon(Icons.save),
+                  label: const Text(
+                    'Save',
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -360,8 +381,6 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: ProfileEditingPage(),
-  ));
+main() {
+  runApp(const MaterialApp(home: ProfileEditingPage()));
 }
