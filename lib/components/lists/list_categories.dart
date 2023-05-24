@@ -11,7 +11,7 @@ class _ListCategoriesState extends State<ListCategories> {
   Widget build(BuildContext context) {
     return Column(
       children: const [
-        Text('ListCategories', style: TextStyle(fontWeight: FontWeight.bold)),
+
 
       ],
     );
