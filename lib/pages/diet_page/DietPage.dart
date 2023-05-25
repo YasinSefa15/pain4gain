@@ -23,6 +23,37 @@ class DietPage extends StatelessWidget {
                 ),
                 child: Container(
                   color: Colors.white,
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 32, right: 16, bottom: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      ListTile(
+                          title: Text(
+                            "Date,Year",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                            ),
+                          ), //gün ay bilgisi çekilcek
+                          subtitle: Text(
+                            "Hello,GöT Emirhan",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                fontSize: 19,
+                                color: Colors.black),
+                          ), //isim bilgisi yansıyacak
+                          trailing: ClipOval(
+                              child: Image.asset(
+                            "assets/emirhan.jpg",
+                          )) //kamera resmi alınacak,
+                          ),
+                      _RadialProgress(
+                        width: height * 0.2,
+                        height: height * 0.2,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -77,6 +108,47 @@ class DietPage extends StatelessWidget {
             ),
           ],
         ));
+  }
+}
+
+class _RadialProgress extends StatelessWidget {
+  const _RadialProgress({super.key, required this.height, required this.width});
+  final double height, width;
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+    painter: _RadialPainter(progress:0.7),
+      child :Container(
+        height: height,
+        width: width,
+        
+      ),
+    );
+  }
+}
+
+class _RadialPainter extends CustomPainter{
+
+  final double progress;
+
+  _RadialPainter({required this.progress});
+  
+  @override
+  void paint(Canvas canvas,Size size) {
+    Paint paint =Paint()
+      ..strokeWidth = 10
+      ..color = Color(0xFF200087)
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+      Offset center =Offset(size.width/2, size.height/2);
+      canvas.drawCircle(center, size.width/2, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate){
+    //TODO: implement shouldRepaint
+    return true;
   }
 }
 
