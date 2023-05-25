@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutType extends StatelessWidget {
-  final IconData icon;
-  const WorkoutType({Key? key, required this.icon}) : super(key: key);
+  final String imagePath;
+
+  const WorkoutType({Key? key, required this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +13,10 @@ class WorkoutType extends StatelessWidget {
       width: 30,
       height: 30,
       color: Colors.blue,
-      child: Icon(
-        icon,
-        color: Colors.white,
-        size: 20,
+      child: Image.asset(
+        imagePath,
+        width: 10,
+        height: 10,
       ),
     );
   }
