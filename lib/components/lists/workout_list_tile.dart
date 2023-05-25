@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,15 +11,25 @@ class WorkoutListTile extends StatelessWidget {
   const WorkoutListTile(
       {Key? key,
       required this.name,
-      required this.gifPath, required this.instructions, required this.primaryMuscles, required this.level})
+      required this.gifPath,
+      required this.instructions,
+      required this.primaryMuscles,
+      required this.level})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return ListTile(
       title: Text(name),
-      subtitle: Text("asdsd"),
-      leading: Image.network(gifPath),
+      subtitle: Text("Kaç set tekrar veya dakika?"),
+      leading: Image.network(
+        gifPath,
+        width: screenWidth * 0.1,
+        height: screenWidth * 0.1,
+        fit: BoxFit.cover,
+      ),
     );
   }
 }
