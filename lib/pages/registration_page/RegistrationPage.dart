@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pain4gain/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -89,113 +90,300 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Widget _buildFirstPage() {
-    return Container(
-      color: Colors.indigo, // Customize the background color
-      padding: EdgeInsets.all(16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset('assets/welcome_image.png'),
-          SizedBox(height: 24),
-          Text(
-            'Welcome to Pain4Gain',
-            style: TextStyle(
-                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+            color: Colors.black,
+            image: DecorationImage(
+                image: AssetImage('assets/cover.jpg'),
+                //image: AssetImage('assets/semih.jpg'),
+                fit: BoxFit.cover)),
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(begin: Alignment.bottomCenter, colors: [
+            Colors.black.withOpacity(.9),
+            Colors.black.withOpacity(.8),
+            Colors.black.withOpacity(.2),
+          ])),
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Text('Welcome to Pain4Gain!', style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold)),
+                SizedBox(
+                  height: 20,
+                ),
+                Text("Before we start,\nwe will need some information.", style: TextStyle(color: Colors.white, height: 1.4, fontSize: 18)),
+                SizedBox(
+                  height: 100,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(115, 85, 230, 100),
+                        Color.fromRGBO(210, 121, 247, 100)
+                        //Colors.yellow,
+                        //Colors.orange
+                      ]
+                    )
+                  ),
+                  child: MaterialButton(
+                    minWidth: double.infinity,
+                    child: Text("Start", style: TextStyle(color: Colors.white)),
+                    onPressed: _goToNextPage,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Align(
+                  child: Text("No Pain, No Gain!", style: TextStyle(color: Colors.white70, fontSize: 15),),
+                ),
+
+                SizedBox(
+                  height: 30,
+                ),
+              ],
+            ),
           ),
-          SizedBox(height: 24),
-          ElevatedButton(
-            onPressed: _goToNextPage,
-            child: Text('Next'),
-          ),
-        ],
+        ),
       ),
     );
   }
 
   Widget _buildSecondPage() {
     return Container(
-      color: Colors.indigo, // Customize the background color
+
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromRGBO(49, 14, 104, 1),
+              Color.fromRGBO(94, 15, 65, 1),
+            ],
+          )
+      ),
+      //color: Colors.indigo, // Customize the background color
       padding: EdgeInsets.all(16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'We need some information from you:',
+            'We need some information',
+            style: TextStyle(
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+          Text(
+            'to create your account',
             style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           SizedBox(height: 24),
-          TextFormField(
-            controller: _usernameController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'Username',
-              errorText:
-                  _showUsernameError ? 'Please enter a valid username' : null,
-            ),
-          ),
-          SizedBox(height: 16),
-          DropdownButtonFormField<String>(
-            value: _selectedGender,
-            onChanged: (value) {
-              setState(() {
-                _selectedGender = value;
-              });
-            },
-            items: [
-              DropdownMenuItem(
-                value: 'Male',
-                child: Text('Male'),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 6.0),
+              Container(
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(244, 243, 243, 175),
+                    borderRadius: BorderRadius.circular(15)
+                ),
+                child: TextField(
+                  cursorColor: Colors.black38,
+                  controller: _usernameController,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      prefixIcon: const Icon(Icons.person, color: Colors.black54),
+                      labelText: 'Enter your name',
+                      labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                      //errorText: _errors['name'],
+                      errorMaxLines: 1,
+                      errorStyle: TextStyle()
+                  ),
+                ),
               ),
-              DropdownMenuItem(
-                value: 'Female',
-                child: Text('Female'),
-              ),
+              if (_showUsernameError == true)
+                Text('Please enter a valid username',
+                  style: const TextStyle(fontSize: 12, color: Colors.red),
+                ),
+
+
             ],
-            decoration: InputDecoration(
-              labelText: 'Gender',
-              errorText: _showGenderError ? 'Please select a gender' : null,
-            ),
           ),
-          SizedBox(height: 16),
-          TextFormField(
-            controller: _ageController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'Age',
-              errorText: _showAgeError ? 'Please enter a valid age' : null,
-            ),
+
+          SizedBox(height: 10),
+/*
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 6.0),
+              Container(
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(244, 243, 243, 175),
+                    borderRadius: BorderRadius.circular(15)
+                ),
+              child: DropdownButtonFormField<String>(
+
+                value: _selectedGender,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedGender = value;
+                  });
+                },
+                items: [
+                  DropdownMenuItem(
+                    value: 'Male',
+                    child: Text('Male'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Female',
+                    child: Text('Female'),
+                  ),
+                ],
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  labelText: 'Gender',
+                  labelStyle: TextStyle(color: Colors.black, fontSize: 16 ),
+                  errorText: _showGenderError ? 'Please select a gender' : null,
+                ),
+              ),
+            ),]
           ),
-          SizedBox(height: 16),
-          TextFormField(
-            controller: _heightController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'Height(cm)',
-              errorText:
-                  _showHeightError ? 'Please enter a valid height' : null,
-            ),
+          SizedBox(height: 10),
+
+ */
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 6.0),
+              Container(
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(244, 243, 243, 175),
+                    borderRadius: BorderRadius.circular(15)
+                ),
+                child: TextField(
+                  cursorColor: Colors.black38,
+                  controller: _ageController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixIcon: const Icon(Icons.calendar_today, color: Colors.black54),
+                    labelText: 'Enter your age',
+                    labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                ),
+              ),
+              if (_showAgeError == true)
+                Text('Please enter a valid age',
+                  style: const TextStyle(fontSize: 12, color: Colors.red),
+                ),
+            ],
           ),
-          SizedBox(height: 16),
-          TextFormField(
-            controller: _weightController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'Weight(kg)',
-              errorText:
-                  _showWeightError ? 'Please enter a valid weight' : null,
-            ),
+
+          SizedBox(height: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 6.0),
+
+              Container(
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(244, 243, 243, 175),
+                    borderRadius: BorderRadius.circular(15)
+                ),
+                child: TextField(
+                  cursorColor: Colors.black38,
+                  controller: _heightController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixIcon: const Icon(Icons.height,color: Colors.black54),
+                    labelText: 'Enter your height (cm)',
+                    labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                ),
+              ),
+              if (_showHeightError == true)
+                Text('Please enter a valid height',
+                  style: const TextStyle(fontSize: 12, color: Colors.red),
+                ),
+            ],
           ),
-          SizedBox(height: 16),
-          TextFormField(
-            controller: _exerciseDaysController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'Days of Exercise per Week',
-              errorText:
-                  _showExerciseDaysError ? 'Please enter a valid day' : null,
-            ),
+
+          SizedBox(height: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 6.0),
+              Container(
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(244, 243, 243, 175),
+                    borderRadius: BorderRadius.circular(15)
+                ),
+                child: TextField(
+                  cursorColor: Colors.black38,
+                  controller: _weightController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixIcon: const Icon(Icons.fitness_center, color: Colors.black54),
+                    labelText: 'Enter your weight (kg)',
+                    labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                ),
+              ),
+              if (_showWeightError == true)
+                Text('Please enter a valid weight',
+                  style: const TextStyle(fontSize: 12, color: Colors.red),
+                ),
+            ],
           ),
+
+          SizedBox(height: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 6.0),
+              Container(
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(244, 243, 243, 175),
+                    borderRadius: BorderRadius.circular(15)
+                ),
+                child: TextField(
+                  cursorColor: Colors.black38,
+                  controller: _exerciseDaysController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixIcon: const Icon(Icons.calendar_today, color: Colors.black54),
+                    labelText: 'Enter number of workout days (1-7)',
+                    labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                ),
+              ),
+              if (_showExerciseDaysError == true)
+                Text('Please enter a valid day',
+                  style: const TextStyle(fontSize: 12, color: Colors.red),
+                ),
+            ],
+          ),
+
           SizedBox(height: 24),
           ElevatedButton(
             onPressed: () {
