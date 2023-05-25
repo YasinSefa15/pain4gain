@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class ProfileEditingPage extends StatefulWidget {
   const ProfileEditingPage({Key? key}) : super(key: key);
@@ -17,6 +19,8 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
   late TextEditingController _weightController;
   late TextEditingController _workoutDaysController;
   String _gender = '';
+  File? _profileImage;
+  final ImagePicker _imagePicker = ImagePicker();
 
   Map<String, String> _errors = {
     'name': '',
@@ -25,6 +29,18 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     'weight': '',
     'workoutDays': '',
   };
+  Future<void> _selectProfilePhoto() async {
+    final pickedFile = await _imagePicker.pickImage(
+      source: ImageSource.gallery, // Option to choose from the gallery
+      imageQuality: 80, // Adjust the image quality (0 - 100)
+    );
+
+    if (pickedFile != null) {
+      setState(() {
+        _profileImage = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -132,6 +148,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     await prefs.setInt('workoutDays', int.parse(_workoutDaysController.text));
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -166,12 +183,37 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ClipOval(
-                  child: Image(
-                    image: AssetImage('assets/default_user_avatar.png'),
-                    width: 100.0,
-                    height: 100,
-                    fit: BoxFit.cover,
+                GestureDetector(
+                  onTap: _selectProfilePhoto, // Choose from gallery
+                  child: ClipOval(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        _profileImage != null
+                            ? Image.file(
+                          _profileImage!,
+                          width: 100.0,
+                          height: 100.0,
+                          fit: BoxFit.cover,
+                        )
+                            : Image.asset(
+                          'assets/default_user_avatar.png',
+                          width: 100.0,
+                          height: 100.0,
+                          fit: BoxFit.cover,
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.add,
+                            size: 30.0,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            _showImageSourceDialog();
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 10),
@@ -403,4 +445,52 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
       ),
     );
   }
+  void _showImageSourceDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Select Image Source'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                GestureDetector(
+                  child: Text('Take a Photo'),
+                  onTap: () {
+                    _getImage(ImageSource.camera);
+                    Navigator.of(context).pop();
+                  },
+                ),
+                Padding(padding: EdgeInsets.all(8.0)),
+                GestureDetector(
+                  child: Text('Choose from Gallery'),
+                  onTap: () {
+                    _getImage(ImageSource.gallery);
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _getImage(ImageSource source) async {
+    final pickedFile = await _imagePicker.pickImage(source: source);
+    if (pickedFile != null) {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final profileImagePathKey = 'profile_image_path';
+
+      // Save the file path to shared preferences
+      await prefs.setString(profileImagePathKey, pickedFile.path);
+
+      setState(() {
+        _profileImage = File(pickedFile.path);
+      });
+    }
+  }
+
+
 }
