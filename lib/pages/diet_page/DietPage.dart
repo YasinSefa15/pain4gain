@@ -105,7 +105,7 @@ class _MealCard extends StatelessWidget {
                 child: Image.asset(
                   meal.imagePath,
                   width: 150,
-                  fit: BoxFit.fitHeight,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
