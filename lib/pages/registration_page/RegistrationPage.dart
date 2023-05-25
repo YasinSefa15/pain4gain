@@ -78,9 +78,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   bool _validateForm() {
     setState(() {
       _showUsernameError = _usernameController.text.isEmpty ||
-          int.tryParse(_ageController.text) == null ||
-          int.parse(_ageController.text) < 8 ||
-          int.parse(_ageController.text) > 16;
+          (_usernameController.text.length) < 5 ||
+         (_usernameController.text.length) > 16;
       _showGenderError = _selectedGender == null;
       _showAgeError = _ageController.text.isEmpty ||
           int.tryParse(_ageController.text) == null ||
