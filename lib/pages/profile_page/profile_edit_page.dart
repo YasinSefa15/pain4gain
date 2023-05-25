@@ -55,7 +55,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     // Validate the input
     if (_nameController.text.isEmpty) {
       setState(() {
-        _errors['name'] = 'Please enter your name';
+        _errors['username'] = 'Please enter your username';
       });
     }
 
@@ -124,7 +124,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
 
   Future<void> _saveProfileData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('name', _nameController.text);
+    await prefs.setString('username', _nameController.text);
     await prefs.setInt('age', int.parse(_ageController.text));
     await prefs.setDouble('height', double.parse(_heightController.text));
     await prefs.setDouble('weight', double.parse(_weightController.text));
@@ -199,9 +199,9 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                         ),
                       ),
                     ),
-                    if (_errors.containsKey('name'))
+                    if (_errors.containsKey('username'))
                       Text(
-                        _errors['name']!,
+                        _errors['username']!,
                         style: const TextStyle(fontSize: 12, color: Colors.red),
                       ),
                   ],
