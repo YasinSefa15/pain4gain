@@ -1,41 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pain4gain/pages/home_page/HomePage.dart';
+import 'package:pain4gain/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fitness App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: FutureBuilder<bool>(
-        future: _checkOnboardingStatus(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            final bool showOnboarding = snapshot.data ?? true;
-            return showOnboarding ? OnboardingScreen() : HomePage();
-          }
-          return Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Future<bool> _checkOnboardingStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('onboarding_completed') ?? true;
-  }
-}
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -44,11 +9,13 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _heightController = TextEditingController();
   final TextEditingController _weightController = TextEditingController();
   final TextEditingController _exerciseDaysController = TextEditingController();
   String? _selectedGender;
+  bool _showUsernameError = false;
   bool _showGenderError = false;
   bool _showAgeError = false;
   bool _showHeightError = false;
@@ -57,6 +24,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   void dispose() {
+    _usernameController.dispose();
     _pageController.dispose();
     _ageController.dispose();
     _heightController.dispose();
@@ -74,6 +42,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   bool _validateForm() {
     setState(() {
+      _showUsernameError = _usernameController.text.isEmpty ||
+          (_usernameController.text.length) < 5 ||
+          (_usernameController.text.length) > 16;
       _showGenderError = _selectedGender == null;
       _showAgeError = _ageController.text.isEmpty ||
           int.tryParse(_ageController.text) == null ||
@@ -93,7 +64,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           int.parse(_exerciseDaysController.text) > 7;
     });
 
-    return !_showGenderError &&
+    return !_showUsernameError &&
+        !_showGenderError &&
         !_showAgeError &&
         !_showHeightError &&
         !_showWeightError &&
@@ -102,10 +74,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Future<void> _saveForm() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', _usernameController.text);
+    await prefs.setInt('age', int.parse(_ageController.text));
+    await prefs.setInt('height', int.parse(_heightController.text));
+    await prefs.setInt('weight', int.parse(_weightController.text));
+    await prefs.setInt(
+        'exercise_days', int.parse(_exerciseDaysController.text));
+
     await prefs.setBool('onboarding_completed', true);
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomePage()),
+      MaterialPageRoute(builder: (context) => MyApp()),
     );
   }
 
@@ -121,9 +100,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Text(
             'Welcome to Pain4Gain',
             style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           SizedBox(height: 24),
           ElevatedButton(
@@ -145,11 +122,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Text(
             'We need some information from you:',
             style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           SizedBox(height: 24),
+          TextFormField(
+            controller: _usernameController,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              labelText: 'Username',
+              errorText:
+                  _showUsernameError ? 'Please enter a valid username' : null,
+            ),
+          ),
+          SizedBox(height: 16),
           DropdownButtonFormField<String>(
             value: _selectedGender,
             onChanged: (value) {
@@ -188,7 +173,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             decoration: InputDecoration(
               labelText: 'Height(cm)',
               errorText:
-              _showHeightError ? 'Please enter a valid height' : null,
+                  _showHeightError ? 'Please enter a valid height' : null,
             ),
           ),
           SizedBox(height: 16),
@@ -198,7 +183,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             decoration: InputDecoration(
               labelText: 'Weight(kg)',
               errorText:
-              _showWeightError ? 'Please enter a valid weight' : null,
+                  _showWeightError ? 'Please enter a valid weight' : null,
             ),
           ),
           SizedBox(height: 16),
@@ -208,7 +193,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             decoration: InputDecoration(
               labelText: 'Days of Exercise per Week',
               errorText:
-              _showExerciseDaysError ? 'Please enter a valid day' : null,
+                  _showExerciseDaysError ? 'Please enter a valid day' : null,
             ),
           ),
           SizedBox(height: 24),
@@ -245,4 +230,4 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 }
-
+//

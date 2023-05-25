@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pain4gain/components/lists/list_option.dart';
 import 'package:pain4gain/components/lists/workout_list.dart';
 import 'package:pain4gain/components/lists/workout_type.dart';
+import 'package:pain4gain/pages/ListsPage/workout_page.dart';
 
-import '../../json/JsonFileManager.dart';
 import '../../json/ListJsonController.dart';
 
 class ListsPage extends StatefulWidget {
@@ -13,15 +13,41 @@ class ListsPage extends StatefulWidget {
 
 class _ListsPageState extends State<ListsPage> {
   bool isOption = true;
+  List<Widget> _categoryList = [];
+  List<Widget> _workoutList = [];
 
   ListJsonController listJsonController = ListJsonController();
 
-
   void changeOption(bool value) {
     setState(() {
+
       isOption = value;
     });
   }
+  void loadCategories(){
+    listJsonController.readCategoryJsonFile().then((value) {
+      if (value != null && _categoryList.isEmpty) {
+        setState(() {
+          _categoryList = List.generate(value['categories'].length, (index) {
+            return WorkoutType(
+              imagePath: value['categories'][index.toString()]['imagePath'],
+            );
+          });
+        });
+      }
+    }).catchError((onError) {
+      print(onError);
+    });
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    // Kategori listesini ilk kez yüklemek için burada çağırılır
+    loadCategories();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -29,52 +55,56 @@ class _ListsPageState extends State<ListsPage> {
     double screenHeight =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
 
-    List<Widget> _workoutList = List.generate(10, (index) {
-      if (isOption) {
-        WorkoutList(
-          color: Colors.primaries[index],
-          desiredWidth: screenWidth * 0.95,
-          desiredHeight: screenHeight * 0.25,
-          title: 'option $isOption',
-          imagePath: 'assets/fitness_man.png',
-        );
-      }
-      return WorkoutList(
-        color: Colors.primaries[index],
-        desiredWidth: screenWidth * 0.95,
-        desiredHeight: screenHeight * 0.25,
-        title: 'option $isOption',
-        imagePath: 'assets/fitness_man.png',
-      );
-    });
 
-    List<Widget> _categoryList = List.generate(2, (index) {
-      listJsonController.readCategoryJsonFile().then((value) {
-        print(value);
-        if (value != null) {
-          return WorkoutType(
-            icon: IconData(value['category_types'][index]['icon'], fontFamily: 'MaterialIcons'),
-          );
+    if(isOption == true){
+      listJsonController.readDefinedListJsonFile().then((value) {
+        if (value != null && _workoutList.isEmpty) {
+          setState(() {
+            _workoutList = List.generate(value.length, (index) {
+              //print(value);
+              return   GestureDetector(
+                onTap: () {
+                  // Yeni sayfa açılışını Navigator ile yönetebilirsiniz
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => WorkoutPage(
+                        //workoutList: value[index.toString()]['workouts'],
+                        workoutTitle: value[index.toString()]['title'],
+                        workoutColor: value[index.toString()]['color'],
+                      ), // İkinci sayfa
+                    ),
+                  );
+                },
+                child: WorkoutList(
+                  color: Color(int.parse(value[index.toString()]['color'])),
+                  desiredWidth: screenWidth * 0.95,
+                  desiredHeight: screenHeight * 0.25,
+                  title: value[index.toString()]['title'],
+                  imagePath: value[index.toString()]['imagePath'],
+                ),
+              );
+            });
+          });
         }
+      }).catchError((onError) {
+        //print(onError);
       });
-      return const WorkoutType(
-        //choose random icon
-        icon: Icons.alarm_add_sharp,
-      );
-    });
+    }else{
+      _workoutList = [];
+    }
+
+
+
+
+
+
 
     return SingleChildScrollView(
+      padding: const EdgeInsets.all(12.0),
       child: Column(
         children: [
-          ListOption(
-            onOptionChanged: (value) {
-              changeOption(value);
-            },
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(isOption.toString()),
-          ),
+          SizedBox(height: screenHeight * 0.02),
           const Align(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -89,6 +119,23 @@ class _ListsPageState extends State<ListsPage> {
               children: _categoryList,
             ),
           ),
+          SizedBox(height: screenHeight * 0.02),
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Workout Lists',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(height: screenHeight * 0.02),
+          ListOption(
+            onOptionChanged: (value) {
+              changeOption(value);
+            },
+            deviceWidth : screenWidth,
+            deviceHeight : screenHeight,
+          ),
+          SizedBox(height: screenHeight * 0.02),
           Column(
             children: _workoutList,
           )
@@ -97,3 +144,4 @@ class _ListsPageState extends State<ListsPage> {
     );
   }
 }
+
