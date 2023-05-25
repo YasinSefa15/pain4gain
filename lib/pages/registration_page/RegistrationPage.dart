@@ -2,41 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pain4gain/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(Reg());
-}
-
-class Reg extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fitness App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: FutureBuilder<bool>(
-        future: _checkOnboardingStatus(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            final bool showOnboarding = snapshot.data ?? true;
-            return showOnboarding ? OnboardingScreen() : MyApp();
-          }
-          return Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Future<bool> _checkOnboardingStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('onboarding_completed') ?? true;
-  }
-}
-
 class OnboardingScreen extends StatefulWidget {
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
@@ -79,7 +44,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     setState(() {
       _showUsernameError = _usernameController.text.isEmpty ||
           (_usernameController.text.length) < 5 ||
-         (_usernameController.text.length) > 16;
+          (_usernameController.text.length) > 16;
       _showGenderError = _selectedGender == null;
       _showAgeError = _ageController.text.isEmpty ||
           int.tryParse(_ageController.text) == null ||
@@ -109,6 +74,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Future<void> _saveForm() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', _usernameController.text);
+    await prefs.setInt('age', int.parse(_ageController.text));
+    await prefs.setInt('height', int.parse(_heightController.text));
+    await prefs.setInt('weight', int.parse(_weightController.text));
+    await prefs.setInt(
+        'exercise_days', int.parse(_exerciseDaysController.text));
+
     await prefs.setBool('onboarding_completed', true);
     Navigator.pushReplacement(
       context,
@@ -128,9 +100,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Text(
             'Welcome to Pain4Gain',
             style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           SizedBox(height: 24),
           ElevatedButton(
@@ -152,9 +122,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Text(
             'We need some information from you:',
             style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           SizedBox(height: 24),
           TextFormField(
@@ -162,7 +130,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               labelText: 'Username',
-              errorText: _showUsernameError ? 'Please enter a valid username' : null,
+              errorText:
+                  _showUsernameError ? 'Please enter a valid username' : null,
             ),
           ),
           SizedBox(height: 16),
@@ -204,7 +173,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             decoration: InputDecoration(
               labelText: 'Height(cm)',
               errorText:
-              _showHeightError ? 'Please enter a valid height' : null,
+                  _showHeightError ? 'Please enter a valid height' : null,
             ),
           ),
           SizedBox(height: 16),
@@ -214,7 +183,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             decoration: InputDecoration(
               labelText: 'Weight(kg)',
               errorText:
-              _showWeightError ? 'Please enter a valid weight' : null,
+                  _showWeightError ? 'Please enter a valid weight' : null,
             ),
           ),
           SizedBox(height: 16),
@@ -224,7 +193,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             decoration: InputDecoration(
               labelText: 'Days of Exercise per Week',
               errorText:
-              _showExerciseDaysError ? 'Please enter a valid day' : null,
+                  _showExerciseDaysError ? 'Please enter a valid day' : null,
             ),
           ),
           SizedBox(height: 24),

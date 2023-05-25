@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pain4gain/components/lists/list_option.dart';
 import 'package:pain4gain/components/lists/workout_list.dart';
 import 'package:pain4gain/components/lists/workout_type.dart';
+import 'package:pain4gain/pages/ListsPage/workout_page.dart';
 
 import '../../json/ListJsonController.dart';
 
@@ -61,12 +62,27 @@ class _ListsPageState extends State<ListsPage> {
           setState(() {
             _workoutList = List.generate(value.length, (index) {
               //print(value);
-              return   WorkoutList(
-                color: Color(int.parse(value[index.toString()]['color'])),
-                desiredWidth: screenWidth * 0.95,
-                desiredHeight: screenHeight * 0.25,
-                title: 'option $isOption',
-                imagePath: value[index.toString()]['imagePath'],
+              return   GestureDetector(
+                onTap: () {
+                  // Yeni sayfa açılışını Navigator ile yönetebilirsiniz
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => WorkoutPage(
+                        //workoutList: value[index.toString()]['workouts'],
+                        workoutTitle: value[index.toString()]['title'],
+                        workoutColor: value[index.toString()]['color'],
+                      ), // İkinci sayfa
+                    ),
+                  );
+                },
+                child: WorkoutList(
+                  color: Color(int.parse(value[index.toString()]['color'])),
+                  desiredWidth: screenWidth * 0.95,
+                  desiredHeight: screenHeight * 0.25,
+                  title: value[index.toString()]['title'],
+                  imagePath: value[index.toString()]['imagePath'],
+                ),
               );
             });
           });
