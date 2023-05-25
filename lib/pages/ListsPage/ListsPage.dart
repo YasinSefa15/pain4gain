@@ -62,6 +62,7 @@ class _ListsPageState extends State<ListsPage> {
           setState(() {
             _workoutList = List.generate(value.length, (index) {
               //print(value);
+              print(value[index.toString()]['workouts'].runtimeType);
               return   GestureDetector(
                 onTap: () {
                   // Yeni sayfa açılışını Navigator ile yönetebilirsiniz
@@ -72,6 +73,7 @@ class _ListsPageState extends State<ListsPage> {
                         //workoutList: value[index.toString()]['workouts'],
                         workoutTitle: value[index.toString()]['title'],
                         workoutColor: value[index.toString()]['color'],
+                        workoutList: value[index.toString()]['workouts'],
                       ), // İkinci sayfa
                     ),
                   );
