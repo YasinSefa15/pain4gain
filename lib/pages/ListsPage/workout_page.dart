@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pain4gain/components/lists/workout_list_tile.dart';
 
 class WorkoutPage extends StatelessWidget {
   final String workoutTitle;
@@ -24,11 +25,12 @@ class WorkoutPage extends StatelessWidget {
             child: ListView.builder(
               itemCount: workoutList.length,
               itemBuilder: (context, index) {
-                print(workoutList[index]);
-                return ListTile(
-                  title: Text(workoutList[index]['name']),
-                  subtitle: Text("asdsd"),
-                  leading: Image.network(workoutList[index]['gif']),
+                return WorkoutListTile(
+                    name: workoutList[index]['name'],
+                    gifPath: workoutList[index]['gif'],
+                    instructions: workoutList[index]['instructions'],
+                    primaryMuscles: workoutList[index]['primaryMuscles'],
+                    level: workoutList[index]['level']
                 );
               },
             ),
