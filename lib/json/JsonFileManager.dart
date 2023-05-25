@@ -1,23 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/services.dart';
+
 class JsonFileManager {
   final String filePath;
 
   JsonFileManager(this.filePath);
 
   Future<Map<String, dynamic>?> readJsonFile() async {
-    try {
-      File file = File(filePath);
-      if (await file.exists()) {
+    final jsonString = await rootBundle.loadString(filePath);
+    final jsonData = json.decode(jsonString);
 
-        String fileContent = await file.readAsString();
-        Map<String, dynamic> jsonData = jsonDecode(fileContent);
-        return jsonData;
-      }
-    } catch (e) {
-      print('Hata: $e');
+    if (jsonData != null) {
+      return jsonData;
     }
+
     return null;
   }
 

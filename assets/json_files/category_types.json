@@ -1,14 +1,19 @@
 {
   "categories": {
-    "1": {
-      "name": "Category 1",
+    "0" : {
+      "name": "Biceps",
       "description": "This is category 1",
-      "icon": "Icons.abc"
+      "imagePath": "assets/icons/biceps.png"
+    },
+    "1": {
+      "name": "Dumbbell",
+      "description": "This is category 2",
+      "imagePath": "assets/icons/dumbbell.png"
     },
     "2": {
-      "name": "Category 2",
+      "name": "Shoulder",
       "description": "This is category 2",
-      "icon": "Icons.alarm_add_sharp"
+      "imagePath": "assets/icons/shoulder.png"
     }
   }
 }

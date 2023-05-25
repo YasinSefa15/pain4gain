@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class ListOption extends StatefulWidget {
   final Function(bool) onOptionChanged;
+  final double deviceWidth;
+  final double deviceHeight;
 
-  ListOption({required this.onOptionChanged});
+  const ListOption(
+      {required this.onOptionChanged,
+      required this.deviceWidth,
+      required this.deviceHeight});
 
   @override
   _ListOptionState createState() => _ListOptionState();
@@ -15,6 +20,7 @@ class _ListOptionState extends State<ListOption> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
           onTap: () {
@@ -25,11 +31,16 @@ class _ListOptionState extends State<ListOption> {
           },
           child: Container(
             color: Colors.blue,
-            width: 100,
-            height: 100,
-            child: Text("Pre-Defined Lists"),
+            width: widget.deviceWidth * 0.25,
+            height: widget.deviceHeight * 0.06,
+            child: const Center(
+                child: Text(
+              "Pre-Defined Lists",
+              textAlign: TextAlign.center,
+            )),
           ),
         ),
+        SizedBox(width: widget.deviceWidth * 0.05),
         GestureDetector(
           onTap: () {
             setState(() {
@@ -39,9 +50,13 @@ class _ListOptionState extends State<ListOption> {
           },
           child: Container(
             color: Colors.green,
-            width: 100,
-            height: 100,
-            child: Text("My Lists"),
+            width: widget.deviceWidth * 0.25,
+            height: widget.deviceHeight * 0.06,
+            child: const Center(
+                child: Text(
+              "My Lists",
+              textAlign: TextAlign.center,
+            )),
           ),
         ),
       ],

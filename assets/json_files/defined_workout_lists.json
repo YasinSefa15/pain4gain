@@ -1,0 +1,47 @@
+{
+  "0": {
+    "name": "List 1",
+    "color" : "0xFF123456",
+    "imagePath" : "assets/fitness_girl.png",
+    "items": {
+      "item1": {
+        "name": "Item 1",
+        "description": "This is item 1"
+      },
+      "item2": {
+        "name": "Item 2",
+        "description": "This is item 2"
+      }
+    }
+  },
+  "1": {
+    "name": "List 2",
+    "color" : "0xFF789ABC",
+    "imagePath" : "assets/fitness_man.png",
+    "items": {
+      "item1": {
+        "name": "Item 1",
+        "description": "This is item 1"
+      },
+      "item2": {
+        "name": "Item 2",
+        "description": "This is item 2"
+      }
+    }
+  },
+  "2": {
+    "name": "List 3",
+    "color" : "0xFFDEF123",
+    "imagePath" : "assets/jogging.png",
+    "items": {
+      "item1": {
+        "name": "Item 1",
+        "description": "This is item 1"
+      },
+      "item2": {
+        "name": "Item 2",
+        "description": "This is item 2"
+      }
+    }
+  }
+}
