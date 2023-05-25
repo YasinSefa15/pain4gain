@@ -32,7 +32,7 @@ class ProfilePage extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: mediaQuery.size.width * 0.25,
-              backgroundImage: AssetImage('assets/profile_photo.jpg'),
+              backgroundImage: AssetImage('assets/default_user_avatar.png'),
             ),
             SizedBox(height: 16),
             FutureBuilder<String>(
