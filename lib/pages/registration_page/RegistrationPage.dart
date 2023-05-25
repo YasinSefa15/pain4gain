@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pain4gain/pages/home_page/HomePage.dart';
+import 'package:pain4gain/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Reg());
 }
 
-class MyApp extends StatelessWidget {
+class Reg extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             final bool showOnboarding = snapshot.data ?? true;
-            return showOnboarding ? OnboardingScreen() : HomePage();
+            return showOnboarding ? OnboardingScreen() : MyApp();
           }
           return Scaffold(
             body: Center(
@@ -112,7 +112,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     await prefs.setBool('onboarding_completed', true);
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomePage()),
+      MaterialPageRoute(builder: (context) => MyApp()),
     );
   }
 
