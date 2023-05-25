@@ -44,11 +44,13 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _heightController = TextEditingController();
   final TextEditingController _weightController = TextEditingController();
   final TextEditingController _exerciseDaysController = TextEditingController();
   String? _selectedGender;
+  bool _showUsernameError = false;
   bool _showGenderError = false;
   bool _showAgeError = false;
   bool _showHeightError = false;
@@ -57,6 +59,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   void dispose() {
+    _usernameController.dispose();
     _pageController.dispose();
     _ageController.dispose();
     _heightController.dispose();
@@ -74,6 +77,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   bool _validateForm() {
     setState(() {
+      _showUsernameError = _usernameController.text.isEmpty ||
+          int.tryParse(_ageController.text) == null ||
+          int.parse(_ageController.text) < 8 ||
+          int.parse(_ageController.text) > 16;
       _showGenderError = _selectedGender == null;
       _showAgeError = _ageController.text.isEmpty ||
           int.tryParse(_ageController.text) == null ||
@@ -93,7 +100,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           int.parse(_exerciseDaysController.text) > 7;
     });
 
-    return !_showGenderError &&
+    return !_showUsernameError &&
+        !_showGenderError &&
         !_showAgeError &&
         !_showHeightError &&
         !_showWeightError &&
@@ -150,6 +158,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 color: Colors.white),
           ),
           SizedBox(height: 24),
+          TextFormField(
+            controller: _usernameController,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              labelText: 'Username',
+              errorText: _showUsernameError ? 'Please enter a valid username' : null,
+            ),
+          ),
+          SizedBox(height: 16),
           DropdownButtonFormField<String>(
             value: _selectedGender,
             onChanged: (value) {
