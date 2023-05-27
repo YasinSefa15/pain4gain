@@ -91,14 +91,14 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     }
 
     double? weight = double.tryParse(_weightController.text);
-    if (weight == null || weight <= 29 || weight >= 301) {
+    if (weight == null || weight <= 19 || weight >= 301) {
       setState(() {
         _errors['weight'] = 'Please enter a valid weight';
       });
     }
 
     int? workoutDays = int.tryParse(_workoutDaysController.text);
-    if (workoutDays == null || workoutDays < 1 || workoutDays > 7) {
+    if (workoutDays == null || workoutDays < 0 || workoutDays > 7) {
       setState(() {
         _errors['workoutDays'] = 'Please enter a valid number of workout days (1-7)';
       });

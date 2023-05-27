@@ -27,11 +27,9 @@ class _ProfilePageState extends State<ProfilePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String profilePhotoPath = prefs.getString('profile_image_path') ?? '';
 
-    if (profilePhotoPath != null) {
       setState(() {
         _profilePhoto = File(profilePhotoPath);
       });
-    }
   }
 
   @override
@@ -39,14 +37,14 @@ class _ProfilePageState extends State<ProfilePage> {
     final mediaQuery = MediaQuery.of(context);
     final appBar = AppBar(
       title: const Text('Profile'),
-      backgroundColor: Color(0xFF1D1D1D),
+      backgroundColor: const Color(0xFF1D1D1D),
       actions: [
         IconButton(
           icon: const Icon(Icons.edit),
           onPressed: () async {
             final result = await Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ProfileEditingPage()),
+              MaterialPageRoute(builder: (context) => const ProfileEditingPage()),
             );
 
             // Check if the result is not null, indicating changes were made
@@ -64,19 +62,16 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: appBar,
       body: Container(
-        color: Color(0xFF1D1D1D),
+        color: const Color(0xFF1D1D1D),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               CircleAvatar(
                 radius: mediaQuery.size.width * 0.25,
-                backgroundImage: _profilePhoto != null
-                    ? FileImage(_profilePhoto)
-                    : const AssetImage('assets/default_user_avatar.png')
-                as ImageProvider<Object>?,
+                backgroundImage: FileImage(_profilePhoto),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               FutureBuilder<String>(
                 future: getUsernameFromSharedPreferences(),
                 builder: (context, snapshot) {
@@ -93,8 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   }
                 },
               ),
-
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               buildInfoRow(
                 'Age',
                 FutureBuilder<int>(
@@ -116,7 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               buildInfoRow(
                 'Gender',
                 FutureBuilder<String>(
@@ -138,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               buildInfoRow(
                 'Height',
                 FutureBuilder<double>(
@@ -160,7 +154,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               buildInfoRow(
                 'Weight',
                 FutureBuilder<double>(
@@ -182,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               buildInfoRow(
                 'Workout Days Per Week',
                 FutureBuilder<int>(

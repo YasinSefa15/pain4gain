@@ -53,7 +53,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void _goToNextPage() {
     _pageController.nextPage(
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.ease,
     );
   }
@@ -66,11 +66,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       _showGenderError = _selectedGender == null;
       _showAgeError = _ageController.text.isEmpty ||
           int.tryParse(_ageController.text) == null ||
-          int.parse(_ageController.text) < 6 ||
-          int.parse(_ageController.text) > 101;
+          int.parse(_ageController.text) < 7 ||
+          int.parse(_ageController.text) > 100;
       _showHeightError = _heightController.text.isEmpty ||
           int.tryParse(_heightController.text) == null ||
-          int.parse(_heightController.text) < 140 ||
+          int.parse(_heightController.text) < 70 ||
           int.parse(_heightController.text) > 250;
       _showWeightError = _weightController.text.isEmpty ||
           int.tryParse(_weightController.text) == null ||
@@ -96,9 +96,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     await prefs.setInt('age', int.parse(_ageController.text));
     await prefs.setInt('height', int.parse(_heightController.text));
     await prefs.setInt('weight', int.parse(_weightController.text));
+    await prefs.setString('gender', _selectedGender!);
     await prefs.setInt(
-        'exercise_days', int.parse(_exerciseDaysController.text));
-
+        'workoutDays', int.parse(_exerciseDaysController.text));
     await prefs.setBool('onboarding_completed', true);
     Navigator.pushReplacement(
       context,
