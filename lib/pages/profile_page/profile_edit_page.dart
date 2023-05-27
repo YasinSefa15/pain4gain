@@ -500,8 +500,3 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
   }
 }
 
-main() {
-  runApp(const MaterialApp(
-    home: ProfileEditingPage(),
-  ));
-}
