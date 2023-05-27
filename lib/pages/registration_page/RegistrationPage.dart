@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pain4gain/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -22,6 +24,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   bool _showHeightError = false;
   bool _showWeightError = false;
   bool _showExerciseDaysError = false;
+  File? _profileImage;
+  final ImagePicker _imagePicker = ImagePicker();
+
+  Future<void> _selectProfilePhoto() async {
+    final pickedFile = await _imagePicker.pickImage(
+      source: ImageSource.gallery, // Option to choose from the gallery
+      imageQuality: 80, // Adjust the image quality (0 - 100)
+    );
+
+    if (pickedFile != null) {
+      setState(() {
+        _profileImage = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -185,6 +202,40 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           SizedBox(height: 24),
+          GestureDetector(
+            onTap: _selectProfilePhoto, // Choose from gallery
+            child: ClipOval(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  _profileImage != null
+                      ? Image.file(
+                    _profileImage!,
+                    width: 100.0,
+                    height: 100.0,
+                    fit: BoxFit.cover,
+                  )
+                      : Image.asset(
+                    'assets/default_user_avatar.png',
+                    width: 100.0,
+                    height: 100.0,
+                    fit: BoxFit.cover,
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.add,
+                      size: 30.0,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      _showImageSourceDialog();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -219,7 +270,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
 
           SizedBox(height: 10),
-/*
+
           Column(
               crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -259,7 +310,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           SizedBox(height: 10),
 
- */
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -416,6 +467,52 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
       ),
     );
+  }
+  void _showImageSourceDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Select Image Source'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                GestureDetector(
+                  child: const Text('Take a Photo'),
+                  onTap: () {
+                    _getImage(ImageSource.camera);
+                    Navigator.of(context).pop();
+                  },
+                ),
+                const Padding(padding: EdgeInsets.all(8.0)),
+                GestureDetector(
+                  child: const Text('Choose from Gallery'),
+                  onTap: () {
+                    _getImage(ImageSource.gallery);
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _getImage(ImageSource source) async {
+    final pickedFile = await _imagePicker.pickImage(source: source);
+    if (pickedFile != null) {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      const profileImagePathKey = 'profile_image_path';
+
+      // Save the file path to shared preferences
+      await prefs.setString(profileImagePathKey, pickedFile.path);
+
+      setState(() {
+        _profileImage = File(pickedFile.path);
+      });
+    }
   }
 }
 //
