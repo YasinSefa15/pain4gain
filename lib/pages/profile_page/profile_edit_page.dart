@@ -178,7 +178,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(context, true);
             },
           ),
           backgroundColor: Colors.black54,
