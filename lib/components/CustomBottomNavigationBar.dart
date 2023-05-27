@@ -26,7 +26,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.list),
-          label: 'Lists',
+          label: 'Workouts',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.food_bank),

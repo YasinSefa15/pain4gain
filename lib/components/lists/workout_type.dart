@@ -15,7 +15,7 @@ class WorkoutType extends StatelessWidget {
       color: Colors.blue,
       child: Image.asset(
         imagePath,
-        width: 10,
+        width: 20,
         height: 10,
       ),
     );
