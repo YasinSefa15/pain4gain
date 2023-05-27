@@ -11,7 +11,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late File _profilePhoto;
+  late File _profilePhoto = File('assets/default_user_avatar.png');
 
   @override
   void initState() {
@@ -25,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> _loadProfilePhoto() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? profilePhotoPath = prefs.getString('profile_image_path');
+    String profilePhotoPath = prefs.getString('profile_image_path') ?? '';
 
     if (profilePhotoPath != null) {
       setState(() {
