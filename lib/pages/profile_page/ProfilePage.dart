@@ -117,7 +117,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return buildProfileInfoColor(
-                      'Username',
                       snapshot.data!,
                       Colors.white, // Set the desired color for the username
                     );
@@ -326,11 +325,11 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget buildProfileInfoColor(String label, String value, Color textColor) {
+  Widget buildProfileInfoColor(String value, Color textColor) {
     return Text(
-      '$label: $value',
+      value.toUpperCase(),
       style: TextStyle(
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: FontWeight.bold,
         color: textColor, // Use the specified color for the text
       ),

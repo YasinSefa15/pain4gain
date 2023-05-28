@@ -304,24 +304,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     color: const Color.fromRGBO(244, 243, 243, 175),
                     borderRadius: BorderRadius.circular(15),
                   ),
+
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SizedBox(
-                        width: 30,
-                        height: 30,
-                        child: TextField(
-                          cursorColor: Colors.black38,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            prefixIcon: Icon(
-                                Icons.person, color: Colors.black54),
-                            labelText: 'Gender',
-                            labelStyle: TextStyle(
-                                color: Colors.black, fontSize: 16),
-                          ),
-                        ),
-                      ),
                       const SizedBox(width: 15),
                       SizedBox(
                         width: 30,
