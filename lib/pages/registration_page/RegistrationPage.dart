@@ -195,18 +195,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _buildSecondPage() {
     return Container(
-
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color.fromRGBO(49, 14, 104, 1),
-              Color.fromRGBO(94, 15, 65, 1),
-            ],
-          )
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color.fromRGBO(49, 14, 104, 1),
+            Color.fromRGBO(94, 15, 65, 1),
+          ],
+        ),
       ),
-      //color: Colors.indigo, // Customize the background color
       padding: EdgeInsets.all(16),
       child: SingleChildScrollView(
         child: Column(
@@ -216,16 +214,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             Text(
               'We need some information',
               style: TextStyle(
-                  fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
             Text(
               'to create your account',
               style: TextStyle(
-                  fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
             SizedBox(height: 24),
             GestureDetector(
-              onTap: _selectProfilePhoto, // Choose from gallery
+              onTap: _selectProfilePhoto,
               child: ClipOval(
                 child: Stack(
                   alignment: Alignment.center,
@@ -265,43 +269,40 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                      color: Color.fromRGBO(244, 243, 243, 175),
-                      borderRadius: BorderRadius.circular(15)
+                    color: Color.fromRGBO(244, 243, 243, 175),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
                     cursorColor: Colors.black38,
                     controller: _usernameController,
                     decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        prefixIcon: Icon(Icons.person, color: Colors.black54),
-                        labelText: 'Enter your name',
-                        labelStyle: TextStyle(color: Colors.black, fontSize: 16),
-                        //errorText: _errors['name'],
-                        errorMaxLines: 1,
-                        errorStyle: TextStyle()
+                      border: InputBorder.none,
+                      prefixIcon: Icon(Icons.person, color: Colors.black54),
+                      labelText: 'Enter your name',
+                      labelStyle: TextStyle(color: Colors.black, fontSize: 16),
+                      //errorText: _errors['name'],
+                      errorMaxLines: 1,
+                      errorStyle: TextStyle(),
                     ),
                   ),
                 ),
                 if (_showUsernameError == true)
-                  const Text('Please enter a valid username',
+                  const Text(
+                    'Please enter a valid username',
                     style: TextStyle(fontSize: 12, color: Colors.red),
                   ),
-
-
               ],
             ),
-
             const SizedBox(height: 10),
-
             Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 6.0),
                 Container(
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                      color: const Color.fromRGBO(244, 243, 243, 175),
-                      borderRadius: BorderRadius.circular(15)
+                    color: const Color.fromRGBO(244, 243, 243, 175),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -311,15 +312,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         height: 30,
                         child: TextField(
                           cursorColor: Colors.black38,
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              prefixIcon: Icon(Icons.person, color: Colors.black54),
-                              labelText: 'Gender',
-                              labelStyle: TextStyle(color: Colors.black, fontSize: 16),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefixIcon: Icon(
+                                Icons.person, color: Colors.black54),
+                            labelText: 'Gender',
+                            labelStyle: TextStyle(
+                                color: Colors.black, fontSize: 16),
                           ),
                         ),
                       ),
-                      const SizedBox(width: 15,),
+                      const SizedBox(width: 15),
                       SizedBox(
                         width: 30,
                         height: 30,
@@ -334,8 +337,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           },
                         ),
                       ),
-                      const Text('Male', style: TextStyle(color: Colors.white60)),
-                      const SizedBox(width: 15,),
+                      const Text(
+                          'Male', style: TextStyle(color: Colors.white60)),
+                      const SizedBox(width: 15),
                       SizedBox(
                         width: 30,
                         height: 30,
@@ -350,20 +354,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           },
                         ),
                       ),
-                      const Text('Female', style: TextStyle(color: Colors.white60)),
+                      const Text(
+                          'Female', style: TextStyle(color: Colors.white60)),
                     ],
                   ),
-              ),
+                ),
                 if (_showGenderError == true)
-                  Text('Please enter gender',
+                  Text(
+                    'Please enter gender',
                     style: const TextStyle(fontSize: 12, color: Colors.red),
                   ),
-              ]
-
+              ],
             ),
             SizedBox(height: 10),
-
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -371,8 +374,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                      color: Color.fromRGBO(244, 243, 243, 175),
-                      borderRadius: BorderRadius.circular(15)
+                    color: Color.fromRGBO(244, 243, 243, 175),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
                     cursorColor: Colors.black38,
@@ -381,30 +384,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      prefixIcon: const Icon(Icons.calendar_today, color: Colors.black54),
+                      prefixIcon: Icon(
+                          Icons.calendar_today, color: Colors.black54),
                       labelText: 'Enter your age',
-                      labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                      labelStyle: TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   ),
                 ),
                 if (_showAgeError == true)
-                  Text('Please enter a valid age',
-                    style: const TextStyle(fontSize: 12, color: Colors.red),
+                  Text(
+                    'Please enter a valid age',
+                    style: TextStyle(fontSize: 12, color: Colors.red),
                   ),
               ],
             ),
-
             SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 6.0),
-
                 Container(
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                      color: Color.fromRGBO(244, 243, 243, 175),
-                      borderRadius: BorderRadius.circular(15)
+                    color: Color.fromRGBO(244, 243, 243, 175),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
                     cursorColor: Colors.black38,
@@ -413,19 +416,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      prefixIcon: const Icon(Icons.height,color: Colors.black54),
+                      prefixIcon: Icon(Icons.height, color: Colors.black54),
                       labelText: 'Enter your height (cm)',
-                      labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                      labelStyle: TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   ),
                 ),
                 if (_showHeightError == true)
-                  Text('Please enter a valid height',
-                    style: const TextStyle(fontSize: 12, color: Colors.red),
+                  Text(
+                    'Please enter a valid height',
+                    style: TextStyle(fontSize: 12, color: Colors.red),
                   ),
               ],
             ),
-
             SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -434,8 +437,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                      color: Color.fromRGBO(244, 243, 243, 175),
-                      borderRadius: BorderRadius.circular(15)
+                    color: Color.fromRGBO(244, 243, 243, 175),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
                     cursorColor: Colors.black38,
@@ -444,19 +447,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      prefixIcon: const Icon(Icons.fitness_center, color: Colors.black54),
+                      prefixIcon: Icon(
+                          Icons.fitness_center, color: Colors.black54),
                       labelText: 'Enter your weight (kg)',
-                      labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                      labelStyle: TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   ),
                 ),
                 if (_showWeightError == true)
-                  Text('Please enter a valid weight',
-                    style: const TextStyle(fontSize: 12, color: Colors.red),
+                  Text(
+                    'Please enter a valid weight',
+                    style: TextStyle(fontSize: 12, color: Colors.red),
                   ),
               ],
             ),
-
             SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -465,8 +469,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                      color: Color.fromRGBO(244, 243, 243, 175),
-                      borderRadius: BorderRadius.circular(15)
+                    color: Color.fromRGBO(244, 243, 243, 175),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
                     cursorColor: Colors.black38,
@@ -475,19 +479,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      prefixIcon: const Icon(Icons.calendar_today, color: Colors.black54),
+                      prefixIcon: Icon(
+                          Icons.calendar_today, color: Colors.black54),
                       labelText: 'Enter number of workout days (1-7)',
-                      labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                      labelStyle: TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   ),
                 ),
                 if (_showExerciseDaysError == true)
-                  Text('Please enter a valid day',
-                    style: const TextStyle(fontSize: 12, color: Colors.red),
+                  Text(
+                    'Please enter a valid day',
+                    style: TextStyle(fontSize: 12, color: Colors.red),
                   ),
               ],
             ),
-
             SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {

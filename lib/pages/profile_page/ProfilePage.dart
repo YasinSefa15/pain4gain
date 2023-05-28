@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pain4gain/pages/profile_page/profile_edit_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart' show ByteData, rootBundle;
 import 'package:path_provider/path_provider.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -13,32 +13,54 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   late File _profilePhoto = File('assets/default_user_avatar.png');
+  bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
     _loadProfilePhoto();
   }
 
+  void refresh() {
+    setState(() {
+      _loadProfilePhoto();
+      getUsernameFromSharedPreferences();
+      getAgeFromSharedPreferences();
+      getWeightFromSharedPreferences();
+      getHeightFromSharedPreferences();
+      getGenderFromSharedPreferences();
+      getWorkoutDaysFromSharedPreferences();
+    });
+  }
+
   Future<void> _loadProfilePhoto() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String profilePhotoPath = prefs.getString('profile_image_path') ?? '';
+    String? profilePhotoPath = prefs.getString('profile_image_path');
 
-    if (profilePhotoPath.isNotEmpty) {
+    if (profilePhotoPath != null && profilePhotoPath.isNotEmpty) {
       setState(() {
         _profilePhoto = File(profilePhotoPath);
       });
     } else {
-      final defaultImage =
-      await rootBundle.load('assets/default_user_avatar.png');
-      final tempDir = await getTemporaryDirectory();
-      final tempFile = File('${tempDir.path}/default_user_avatar.png');
-      await tempFile.writeAsBytes(defaultImage.buffer.asUint8List());
+      final Directory appDirectory = await getApplicationDocumentsDirectory();
+      final String defaultImagePath =
+          '${appDirectory.path}/default_user_avatar.png';
 
-      setState(() {
-        _profilePhoto = tempFile;
-      });
+      if (File(defaultImagePath).existsSync()) {
+        setState(() {
+          _profilePhoto = File(defaultImagePath);
+        });
+      } else {
+        final ByteData imageData =
+        await rootBundle.load('assets/default_user_avatar.png');
+        final File defaultImageFile = File(defaultImagePath);
+        await defaultImageFile.writeAsBytes(imageData.buffer.asUint8List());
+
+        setState(() {
+          _profilePhoto = defaultImageFile;
+        });
+      }
     }
   }
 
@@ -54,15 +76,14 @@ class _ProfilePageState extends State<ProfilePage> {
           onPressed: () async {
             final result = await Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const ProfileEditingPage()),
+              MaterialPageRoute(
+                builder: (context) => const ProfileEditingPage(),
+              ),
             );
 
             // Check if the result is not null, indicating changes were made
             if (result != null) {
-              // Reload or update the necessary data in the profilePage
-              // You can call a function or update the state here
-              // For example:
-              initState();
+              refresh();
             }
           },
         ),
@@ -77,9 +98,13 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             children: [
               const SizedBox(height: 20),
-              CircleAvatar(
+              _isLoading
+                  ? const CircularProgressIndicator()
+                  : CircleAvatar(
                 radius: mediaQuery.size.width * 0.25,
-                backgroundImage: FileImage(_profilePhoto),
+                backgroundImage: _profilePhoto.existsSync()
+                    ? FileImage(_profilePhoto)
+                    : AssetImage('assets/default_user_avatar.png') as ImageProvider<Object>,
               ),
               const SizedBox(height: 20),
               FutureBuilder<String>(
@@ -168,23 +193,23 @@ class _ProfilePageState extends State<ProfilePage> {
               buildInfoRow(
                 'Weight',
                 FutureBuilder<double>(
-                future: getWeightFromSharedPreferences(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Text(
-                      '${snapshot.data.toString()} kg',
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  } else if (snapshot.hasError) {
-                    return const Text('Error retrieving weight');
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
+                  future: getWeightFromSharedPreferences(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(
+                        '${snapshot.data.toString()} kg',
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return const Text('Error retrieving weight');
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
               ),
               const SizedBox(height: 10),
               buildInfoRow(
@@ -211,7 +236,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
         ),
-      )
+      ),
     );
   }
 
@@ -294,6 +319,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: const CircularProgressIndicator(),
     );
   }
+
   Widget buildProfileInfoColor(String label, String value, Color textColor) {
     return Text(
       '$label: $value',
