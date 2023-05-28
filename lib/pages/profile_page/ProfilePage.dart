@@ -24,6 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void refresh() {
     setState(() {
+      _isLoading = true; // Start loading animation again
       _loadProfilePhoto();
       getUsernameFromSharedPreferences();
       getAgeFromSharedPreferences();
@@ -34,6 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+
   Future<void> _loadProfilePhoto() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? profilePhotoPath = prefs.getString('profile_image_path');
@@ -41,6 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (profilePhotoPath != null && profilePhotoPath.isNotEmpty) {
       setState(() {
         _profilePhoto = File(profilePhotoPath);
+        _isLoading = false; // Stop loading animation
       });
     } else {
       final Directory appDirectory = await getApplicationDocumentsDirectory();
@@ -50,6 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
       if (File(defaultImagePath).existsSync()) {
         setState(() {
           _profilePhoto = File(defaultImagePath);
+          _isLoading = false; // Stop loading animation
         });
       } else {
         final ByteData imageData =
@@ -59,6 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
         setState(() {
           _profilePhoto = defaultImageFile;
+          _isLoading = false; // Stop loading animation
         });
       }
     }
@@ -233,6 +238,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
               ),
+              const SizedBox(height: 10),
             ],
           ),
         ),
