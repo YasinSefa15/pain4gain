@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pain4gain/pages/profile_page/profile_edit_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
+import 'package:flutter/services.dart' show ByteData, rootBundle;
+import 'package:path_provider/path_provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -11,7 +13,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late File _profilePhoto;
+  late File _profilePhoto = File('assets/default_user_avatar.png');
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -19,18 +22,50 @@ class _ProfilePageState extends State<ProfilePage> {
     _loadProfilePhoto();
   }
 
-  void initializePage() {
-    initState();
+  void refresh() {
+    setState(() {
+      _isLoading = true; // Start loading animation again
+      _loadProfilePhoto();
+      getUsernameFromSharedPreferences();
+      getAgeFromSharedPreferences();
+      getWeightFromSharedPreferences();
+      getHeightFromSharedPreferences();
+      getGenderFromSharedPreferences();
+      getWorkoutDaysFromSharedPreferences();
+    });
   }
+
 
   Future<void> _loadProfilePhoto() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? profilePhotoPath = prefs.getString('profile_image_path');
 
-    if (profilePhotoPath != null) {
+    if (profilePhotoPath != null && profilePhotoPath.isNotEmpty) {
       setState(() {
         _profilePhoto = File(profilePhotoPath);
+        _isLoading = false; // Stop loading animation
       });
+    } else {
+      final Directory appDirectory = await getApplicationDocumentsDirectory();
+      final String defaultImagePath =
+          '${appDirectory.path}/default_user_avatar.png';
+
+      if (File(defaultImagePath).existsSync()) {
+        setState(() {
+          _profilePhoto = File(defaultImagePath);
+          _isLoading = false; // Stop loading animation
+        });
+      } else {
+        final ByteData imageData =
+        await rootBundle.load('assets/default_user_avatar.png');
+        final File defaultImageFile = File(defaultImagePath);
+        await defaultImageFile.writeAsBytes(imageData.buffer.asUint8List());
+
+        setState(() {
+          _profilePhoto = defaultImageFile;
+          _isLoading = false; // Stop loading animation
+        });
+      }
     }
   }
 
@@ -39,22 +74,21 @@ class _ProfilePageState extends State<ProfilePage> {
     final mediaQuery = MediaQuery.of(context);
     final appBar = AppBar(
       title: const Text('Profile'),
-      backgroundColor: Color(0xFF1D1D1D),
+      backgroundColor: const Color(0xFF1D1D1D),
       actions: [
         IconButton(
           icon: const Icon(Icons.edit),
           onPressed: () async {
             final result = await Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ProfileEditingPage()),
+              MaterialPageRoute(
+                builder: (context) => const ProfileEditingPage(),
+              ),
             );
 
             // Check if the result is not null, indicating changes were made
             if (result != null) {
-              // Reload or update the necessary data in the profilePage
-              // You can call a function or update the state here
-              // For example:
-              initState();
+              refresh();
             }
           },
         ),
@@ -64,25 +98,25 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: appBar,
       body: Container(
-        color: Color(0xFF1D1D1D),
+        color: const Color(0xFF1D1D1D),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 20),
-              CircleAvatar(
+              const SizedBox(height: 20),
+              _isLoading
+                  ? const CircularProgressIndicator()
+                  : CircleAvatar(
                 radius: mediaQuery.size.width * 0.25,
-                backgroundImage: _profilePhoto != null
+                backgroundImage: _profilePhoto.existsSync()
                     ? FileImage(_profilePhoto)
-                    : const AssetImage('assets/default_user_avatar.png')
-                as ImageProvider<Object>?,
+                    : AssetImage('assets/default_user_avatar.png') as ImageProvider<Object>,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               FutureBuilder<String>(
                 future: getUsernameFromSharedPreferences(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return buildProfileInfoColor(
-                      'Username',
                       snapshot.data!,
                       Colors.white, // Set the desired color for the username
                     );
@@ -93,8 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   }
                 },
               ),
-
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               buildInfoRow(
                 'Age',
                 FutureBuilder<int>(
@@ -116,7 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               buildInfoRow(
                 'Gender',
                 FutureBuilder<String>(
@@ -138,7 +171,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               buildInfoRow(
                 'Height',
                 FutureBuilder<double>(
@@ -160,29 +193,29 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               buildInfoRow(
                 'Weight',
                 FutureBuilder<double>(
-                future: getWeightFromSharedPreferences(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Text(
-                      '${snapshot.data.toString()} kg',
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  } else if (snapshot.hasError) {
-                    return const Text('Error retrieving weight');
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
+                  future: getWeightFromSharedPreferences(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(
+                        '${snapshot.data.toString()} kg',
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return const Text('Error retrieving weight');
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
               ),
-              ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               buildInfoRow(
                 'Workout Days Per Week',
                 FutureBuilder<int>(
@@ -204,10 +237,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
               ),
+              const SizedBox(height: 10),
             ],
           ),
         ),
-      )
+      ),
     );
   }
 
@@ -290,11 +324,12 @@ class _ProfilePageState extends State<ProfilePage> {
       child: const CircularProgressIndicator(),
     );
   }
-  Widget buildProfileInfoColor(String label, String value, Color textColor) {
+
+  Widget buildProfileInfoColor(String value, Color textColor) {
     return Text(
-      '$label: $value',
+      value.toUpperCase(),
       style: TextStyle(
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: FontWeight.bold,
         color: textColor, // Use the specified color for the text
       ),

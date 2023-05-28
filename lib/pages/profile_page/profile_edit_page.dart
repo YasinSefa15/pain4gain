@@ -20,6 +20,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
   late TextEditingController _workoutDaysController;
   String _gender = '';
   File? _profileImage;
+  bool _changedData = false;
   final ImagePicker _imagePicker = ImagePicker();
 
   Map<String, String> _errors = {
@@ -91,14 +92,14 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     }
 
     double? weight = double.tryParse(_weightController.text);
-    if (weight == null || weight <= 29 || weight >= 301) {
+    if (weight == null || weight <= 19 || weight >= 301) {
       setState(() {
         _errors['weight'] = 'Please enter a valid weight';
       });
     }
 
     int? workoutDays = int.tryParse(_workoutDaysController.text);
-    if (workoutDays == null || workoutDays < 1 || workoutDays > 7) {
+    if (workoutDays == null || workoutDays < 0 || workoutDays > 7) {
       setState(() {
         _errors['workoutDays'] = 'Please enter a valid number of workout days (1-7)';
       });
@@ -113,6 +114,8 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     if (_errors.isNotEmpty) {
       return;
     }
+
+    _changedData = true;
 
     // Save the profile data using shared_preferences
     _saveProfileData().then((_) {
@@ -178,7 +181,11 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Navigator.pop(context, true);
+              if (_changedData) {
+                Navigator.pop(context, true);
+              } else {
+                Navigator.pop(context);
+              }
             },
           ),
           backgroundColor: Colors.black54,
@@ -302,7 +309,9 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                         cursorColor: Colors.black38,
                         controller: _heightController,
                         keyboardType: TextInputType.number,
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                           prefixIcon: Icon(Icons.height,color: Colors.black54),
@@ -333,7 +342,9 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                         cursorColor: Colors.black38,
                         controller: _weightController,
                         keyboardType: TextInputType.number,
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                           prefixIcon: Icon(Icons.fitness_center, color: Colors.black54),
