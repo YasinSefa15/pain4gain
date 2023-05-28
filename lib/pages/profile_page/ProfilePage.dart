@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pain4gain/pages/profile_page/profile_edit_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -11,25 +13,33 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late File _profilePhoto = File('assets/default_user_avatar.png');
 
+  late File _profilePhoto = File('assets/default_user_avatar.png');
   @override
   void initState() {
     super.initState();
     _loadProfilePhoto();
   }
 
-  void initializePage() {
-    initState();
-  }
-
   Future<void> _loadProfilePhoto() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String profilePhotoPath = prefs.getString('profile_image_path') ?? '';
 
+    if (profilePhotoPath.isNotEmpty) {
       setState(() {
         _profilePhoto = File(profilePhotoPath);
       });
+    } else {
+      final defaultImage =
+      await rootBundle.load('assets/default_user_avatar.png');
+      final tempDir = await getTemporaryDirectory();
+      final tempFile = File('${tempDir.path}/default_user_avatar.png');
+      await tempFile.writeAsBytes(defaultImage.buffer.asUint8List());
+
+      setState(() {
+        _profilePhoto = tempFile;
+      });
+    }
   }
 
   @override

@@ -6,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
@@ -69,13 +71,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           int.parse(_ageController.text) < 7 ||
           int.parse(_ageController.text) > 100;
       _showHeightError = _heightController.text.isEmpty ||
-          int.tryParse(_heightController.text) == null ||
-          int.parse(_heightController.text) < 70 ||
-          int.parse(_heightController.text) > 250;
+          double.tryParse(_heightController.text) == null ||
+          double.parse(_heightController.text) < 70 ||
+          double.parse(_heightController.text) > 250;
       _showWeightError = _weightController.text.isEmpty ||
-          int.tryParse(_weightController.text) == null ||
-          int.parse(_weightController.text) < 30 ||
-          int.parse(_weightController.text) > 300;
+          double.tryParse(_weightController.text) == null ||
+          double.parse(_weightController.text) < 30 ||
+          double.parse(_weightController.text) > 300;
       _showExerciseDaysError = _exerciseDaysController.text.isEmpty ||
           int.tryParse(_exerciseDaysController.text) == null ||
           int.parse(_exerciseDaysController.text) < 0 ||
@@ -94,8 +96,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('username', _usernameController.text);
     await prefs.setInt('age', int.parse(_ageController.text));
-    await prefs.setInt('height', int.parse(_heightController.text));
-    await prefs.setInt('weight', int.parse(_weightController.text));
+    await prefs.setDouble('height', double.parse(_heightController.text));
+    await prefs.setDouble('weight', double.parse(_weightController.text));
     await prefs.setString('gender', _selectedGender!);
     await prefs.setInt(
         'workoutDays', int.parse(_exerciseDaysController.text));
@@ -105,11 +107,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       MaterialPageRoute(builder: (context) => MyApp()),
     );
   }
-
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: null,
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: PageView(
+            controller: _pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              _buildFirstPage(),
+              _buildSecondPage(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
   Widget _buildFirstPage() {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: Colors.black,
             image: DecorationImage(
                 image: AssetImage('assets/cover.jpg'),
@@ -187,287 +208,303 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
       //color: Colors.indigo, // Customize the background color
       padding: EdgeInsets.all(16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'We need some information',
-            style: TextStyle(
-                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          Text(
-            'to create your account',
-            style: TextStyle(
-                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          SizedBox(height: 24),
-          GestureDetector(
-            onTap: _selectProfilePhoto, // Choose from gallery
-            child: ClipOval(
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  _profileImage != null
-                      ? Image.file(
-                    _profileImage!,
-                    width: 100.0,
-                    height: 100.0,
-                    fit: BoxFit.cover,
-                  )
-                      : Image.asset(
-                    'assets/default_user_avatar.png',
-                    width: 100.0,
-                    height: 100.0,
-                    fit: BoxFit.cover,
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.add,
-                      size: 30.0,
-                      color: Colors.white,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'We need some information',
+              style: TextStyle(
+                  fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            Text(
+              'to create your account',
+              style: TextStyle(
+                  fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            SizedBox(height: 24),
+            GestureDetector(
+              onTap: _selectProfilePhoto, // Choose from gallery
+              child: ClipOval(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    _profileImage != null
+                        ? Image.file(
+                      _profileImage!,
+                      width: 100.0,
+                      height: 100.0,
+                      fit: BoxFit.cover,
+                    )
+                        : Image.asset(
+                      'assets/default_user_avatar.png',
+                      width: 100.0,
+                      height: 100.0,
+                      fit: BoxFit.cover,
                     ),
-                    onPressed: () {
-                      _showImageSourceDialog();
-                    },
-                  ),
-                ],
+                    IconButton(
+                      icon: const Icon(
+                        Icons.add,
+                        size: 30.0,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        _showImageSourceDialog();
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 6.0),
-              Container(
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(244, 243, 243, 175),
-                    borderRadius: BorderRadius.circular(15)
-                ),
-                child: TextField(
-                  cursorColor: Colors.black38,
-                  controller: _usernameController,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: const Icon(Icons.person, color: Colors.black54),
-                      labelText: 'Enter your name',
-                      labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
-                      //errorText: _errors['name'],
-                      errorMaxLines: 1,
-                      errorStyle: TextStyle()
-                  ),
-                ),
-              ),
-              if (_showUsernameError == true)
-                Text('Please enter a valid username',
-                  style: const TextStyle(fontSize: 12, color: Colors.red),
-                ),
-
-
-            ],
-          ),
-
-          SizedBox(height: 10),
-
-          Column(
+            SizedBox(height: 10),
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 6.0),
-              Container(
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(244, 243, 243, 175),
-                    borderRadius: BorderRadius.circular(15)
+              children: [
+                const SizedBox(height: 6.0),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(244, 243, 243, 175),
+                      borderRadius: BorderRadius.circular(15)
+                  ),
+                  child: TextField(
+                    cursorColor: Colors.black38,
+                    controller: _usernameController,
+                    decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        prefixIcon: Icon(Icons.person, color: Colors.black54),
+                        labelText: 'Enter your name',
+                        labelStyle: TextStyle(color: Colors.black, fontSize: 16),
+                        //errorText: _errors['name'],
+                        errorMaxLines: 1,
+                        errorStyle: TextStyle()
+                    ),
+                  ),
                 ),
-              child: DropdownButtonFormField<String>(
+                if (_showUsernameError == true)
+                  const Text('Please enter a valid username',
+                    style: TextStyle(fontSize: 12, color: Colors.red),
+                  ),
 
-                value: _selectedGender,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedGender = value;
-                  });
-                },
-                items: [
-                  DropdownMenuItem(
-                    value: 'Male',
-                    child: Text('Male'),
+
+              ],
+            ),
+
+            const SizedBox(height: 10),
+
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 6.0),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                      color: const Color.fromRGBO(244, 243, 243, 175),
+                      borderRadius: BorderRadius.circular(15)
                   ),
-                  DropdownMenuItem(
-                    value: 'Female',
-                    child: Text('Female'),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: TextField(
+                          cursorColor: Colors.black38,
+                          decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              prefixIcon: Icon(Icons.person, color: Colors.black54),
+                              labelText: 'Gender',
+                              labelStyle: TextStyle(color: Colors.black, fontSize: 16),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 15,),
+                      SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: Radio<String>(
+                          activeColor: Colors.white60,
+                          value: 'male',
+                          groupValue: _selectedGender,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedGender = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      const Text('Male', style: TextStyle(color: Colors.white60)),
+                      const SizedBox(width: 15,),
+                      SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: Radio<String>(
+                          activeColor: Colors.white,
+                          value: 'female',
+                          groupValue: _selectedGender,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedGender = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      const Text('Female', style: TextStyle(color: Colors.white60)),
+                    ],
                   ),
-                ],
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  labelText: 'Gender',
-                  labelStyle: TextStyle(color: Colors.black, fontSize: 16 ),
-                  errorText: _showGenderError ? 'Please select a gender' : null,
-                ),
               ),
-            ),]
-          ),
-          SizedBox(height: 10),
+                if (_showGenderError == true)
+                  Text('Please enter gender',
+                    style: const TextStyle(fontSize: 12, color: Colors.red),
+                  ),
+              ]
+
+            ),
+            SizedBox(height: 10),
 
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 6.0),
-              Container(
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(244, 243, 243, 175),
-                    borderRadius: BorderRadius.circular(15)
-                ),
-                child: TextField(
-                  cursorColor: Colors.black38,
-                  controller: _ageController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: const Icon(Icons.calendar_today, color: Colors.black54),
-                    labelText: 'Enter your age',
-                    labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 6.0),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(244, 243, 243, 175),
+                      borderRadius: BorderRadius.circular(15)
+                  ),
+                  child: TextField(
+                    cursorColor: Colors.black38,
+                    controller: _ageController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      prefixIcon: const Icon(Icons.calendar_today, color: Colors.black54),
+                      labelText: 'Enter your age',
+                      labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                    ),
                   ),
                 ),
-              ),
-              if (_showAgeError == true)
-                Text('Please enter a valid age',
-                  style: const TextStyle(fontSize: 12, color: Colors.red),
-                ),
-            ],
-          ),
+                if (_showAgeError == true)
+                  Text('Please enter a valid age',
+                    style: const TextStyle(fontSize: 12, color: Colors.red),
+                  ),
+              ],
+            ),
 
-          SizedBox(height: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 6.0),
+            SizedBox(height: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 6.0),
 
-              Container(
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(244, 243, 243, 175),
-                    borderRadius: BorderRadius.circular(15)
-                ),
-                child: TextField(
-                  cursorColor: Colors.black38,
-                  controller: _heightController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: const Icon(Icons.height,color: Colors.black54),
-                    labelText: 'Enter your height (cm)',
-                    labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(244, 243, 243, 175),
+                      borderRadius: BorderRadius.circular(15)
+                  ),
+                  child: TextField(
+                    cursorColor: Colors.black38,
+                    controller: _heightController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      prefixIcon: const Icon(Icons.height,color: Colors.black54),
+                      labelText: 'Enter your height (cm)',
+                      labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                    ),
                   ),
                 ),
-              ),
-              if (_showHeightError == true)
-                Text('Please enter a valid height',
-                  style: const TextStyle(fontSize: 12, color: Colors.red),
-                ),
-            ],
-          ),
+                if (_showHeightError == true)
+                  Text('Please enter a valid height',
+                    style: const TextStyle(fontSize: 12, color: Colors.red),
+                  ),
+              ],
+            ),
 
-          SizedBox(height: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 6.0),
-              Container(
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(244, 243, 243, 175),
-                    borderRadius: BorderRadius.circular(15)
-                ),
-                child: TextField(
-                  cursorColor: Colors.black38,
-                  controller: _weightController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: const Icon(Icons.fitness_center, color: Colors.black54),
-                    labelText: 'Enter your weight (kg)',
-                    labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+            SizedBox(height: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 6.0),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(244, 243, 243, 175),
+                      borderRadius: BorderRadius.circular(15)
+                  ),
+                  child: TextField(
+                    cursorColor: Colors.black38,
+                    controller: _weightController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      prefixIcon: const Icon(Icons.fitness_center, color: Colors.black54),
+                      labelText: 'Enter your weight (kg)',
+                      labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                    ),
                   ),
                 ),
-              ),
-              if (_showWeightError == true)
-                Text('Please enter a valid weight',
-                  style: const TextStyle(fontSize: 12, color: Colors.red),
-                ),
-            ],
-          ),
+                if (_showWeightError == true)
+                  Text('Please enter a valid weight',
+                    style: const TextStyle(fontSize: 12, color: Colors.red),
+                  ),
+              ],
+            ),
 
-          SizedBox(height: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 6.0),
-              Container(
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(244, 243, 243, 175),
-                    borderRadius: BorderRadius.circular(15)
-                ),
-                child: TextField(
-                  cursorColor: Colors.black38,
-                  controller: _exerciseDaysController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: const Icon(Icons.calendar_today, color: Colors.black54),
-                    labelText: 'Enter number of workout days (1-7)',
-                    labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+            SizedBox(height: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 6.0),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(244, 243, 243, 175),
+                      borderRadius: BorderRadius.circular(15)
+                  ),
+                  child: TextField(
+                    cursorColor: Colors.black38,
+                    controller: _exerciseDaysController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      prefixIcon: const Icon(Icons.calendar_today, color: Colors.black54),
+                      labelText: 'Enter number of workout days (1-7)',
+                      labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                    ),
                   ),
                 ),
-              ),
-              if (_showExerciseDaysError == true)
-                Text('Please enter a valid day',
-                  style: const TextStyle(fontSize: 12, color: Colors.red),
-                ),
-            ],
-          ),
+                if (_showExerciseDaysError == true)
+                  Text('Please enter a valid day',
+                    style: const TextStyle(fontSize: 12, color: Colors.red),
+                  ),
+              ],
+            ),
 
-          SizedBox(height: 24),
-          ElevatedButton(
-            onPressed: () {
-              if (_validateForm()) {
-                _saveForm();
-              }
-            },
-            child: Text('Save'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: null,
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: PageView(
-          controller: _pageController,
-          physics: NeverScrollableScrollPhysics(),
-          children: [
-            _buildFirstPage(),
-            _buildSecondPage(),
+            SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                if (_validateForm()) {
+                  _saveForm();
+                }
+              },
+              child: Text('Save'),
+            ),
           ],
         ),
       ),
     );
   }
+
+  @override
+
   void _showImageSourceDialog() {
     showDialog(
       context: context,
