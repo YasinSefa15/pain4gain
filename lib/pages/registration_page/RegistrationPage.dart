@@ -302,65 +302,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     color: const Color.fromRGBO(244, 243, 243, 175),
                     borderRadius: BorderRadius.circular(15),
                   ),
-
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(width: 15),
-                      SizedBox(
-                        width: 30,
-                        height: 30,
-                        child: Radio<String>(
-                          activeColor: Colors.white60,
-                          value: 'male',
-                          groupValue: _selectedGender,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedGender = value!;
-                            });
-                          },
-                        ),
-                      ),
-                      const Text(
-                          'Male', style: TextStyle(color: Colors.white60)),
-                      const SizedBox(width: 15),
-                      SizedBox(
-                        width: 30,
-                        height: 30,
-                        child: Radio<String>(
-                          activeColor: Colors.white,
-                          value: 'female',
-                          groupValue: _selectedGender,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedGender = value!;
-                            });
-                          },
-                        ),
-                      ),
-                      const Text(
-                          'Female', style: TextStyle(color: Colors.white60)),
-                    ],
-                  ),
-                ),
-                if (_showGenderError == true)
-                  const Text(
-                    'Please enter gender',
-                    style: TextStyle(fontSize: 12, color: Colors.red),
-                  ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 6.0),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(244, 243, 243, 175),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
                   child: TextField(
                     cursorColor: Colors.black38,
                     controller: _ageController,
@@ -477,6 +418,65 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 if (_showExerciseDaysError == true)
                   const Text(
                     'Please enter a valid day',
+                    style: TextStyle(fontSize: 12, color: Colors.red),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 6.0),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(244, 243, 243, 175),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(width: 15),
+                      SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: Radio<String>(
+                          activeColor: Colors.white60,
+                          value: 'male',
+                          groupValue: _selectedGender,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedGender = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      const Text(
+                          'Male', style: TextStyle(color: Colors.white60)),
+                      const SizedBox(width: 15),
+                      SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: Radio<String>(
+                          activeColor: Colors.white,
+                          value: 'female',
+                          groupValue: _selectedGender,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedGender = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      const Text(
+                          'Female', style: TextStyle(color: Colors.white60)),
+                    ],
+                  ),
+                ),
+                if (_showGenderError == true)
+                  const Text(
+                    'Please enter gender',
                     style: TextStyle(fontSize: 12, color: Colors.red),
                   ),
               ],
