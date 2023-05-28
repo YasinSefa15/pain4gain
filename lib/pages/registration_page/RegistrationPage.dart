@@ -102,11 +102,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     await prefs.setInt(
         'workoutDays', int.parse(_exerciseDaysController.text));
     await prefs.setBool('onboarding_completed', true);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => MyApp()),
-    );
   }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: null,
@@ -144,23 +142,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             Colors.black.withOpacity(.2),
           ])),
           child: Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Text('Welcome to Pain4Gain!', style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold)),
-                SizedBox(
+                const Text('Welcome to Pain4Gain!', style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold)),
+                const SizedBox(
                   height: 20,
                 ),
-                Text("Before we start,\nwe will need some information.", style: TextStyle(color: Colors.white, height: 1.4, fontSize: 18)),
-                SizedBox(
+                const Text("Before we start,\nwe will need some information.", style: TextStyle(color: Colors.white, height: 1.4, fontSize: 18)),
+                const SizedBox(
                   height: 100,
                 ),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [
                         Color.fromRGBO(115, 85, 230, 100),
                         Color.fromRGBO(210, 121, 247, 100)
@@ -171,18 +169,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   child: MaterialButton(
                     minWidth: double.infinity,
-                    child: Text("Start", style: TextStyle(color: Colors.white)),
                     onPressed: _goToNextPage,
+                    child: const Text("Start", style: TextStyle(color: Colors.white)),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Align(
+                const Align(
                   child: Text("No Pain, No Gain!", style: TextStyle(color: Colors.white70, fontSize: 15),),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
               ],
@@ -195,7 +193,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _buildSecondPage() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -205,13 +203,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ],
         ),
       ),
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'We need some information',
               style: TextStyle(
                 fontSize: 24,
@@ -219,7 +217,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 color: Colors.white,
               ),
             ),
-            Text(
+            const Text(
               'to create your account',
               style: TextStyle(
                 fontSize: 24,
@@ -227,7 +225,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             GestureDetector(
               onTap: _selectProfilePhoto,
               child: ClipOval(
@@ -261,7 +259,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -269,7 +267,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(244, 243, 243, 175),
+                    color: const Color.fromRGBO(244, 243, 243, 175),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
@@ -346,13 +344,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
                 if (_showGenderError == true)
-                  Text(
+                  const Text(
                     'Please enter gender',
-                    style: const TextStyle(fontSize: 12, color: Colors.red),
+                    style: TextStyle(fontSize: 12, color: Colors.red),
                   ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -360,7 +358,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(244, 243, 243, 175),
+                    color: const Color.fromRGBO(244, 243, 243, 175),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
@@ -368,7 +366,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     controller: _ageController,
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       prefixIcon: Icon(
                           Icons.calendar_today, color: Colors.black54),
@@ -378,13 +376,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
                 if (_showAgeError == true)
-                  Text(
+                  const Text(
                     'Please enter a valid age',
                     style: TextStyle(fontSize: 12, color: Colors.red),
                   ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -392,15 +390,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(244, 243, 243, 175),
+                    color: const Color.fromRGBO(244, 243, 243, 175),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
                     cursorColor: Colors.black38,
                     controller: _heightController,
                     keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    decoration: InputDecoration(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                    ],
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       prefixIcon: Icon(Icons.height, color: Colors.black54),
                       labelText: 'Enter your height (cm)',
@@ -409,13 +409,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
                 if (_showHeightError == true)
-                  Text(
+                  const Text(
                     'Please enter a valid height',
                     style: TextStyle(fontSize: 12, color: Colors.red),
                   ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -423,15 +423,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(244, 243, 243, 175),
+                    color: const Color.fromRGBO(244, 243, 243, 175),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
                     cursorColor: Colors.black38,
                     controller: _weightController,
                     keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    decoration: InputDecoration(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                    ],
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       prefixIcon: Icon(
                           Icons.fitness_center, color: Colors.black54),
@@ -441,13 +443,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
                 if (_showWeightError == true)
-                  Text(
+                  const Text(
                     'Please enter a valid weight',
                     style: TextStyle(fontSize: 12, color: Colors.red),
                   ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -455,7 +457,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(244, 243, 243, 175),
+                    color: const Color.fromRGBO(244, 243, 243, 175),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
@@ -463,7 +465,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     controller: _exerciseDaysController,
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       prefixIcon: Icon(
                           Icons.calendar_today, color: Colors.black54),
@@ -473,28 +475,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
                 if (_showExerciseDaysError == true)
-                  Text(
+                  const Text(
                     'Please enter a valid day',
                     style: TextStyle(fontSize: 12, color: Colors.red),
                   ),
               ],
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
                 if (_validateForm()) {
                   _saveForm();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyApp()),
+                  );
                 }
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
           ],
         ),
       ),
     );
   }
-
-  @override
 
   void _showImageSourceDialog() {
     showDialog(
