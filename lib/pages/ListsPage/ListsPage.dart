@@ -13,7 +13,6 @@ class ListsPage extends StatefulWidget {
 
 class _ListsPageState extends State<ListsPage> {
   bool isOption = true;
-  List<Widget> _categoryList = [];
   List<Widget> _workoutList = [];
   List<Widget> _predefinedWorkoutList = [];
   double screenWidth = 0;
@@ -25,25 +24,9 @@ class _ListsPageState extends State<ListsPage> {
       isOption = value;
       if (isOption == true) {
         _workoutList = _predefinedWorkoutList;
-      }else{
+      } else {
         _workoutList = [];
       }
-    });
-  }
-
-  void loadCategories() {
-    listJsonController.readCategoryJsonFile().then((value) {
-      if (value != null && _categoryList.isEmpty) {
-        setState(() {
-          _categoryList = List.generate(value['categories'].length, (index) {
-            return WorkoutType(
-              imagePath: value['categories'][index.toString()]['imagePath'],
-            );
-          });
-        });
-      }
-    }).catchError((onError) {
-      print(onError);
     });
   }
 
@@ -82,7 +65,6 @@ class _ListsPageState extends State<ListsPage> {
   void initState() {
     super.initState();
     // Kategori listesini ilk kez yüklemek için burada çağırılır
-    loadCategories();
     readLists();
     //_workoutList = _predefinedWorkoutList;
   }
@@ -97,21 +79,6 @@ class _ListsPageState extends State<ListsPage> {
       padding: const EdgeInsets.all(12.0),
       child: Column(
         children: [
-          SizedBox(height: screenHeight * 0.02),
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'ListCategories',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          SingleChildScrollView(
-            //KATEGORİLERİN YAN YANA GELMESİ İÇİN
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: _categoryList,
-            ),
-          ),
           SizedBox(height: screenHeight * 0.02),
           const Align(
             alignment: Alignment.centerLeft,

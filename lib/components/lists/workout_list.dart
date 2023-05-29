@@ -73,7 +73,7 @@ class WorkoutList extends StatelessWidget {
                             ),
                           );
                         },
-                        child: Text('Düğme'),
+                        child: Text('View'),
                       ),
                     ],
                   ),
