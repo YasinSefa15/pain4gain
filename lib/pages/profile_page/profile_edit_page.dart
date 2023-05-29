@@ -162,6 +162,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -249,7 +250,6 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                             prefixIcon: Icon(Icons.person, color: Colors.black54),
                             labelText: 'Enter your name',
                             labelStyle: TextStyle(color: Colors.black, fontSize: 16),
-                            //errorText: _errors['name'],
                             errorMaxLines: 1,
                             errorStyle: TextStyle()
                         ),
@@ -262,7 +262,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                       ),
                   ],
                 ),
-                const SizedBox(height: 3),
+                const SizedBox(height: 15),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -293,7 +293,6 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                       ),
                   ],
                 ),
-                const SizedBox(height: 3),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -327,7 +326,6 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                       ),
                   ],
                 ),
-                const SizedBox(height: 3),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -360,7 +358,6 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                       ),
                   ],
                 ),
-                const SizedBox(height: 3),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -391,7 +388,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                       ),
                   ],
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 12),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
