@@ -16,7 +16,7 @@ class _AppPageState extends State<AppPage> {
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
     ListsPage(),
-    const DietPage(),
+    DietPage(),
     const ProfilePage()
   ];
 
