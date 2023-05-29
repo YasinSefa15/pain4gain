@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 
 class TraceComponent extends StatelessWidget {
-  const TraceComponent({Key? key}) : super(key: key);
+  final BoxConstraints constraints;
+  const TraceComponent({Key? key, required this.constraints}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +13,12 @@ class TraceComponent extends StatelessWidget {
     return Container(
       //decoration: BoxDecoration(),
       padding: EdgeInsets.all(15),
+      constraints: BoxConstraints(
+        minWidth: constraints.minWidth,
+        maxWidth: constraints.maxWidth,
+        minHeight: constraints.minHeight,
+        maxHeight: constraints.maxHeight,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

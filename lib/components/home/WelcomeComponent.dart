@@ -5,8 +5,8 @@ import 'package:flutter/services.dart' show ByteData, rootBundle;
 import 'package:path_provider/path_provider.dart';
 
 class WelcomeComponent extends StatefulWidget {
-  const WelcomeComponent({Key? key}) : super(key: key);
-
+  final BoxConstraints constraints;
+  const WelcomeComponent({Key? key, required this.constraints}) : super(key: key);
   @override
   State<WelcomeComponent> createState() => _WelcomeComponentState();
 }
@@ -33,6 +33,12 @@ class _WelcomeComponentState extends State<WelcomeComponent> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
+        constraints: BoxConstraints(
+          minWidth: widget.constraints.minWidth,
+          maxWidth: widget.constraints.maxWidth,
+          minHeight: widget.constraints.minHeight,
+          maxHeight: widget.constraints.maxHeight,
+        ),
         decoration: BoxDecoration(),
         padding: EdgeInsets.all(20),
         child: SingleChildScrollView(

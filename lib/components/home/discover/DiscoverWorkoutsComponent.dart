@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:pain4gain/components/home/discover/DiscoverSingleWorkout.dart';
 
 class DiscoverWorkoutsComponent extends StatelessWidget {
-  const DiscoverWorkoutsComponent({Key? key}) : super(key: key);
+  final BoxConstraints constraints;
+  const DiscoverWorkoutsComponent({Key? key, required this.constraints}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: BoxConstraints(
+        minWidth: constraints.minWidth,
+        maxWidth: constraints.maxWidth,
+        minHeight: constraints.minHeight,
+        maxHeight: constraints.maxHeight,
+      ),
       padding: EdgeInsets.only(left: 20, right: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
