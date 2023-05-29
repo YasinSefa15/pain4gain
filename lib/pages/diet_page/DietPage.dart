@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vector_math/vector_math_64.dart' as mathe;
+import 'package:intl/intl.dart';
 import 'meal.dart';
 
 class DietPage extends StatelessWidget {
-  const DietPage({super.key});
+  DietPage({super.key});
+
+  String username = '';
 
   @override
   Widget build(BuildContext context) {
+    getUsername();
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final today = DateTime.now();
     return Scaffold(
         backgroundColor: const Color(0xFFE9E9E9),
         body: Stack(
@@ -30,14 +37,14 @@ class DietPage extends StatelessWidget {
                     children: <Widget>[
                       ListTile(
                           title: Text(
-                            "Date,Year",
+                            " ${DateFormat("EEEE").format(today)},${DateFormat(" d MMM yyyy").format(today)}",
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontSize: 14,
+                              fontSize: 18,
                             ),
                           ), //gün ay bilgisi çekilcek
                           subtitle: Text(
-                            "Hello,GöT Emirhan",
+                            "Hello, $username",
                             style: TextStyle(
                                 fontWeight: FontWeight.w800,
                                 fontSize: 19,
@@ -48,9 +55,51 @@ class DietPage extends StatelessWidget {
                             "assets/emirhan.jpg",
                           )) //kamera resmi alınacak,
                           ),
-                      _RadialProgress(
-                        width: height * 0.2,
-                        height: height * 0.2,
+                      Row(
+                        children: <Widget>[
+                          _RadialProgress(
+                            width: width * 0.37,
+                            height: width * 0.37,
+                            progress: 0.7,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                           Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                             _IngredientProgress(
+                              ingredient: "Protein",
+                              progress: 0.3,
+                              progressColor: Colors.green,
+                              leftAmount: 72,
+                              width: width * 0.28,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            _IngredientProgress(
+                              ingredient: "Carbs",
+                              progress: 0.2,
+                              progressColor: Colors.red,
+                              leftAmount: 252,
+                              width: width * 0.28,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            _IngredientProgress(
+                              ingredient: "Fat",
+                              progress: 0.1,
+                              progressColor: Colors.yellow,
+                              leftAmount: 61,
+                              width: width * 0.28,
+                            ),
+                          ],
+                        )
+                        ],
                       ),
                     ],
                   ),
@@ -109,44 +158,147 @@ class DietPage extends StatelessWidget {
           ],
         ));
   }
+
+  Future<void> getUsername() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? storedUsername = prefs.getString('username');
+
+    username = storedUsername!;
+  }
+}
+
+class _IngredientProgress extends StatelessWidget {
+  final String ingredient;
+  final int leftAmount;
+  final double progress, width;
+  final Color progressColor;
+
+  const _IngredientProgress(
+      { Key? key,
+      required this.ingredient,
+      required this.leftAmount,
+      required this.progress,
+      required this.progressColor,
+      required this.width})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          ingredient.toUpperCase(),
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Container(
+                  height: 10,
+                  width: width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    color: Colors.black12,
+                  ),
+                ),
+                Container(
+                  height: 10,
+                  width: width * progress,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    color: progressColor,
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text("${leftAmount}g left"),
+          ],
+        ),
+      ],
+    );
+  }
 }
 
 class _RadialProgress extends StatelessWidget {
-  const _RadialProgress({super.key, required this.height, required this.width});
-  final double height, width;
+  const _RadialProgress(
+      {super.key,
+      required this.height,
+      required this.width,
+      required this.progress});
+  final double height, width, progress;
+
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-    painter: _RadialPainter(progress:0.7),
-      child :Container(
+      painter: _RadialPainter(
+        progress: 0.7,
+      ),
+      child: Container(
         height: height,
         width: width,
-        
+        child: Center(
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: "1731",
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w700,
+                    color: const Color(0xFF200087),
+                  ),
+                ),
+                TextSpan(text: "\n"),
+                TextSpan(
+                  text: "kcal left",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFF200087),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
 }
 
-class _RadialPainter extends CustomPainter{
-
+class _RadialPainter extends CustomPainter {
   final double progress;
 
   _RadialPainter({required this.progress});
-  
+
   @override
-  void paint(Canvas canvas,Size size) {
-    Paint paint =Paint()
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
       ..strokeWidth = 10
       ..color = Color(0xFF200087)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
-      Offset center =Offset(size.width/2, size.height/2);
-      canvas.drawCircle(center, size.width/2, paint);
+    Offset center = Offset(size.width / 2, size.height / 2);
+    double relativeProgress = 360 * progress;
+    //canvas.drawCircle(center, size.width/2, paint);
+    canvas.drawArc(Rect.fromCircle(center: center, radius: size.width / 2),
+        mathe.radians(-90), mathe.radians(-relativeProgress), false, paint);
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate){
+  bool shouldRepaint(CustomPainter oldDelegate) {
     //TODO: implement shouldRepaint
     return true;
   }
