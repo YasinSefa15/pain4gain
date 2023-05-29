@@ -142,10 +142,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(begin: Alignment.bottomCenter, colors: [
-            Colors.black.withOpacity(.9),
-            Colors.black.withOpacity(.8),
-            Colors.black.withOpacity(.2),
-          ])),
+                Colors.black.withOpacity(.9),
+                Colors.black.withOpacity(.8),
+                Colors.black.withOpacity(.2),
+              ])),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -162,15 +162,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    gradient: const LinearGradient(
-                      colors: [
-                        Color.fromRGBO(115, 85, 230, 100),
-                        Color.fromRGBO(210, 121, 247, 100)
-                        //Colors.yellow,
-                        //Colors.orange
-                      ]
-                    )
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: const LinearGradient(
+                          colors: [
+                            Color.fromRGBO(115, 85, 230, 100),
+                            Color.fromRGBO(210, 121, 247, 100)
+                            //Colors.yellow,
+                            //Colors.orange
+                          ]
+                      )
                   ),
                   child: MaterialButton(
                     minWidth: double.infinity,
@@ -198,6 +198,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _buildSecondPage() {
     return Container(
+      alignment: Alignment.center,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -434,10 +435,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 const SizedBox(height: 6.0),
                 Container(
                   alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(244, 243, 243, 175),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
 
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -458,7 +455,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                       const Text(
-                          'Male', style: TextStyle(color: Colors.white60)),
+                          'Male', style: TextStyle(color: Colors.white60, fontSize: 15)),
                       const SizedBox(width: 15),
                       SizedBox(
                         width: 30,
@@ -475,7 +472,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                       const Text(
-                          'Female', style: TextStyle(color: Colors.white60)),
+                          'Female', style: TextStyle(color: Colors.white60, fontSize: 15)),
                     ],
                   ),
                 ),

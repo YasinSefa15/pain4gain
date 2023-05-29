@@ -71,6 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+
     final mediaQuery = MediaQuery.of(context);
     final appBar = AppBar(
       title: const Text('Profile'),
@@ -98,147 +99,153 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: appBar,
       body: Container(
-        color: const Color(0xFF1D1D1D),
+        decoration: BoxDecoration(
+          color: const Color(0xFF1D1D1D),
+        ),
+        //color: const Color(0xFF1D1D1D),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              _isLoading
-                  ? const CircularProgressIndicator()
-                  : CircleAvatar(
-                radius: mediaQuery.size.width * 0.25,
-                backgroundImage: _profilePhoto.existsSync()
-                    ? FileImage(_profilePhoto)
-                    : AssetImage('assets/default_user_avatar.png') as ImageProvider<Object>,
-              ),
-              const SizedBox(height: 20),
-              FutureBuilder<String>(
-                future: getUsernameFromSharedPreferences(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return buildProfileInfoColor(
-                      snapshot.data!,
-                      Colors.white, // Set the desired color for the username
-                    );
-                  } else if (snapshot.hasError) {
-                    return buildErrorText('Error retrieving username');
-                  } else {
-                    return buildLoadingIndicator();
-                  }
-                },
-              ),
-              const SizedBox(height: 16),
-              buildInfoRow(
-                'Age',
-                FutureBuilder<int>(
-                  future: getAgeFromSharedPreferences(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Text(
-                        snapshot.data.toString(),
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      );
-                    } else if (snapshot.hasError) {
-                      return const Text('Error retrieving age');
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  },
+          child: Container(
+            color: const Color(0xFF1D1D1D),
+            child: Column(
+              children: [
+                const SizedBox(height: 18),
+                _isLoading
+                    ? const CircularProgressIndicator()
+                    : CircleAvatar(
+                  radius: mediaQuery.size.width * 0.18,
+                  backgroundImage: _profilePhoto.existsSync()
+                      ? FileImage(_profilePhoto)
+                      : AssetImage('assets/default_user_avatar.png') as ImageProvider<Object>,
                 ),
-              ),
-              const SizedBox(height: 10),
-              buildInfoRow(
-                'Gender',
+                const SizedBox(height: 20),
                 FutureBuilder<String>(
-                  future: getGenderFromSharedPreferences(),
+                  future: getUsernameFromSharedPreferences(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return Text(
+                      return buildProfileInfoColor(
                         snapshot.data!,
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        Colors.white, // Set the desired color for the username
                       );
                     } else if (snapshot.hasError) {
-                      return const Text('Error retrieving gender');
+                      return buildErrorText('Error retrieving username');
                     } else {
-                      return const CircularProgressIndicator();
+                      return buildLoadingIndicator();
                     }
                   },
                 ),
-              ),
-              const SizedBox(height: 10),
-              buildInfoRow(
-                'Height',
-                FutureBuilder<double>(
-                  future: getHeightFromSharedPreferences(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Text(
-                        '${snapshot.data.toString()} cm',
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      );
-                    } else if (snapshot.hasError) {
-                      return const Text('Error retrieving height');
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  },
+                const SizedBox(height: 16),
+                buildInfoRow(
+                  'Age',
+                  FutureBuilder<int>(
+                    future: getAgeFromSharedPreferences(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(
+                          snapshot.data.toString(),
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Text('Error retrieving age');
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              buildInfoRow(
-                'Weight',
-                FutureBuilder<double>(
-                  future: getWeightFromSharedPreferences(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Text(
-                        '${snapshot.data.toString()} kg',
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      );
-                    } else if (snapshot.hasError) {
-                      return const Text('Error retrieving weight');
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  },
+                const SizedBox(height: 10),
+                buildInfoRow(
+                  'Gender',
+                  FutureBuilder<String>(
+                    future: getGenderFromSharedPreferences(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(
+                          snapshot.data!,
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Text('Error retrieving gender');
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              buildInfoRow(
-                'Workout Days Per Week',
-                FutureBuilder<int>(
-                  future: getWorkoutDaysFromSharedPreferences(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Text(
-                        snapshot.data.toString(),
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      );
-                    } else if (snapshot.hasError) {
-                      return const Text('Error retrieving workoutDays');
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  },
+                const SizedBox(height: 10),
+                buildInfoRow(
+                  'Height',
+                  FutureBuilder<double>(
+                    future: getHeightFromSharedPreferences(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(
+                          '${snapshot.data.toString()} cm',
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Text('Error retrieving height');
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-            ],
+                const SizedBox(height: 10),
+                buildInfoRow(
+                  'Weight',
+                  FutureBuilder<double>(
+                    future: getWeightFromSharedPreferences(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(
+                          '${snapshot.data.toString()} kg',
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Text('Error retrieving weight');
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(height: 10),
+                buildInfoRow(
+                  'Workout Days Per Week',
+                  FutureBuilder<int>(
+                    future: getWorkoutDaysFromSharedPreferences(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(
+                          snapshot.data.toString(),
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Text('Error retrieving workoutDays');
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(height: 30),
+              ],
+            ),
           ),
         ),
       ),
@@ -274,13 +281,14 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget buildInfoRow(String title, Widget futureBuilder) {
     return Row(
       children: [
+        SizedBox(width: 15,),
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(15),
               color: Colors.white,
             ),
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -297,7 +305,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
         ),
-        const SizedBox(width: 16),
+        SizedBox(width: 15,)
+        //const SizedBox(width: 16),
       ],
     );
   }
