@@ -99,9 +99,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     await prefs.setDouble('height', double.parse(_heightController.text));
     await prefs.setDouble('weight', double.parse(_weightController.text));
     await prefs.setString('gender', _selectedGender!);
-    await prefs.setInt(
-        'workoutDays', int.parse(_exerciseDaysController.text));
+    await prefs.setInt('workoutDays', int.parse(_exerciseDaysController.text));
     await prefs.setBool('onboarding_completed', true);
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const MyApp()),
+          (route) => false,
+    );
   }
 
   @override
@@ -486,10 +491,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               onPressed: () {
                 if (_validateForm()) {
                   _saveForm();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyApp()),
-                  );
                 }
               },
               child: const Text('Save'),
