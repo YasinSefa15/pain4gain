@@ -20,6 +20,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
   late TextEditingController _workoutDaysController;
   String _gender = '';
   File? _profileImage;
+  bool _changedData = false;
   final ImagePicker _imagePicker = ImagePicker();
 
   Map<String, String> _errors = {
@@ -50,6 +51,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     _heightController = TextEditingController();
     _weightController = TextEditingController();
     _workoutDaysController = TextEditingController();
+    _loadProfileData();
   }
 
   @override
@@ -90,14 +92,14 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     }
 
     double? weight = double.tryParse(_weightController.text);
-    if (weight == null || weight <= 29 || weight >= 301) {
+    if (weight == null || weight <= 19 || weight >= 301) {
       setState(() {
         _errors['weight'] = 'Please enter a valid weight';
       });
     }
 
     int? workoutDays = int.tryParse(_workoutDaysController.text);
-    if (workoutDays == null || workoutDays < 1 || workoutDays > 7) {
+    if (workoutDays == null || workoutDays < 0 || workoutDays > 7) {
       setState(() {
         _errors['workoutDays'] = 'Please enter a valid number of workout days (1-7)';
       });
@@ -113,6 +115,8 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
       return;
     }
 
+    _changedData = true;
+
     // Save the profile data using shared_preferences
     _saveProfileData().then((_) {
       const snackBar = SnackBar(
@@ -120,13 +124,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
         duration: Duration(seconds: 2),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      // Navigate back to the previous screen
-      _nameController.clear();
-      _ageController.clear();
-      _heightController.clear();
-      _weightController.clear();
-      _workoutDaysController.clear();
-      _gender = '';
+      _loadProfileData();
 
       // Remove the focus from the input fields
       FocusScope.of(context).unfocus();
@@ -135,6 +133,18 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
         // Clear the error messages
         _errors = {};
       });
+    });
+  }
+
+  Future<void> _loadProfileData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _nameController.text = prefs.getString('username') ?? '';
+      _ageController.text = prefs.getInt('age')?.toString() ?? '';
+      _heightController.text = prefs.getDouble('height')?.toString() ?? '';
+      _weightController.text = prefs.getDouble('weight')?.toString() ?? '';
+      _workoutDaysController.text = prefs.getInt('workoutDays')?.toString() ?? '';
+      _gender = prefs.getString('gender') ?? '';
     });
   }
 
@@ -152,7 +162,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -171,7 +181,11 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Navigator.pop(context);
+              if (_changedData) {
+                Navigator.pop(context, true);
+              } else {
+                Navigator.pop(context);
+              }
             },
           ),
           backgroundColor: Colors.black54,
@@ -203,7 +217,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                           fit: BoxFit.cover,
                         ),
                         IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.add,
                             size: 30.0,
                             color: Colors.white,
@@ -216,7 +230,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -224,17 +238,17 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                     Container(
                       alignment: Alignment.centerLeft,
                       decoration: BoxDecoration(
-                          color: Color.fromRGBO(244, 243, 243, 175),
+                          color: const Color.fromRGBO(244, 243, 243, 175),
                           borderRadius: BorderRadius.circular(15)
                       ),
                       child: TextField(
                         cursorColor: Colors.black38,
                         controller: _nameController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             border: InputBorder.none,
-                            prefixIcon: const Icon(Icons.person, color: Colors.black54),
+                            prefixIcon: Icon(Icons.person, color: Colors.black54),
                             labelText: 'Enter your name',
-                            labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                            labelStyle: TextStyle(color: Colors.black, fontSize: 16),
                             //errorText: _errors['name'],
                             errorMaxLines: 1,
                             errorStyle: TextStyle()
@@ -248,7 +262,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                       ),
                   ],
                 ),
-                SizedBox(height: 3),
+                const SizedBox(height: 3),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -256,7 +270,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                     Container(
                       alignment: Alignment.centerLeft,
                       decoration: BoxDecoration(
-                          color: Color.fromRGBO(244, 243, 243, 175),
+                          color: const Color.fromRGBO(244, 243, 243, 175),
                           borderRadius: BorderRadius.circular(15)
                       ),
                       child: TextField(
@@ -264,11 +278,11 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                         controller: _ageController,
                         keyboardType: TextInputType.number,
                         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
-                          prefixIcon: const Icon(Icons.calendar_today, color: Colors.black54),
+                          prefixIcon: Icon(Icons.calendar_today, color: Colors.black54),
                           labelText: 'Enter your age',
-                          labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                          labelStyle: TextStyle(color: Colors.black, fontSize: 16),
                         ),
                       ),
                     ),
@@ -279,7 +293,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                       ),
                   ],
                 ),
-                SizedBox(height: 3),
+                const SizedBox(height: 3),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -288,19 +302,21 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                     Container(
                       alignment: Alignment.centerLeft,
                       decoration: BoxDecoration(
-                          color: Color.fromRGBO(244, 243, 243, 175),
+                          color: const Color.fromRGBO(244, 243, 243, 175),
                           borderRadius: BorderRadius.circular(15)
                       ),
                       child: TextField(
                         cursorColor: Colors.black38,
                         controller: _heightController,
                         keyboardType: TextInputType.number,
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                        decoration: InputDecoration(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
-                          prefixIcon: const Icon(Icons.height,color: Colors.black54),
+                          prefixIcon: Icon(Icons.height,color: Colors.black54),
                           labelText: 'Enter your height (cm)',
-                          labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                          labelStyle: TextStyle(color: Colors.black, fontSize: 16),
                         ),
                       ),
                     ),
@@ -311,7 +327,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                       ),
                   ],
                 ),
-                SizedBox(height: 3),
+                const SizedBox(height: 3),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -319,19 +335,21 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                     Container(
                       alignment: Alignment.centerLeft,
                       decoration: BoxDecoration(
-                          color: Color.fromRGBO(244, 243, 243, 175),
+                          color: const Color.fromRGBO(244, 243, 243, 175),
                           borderRadius: BorderRadius.circular(15)
                       ),
                       child: TextField(
                         cursorColor: Colors.black38,
                         controller: _weightController,
                         keyboardType: TextInputType.number,
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                        decoration: InputDecoration(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
-                          prefixIcon: const Icon(Icons.fitness_center, color: Colors.black54),
+                          prefixIcon: Icon(Icons.fitness_center, color: Colors.black54),
                           labelText: 'Enter your weight (kg)',
-                          labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                          labelStyle: TextStyle(color: Colors.black, fontSize: 16),
                         ),
                       ),
                     ),
@@ -342,7 +360,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                       ),
                   ],
                 ),
-                SizedBox(height: 3),
+                const SizedBox(height: 3),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -350,7 +368,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                     Container(
                       alignment: Alignment.centerLeft,
                       decoration: BoxDecoration(
-                          color: Color.fromRGBO(244, 243, 243, 175),
+                          color: const Color.fromRGBO(244, 243, 243, 175),
                           borderRadius: BorderRadius.circular(15)
                       ),
                       child: TextField(
@@ -358,11 +376,11 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                         controller: _workoutDaysController,
                         keyboardType: TextInputType.number,
                         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
-                          prefixIcon: const Icon(Icons.calendar_today, color: Colors.black54),
+                          prefixIcon: Icon(Icons.calendar_today, color: Colors.black54),
                           labelText: 'Enter number of workout days (1-7)',
-                          labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
+                          labelStyle: TextStyle(color: Colors.black, fontSize: 16),
                         ),
                       ),
                     ),
@@ -373,7 +391,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                       ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -395,7 +413,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
                           ),
                         ),
                         const Text('Male', style: TextStyle(color: Colors.white60)),
-                        SizedBox(width: 15,),
+                        const SizedBox(width: 15,),
                         SizedBox(
                           width: 30,
                           height: 30,
@@ -450,20 +468,20 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Select Image Source'),
+          title: const Text('Select Image Source'),
           content: SingleChildScrollView(
             child: ListBody(
               children: [
                 GestureDetector(
-                  child: Text('Take a Photo'),
+                  child: const Text('Take a Photo'),
                   onTap: () {
                     _getImage(ImageSource.camera);
                     Navigator.of(context).pop();
                   },
                 ),
-                Padding(padding: EdgeInsets.all(8.0)),
+                const Padding(padding: EdgeInsets.all(8.0)),
                 GestureDetector(
-                  child: Text('Choose from Gallery'),
+                  child: const Text('Choose from Gallery'),
                   onTap: () {
                     _getImage(ImageSource.gallery);
                     Navigator.of(context).pop();
@@ -481,7 +499,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     final pickedFile = await _imagePicker.pickImage(source: source);
     if (pickedFile != null) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final profileImagePathKey = 'profile_image_path';
+      const profileImagePathKey = 'profile_image_path';
 
       // Save the file path to shared preferences
       await prefs.setString(profileImagePathKey, pickedFile.path);
@@ -491,6 +509,5 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
       });
     }
   }
-
-
 }
+
