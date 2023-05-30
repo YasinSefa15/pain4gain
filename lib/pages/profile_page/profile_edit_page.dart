@@ -32,16 +32,12 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     'workoutDays': '',
   };
   Future<void> _selectProfilePhoto() async {
-    final pickedFile = await _imagePicker.pickImage(
-      source: ImageSource.gallery, // Option to choose from the gallery
-      imageQuality: 80, // Adjust the image quality (0 - 100)
-    );
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? profilePhotoPath = prefs.getString('profile_image_path');
+    setState(() {
+      _profileImage = File(profilePhotoPath!);
+    });
 
-    if (pickedFile != null) {
-      setState(() {
-        _profileImage = File(pickedFile.path);
-      });
-    }
   }
   Future<void> _loadProfilePhoto() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
