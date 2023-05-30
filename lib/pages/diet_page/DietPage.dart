@@ -123,6 +123,10 @@ class DietPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                     Container(
+                    height: 36,
+                    color: Colors.red,
+                  ),
                     const Padding(
                       padding: EdgeInsets.only(
                         bottom: 8,
