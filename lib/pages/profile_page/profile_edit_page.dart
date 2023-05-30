@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 class ProfileEditingPage extends StatefulWidget {
   const ProfileEditingPage({Key? key}) : super(key: key);
@@ -42,7 +43,38 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
       });
     }
   }
+  Future<void> _loadProfilePhoto() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? profilePhotoPath = prefs.getString('profile_image_path');
 
+    if (profilePhotoPath != null && profilePhotoPath.isNotEmpty) {
+      setState(() {
+        _profileImage = File(profilePhotoPath);
+         // Stop loading animation
+      });
+    } else {
+      final Directory appDirectory = await getApplicationDocumentsDirectory();
+      final String defaultImagePath =
+          '${appDirectory.path}/default_user_avatar.png';
+
+      if (File(defaultImagePath).existsSync()) {
+        setState(() {
+          _profileImage = File(defaultImagePath);
+         // Stop loading animation
+        });
+      } else {
+        final ByteData imageData =
+        await rootBundle.load('assets/default_user_avatar.png');
+        final File defaultImageFile = File(defaultImagePath);
+        await defaultImageFile.writeAsBytes(imageData.buffer.asUint8List());
+
+        setState(() {
+          _profileImage = defaultImageFile;
+          // Stop loading animation
+        });
+      }
+    }
+  }
   @override
   void initState() {
     super.initState();
@@ -52,8 +84,14 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     _weightController = TextEditingController();
     _workoutDaysController = TextEditingController();
     _loadProfileData();
+    _loadProfilePhoto();
   }
-
+  void refresh() {
+    setState(() {
+    // Start loading animation again
+      _loadProfilePhoto();
+    });
+  }
   @override
   void dispose() {
     _nameController.dispose();
