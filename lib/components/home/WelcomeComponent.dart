@@ -30,62 +30,63 @@ class _WelcomeComponentState extends State<WelcomeComponent> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        constraints: BoxConstraints(
-          minWidth: widget.constraints.minWidth,
-          maxWidth: widget.constraints.maxWidth,
-          minHeight: widget.constraints.minHeight,
-          maxHeight: widget.constraints.maxHeight,
-        ),
-        decoration: BoxDecoration(),
-        padding: EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FutureBuilder<String>(
-                      future: getUsernameFromSharedPreferences(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return buildProfileInfoColor(
-                            snapshot.data!,
-                            Colors.white,
-                          );
-                        } else if (snapshot.hasError) {
-                          return buildErrorText('username');
-                        } else {
-                          return buildLoadingIndicator();
-                        }
-                      },
-                    ),
-                    Text(
-                      "Let's check your activity today!",
-                      style: TextStyle(color: Colors.white60, fontSize: 15),
-                    ),
-                  ],
+ Widget build(BuildContext context) {
+  return Container(
+    constraints: BoxConstraints(
+      minWidth: widget.constraints.minWidth,
+      maxWidth: widget.constraints.maxWidth,
+      minHeight: widget.constraints.minHeight,
+      maxHeight: widget.constraints.maxHeight,
+    ),
+    decoration: BoxDecoration(),
+    padding: EdgeInsets.all(20),
+    child: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min, 
+        children: [
+          Flexible(
+            fit: FlexFit.loose, 
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FutureBuilder<String>(
+                  future: getUsernameFromSharedPreferences(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return buildProfileInfoColor(
+                        snapshot.data!,
+                        Colors.white,
+                      );
+                    } else if (snapshot.hasError) {
+                      return buildErrorText('username');
+                    } else {
+                      return buildLoadingIndicator();
+                    }
+                  },
                 ),
-              ),
-              SizedBox(width: 55.0),
-              _isLoading
-                  ? const CircularProgressIndicator()
-                  : CircleAvatar(
-                backgroundImage: _profilePhoto.existsSync()
-                    ? FileImage(_profilePhoto)
-                    : AssetImage('assets/default_user_avatar.png') as ImageProvider<Object>,
-              ),
-            ],
+                Text(
+                  "Let's check your activity today!",
+                  style: TextStyle(color: Colors.white60, fontSize: 15),
+                ),
+              ],
+            ),
           ),
-        ),
+          SizedBox(width: 55.0),
+          _isLoading
+              ? const CircularProgressIndicator()
+              : CircleAvatar(
+                  backgroundImage: _profilePhoto.existsSync()
+                      ? FileImage(_profilePhoto)
+                      : AssetImage('assets/default_user_avatar.png') as ImageProvider<Object>,
+                ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
+
+
 
 
   Future<String> getUsernameFromSharedPreferences() async {
@@ -100,7 +101,7 @@ class _WelcomeComponentState extends State<WelcomeComponent> {
       style: TextStyle(
         fontSize: 25,
         fontWeight: FontWeight.bold,
-        color: textColor, // Use the specified color for the text
+        color: textColor, 
       ),
     );
   }
