@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:pain4gain/pages/diet_page/meal_detail_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vector_math/vector_math_64.dart' as mathe;
 import 'package:intl/intl.dart';
 import 'meal.dart';
+import 'package:animations/animations.dart';
+
+
+
+
+
+
 
 class DietPage extends StatelessWidget {
   DietPage({super.key});
@@ -65,40 +73,40 @@ class DietPage extends StatelessWidget {
                           SizedBox(
                             width: 10,
                           ),
-                           Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                             _IngredientProgress(
-                              ingredient: "Protein",
-                              progress: 0.3,
-                              progressColor: Colors.green,
-                              leftAmount: 72,
-                              width: width * 0.28,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            _IngredientProgress(
-                              ingredient: "Carbs",
-                              progress: 0.2,
-                              progressColor: Colors.red,
-                              leftAmount: 252,
-                              width: width * 0.28,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            _IngredientProgress(
-                              ingredient: "Fat",
-                              progress: 0.1,
-                              progressColor: Colors.yellow,
-                              leftAmount: 61,
-                              width: width * 0.28,
-                            ),
-                          ],
-                        )
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              _IngredientProgress(
+                                ingredient: "Protein",
+                                progress: 0.3,
+                                progressColor: Colors.green,
+                                leftAmount: 72,
+                                width: width * 0.28,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              _IngredientProgress(
+                                ingredient: "Carbs",
+                                progress: 0.2,
+                                progressColor: Colors.red,
+                                leftAmount: 252,
+                                width: width * 0.28,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              _IngredientProgress(
+                                ingredient: "Fat",
+                                progress: 0.1,
+                                progressColor: Colors.yellow,
+                                leftAmount: 61,
+                                width: width * 0.28,
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     ],
@@ -174,7 +182,7 @@ class _IngredientProgress extends StatelessWidget {
   final Color progressColor;
 
   const _IngredientProgress(
-      { Key? key,
+      {Key? key,
       required this.ingredient,
       required this.leftAmount,
       required this.progress,
@@ -252,7 +260,7 @@ class _RadialProgress extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: "1731",
+                  text: "1731", // kalan ihriyac yemeğin değeri girilecek
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
@@ -292,9 +300,9 @@ class _RadialPainter extends CustomPainter {
 
     Offset center = Offset(size.width / 2, size.height / 2);
     double relativeProgress = 360 * progress;
-    //canvas.drawCircle(center, size.width/2, paint);
     canvas.drawArc(Rect.fromCircle(center: center, radius: size.width / 2),
         mathe.radians(-90), mathe.radians(-relativeProgress), false, paint);
+    // grafiğin dönmesi vs yapılacak
   }
 
   @override
@@ -325,60 +333,79 @@ class _MealCard extends StatelessWidget {
           children: <Widget>[
             Flexible(
               fit: FlexFit.tight,
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                child: Image.asset(
-                  meal.imagePath,
-                  width: 150,
-                  fit: BoxFit.fill,
-                ),
+              child: OpenContainer(
+                closedShape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+                transitionDuration: const Duration(milliseconds: 1000),
+                openBuilder: (context, _) {
+                  return MealDetailScreen(
+                    meal: meal,
+                  );
+                },
+                closedBuilder: (context, openContainer) {
+                  return GestureDetector(
+                    onTap: openContainer,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      child: Image.asset(
+                        meal.imagePath,
+                        width: 150,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
             Flexible(
               fit: FlexFit.tight,
               child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
+                padding: const EdgeInsets.only(left: 12.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(height: 10),
+                    SizedBox(height: 5),
                     Text(
                       meal.mealTime,
                       style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          color: Colors.blueGrey),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: Colors.blueGrey,
+                      ),
                     ),
                     Text(
                       meal.name,
                       style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
-                          color: Colors.red),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18,
+                        color: Colors.black,
+                      ),
                     ),
                     Text(
                       "${meal.kiloCaloriesBurnt} kcal",
                       style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          color: Colors.black),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: Colors.blueGrey,
+                      ),
                     ),
                     Row(
-                      children: [
+                      children: <Widget>[
                         Icon(
                           Icons.access_time,
+                          size: 15,
                           color: Colors.black12,
                         ),
                         SizedBox(
                           width: 4,
                         ),
                         Text(
-                          "${meal.timeTaken} min ",
+                          "${meal.timeTaken} min",
                           style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: Colors.purple),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            color: Colors.blueGrey,
+                          ),
                         ),
                       ],
                     ),
