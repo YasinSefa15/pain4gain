@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pain4gain/components/lists/list_option.dart';
 import 'package:pain4gain/components/lists/workout_list.dart';
-import 'package:pain4gain/components/lists/workout_type.dart';
-import 'package:pain4gain/pages/ListsPage/workout_page.dart';
 
+import '../../components/lists/categories/lists_categories.dart';
 import '../../json/ListJsonController.dart';
 
 class ListsPage extends StatefulWidget {
@@ -79,6 +78,15 @@ class _ListsPageState extends State<ListsPage> {
       padding: const EdgeInsets.all(12.0),
       child: Column(
         children: [
+          SizedBox(height: screenHeight * 0.02),
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'ListCategories',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          ListCategories(),
           SizedBox(height: screenHeight * 0.02),
           const Align(
             alignment: Alignment.centerLeft,
