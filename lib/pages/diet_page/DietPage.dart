@@ -190,7 +190,7 @@ class DietPageState extends State<DietPage> with SingleTickerProviderStateMixin{
                             ),
                             for (int i = 0; i < meals.length; i++)
                               _MealCard(
-                                meal: meals[i],
+                                meal: underweight_MENU1[i],// yemeklerin konulması gereken yer hesaplanıp hangisi ise buraya geçirilecek o günün menüsü
                               ),
                           ],
                         ),
