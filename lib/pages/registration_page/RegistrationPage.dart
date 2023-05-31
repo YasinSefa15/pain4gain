@@ -60,6 +60,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
+  double _calculateCaloriesPerDay(int age, double height, double weight, String gender, int workoutDays) {
+    double bmr;
+    if (gender == 'male') {
+      bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+    } else {
+      bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+    }
+
+    double activityFactor;
+
+    if (workoutDays <= 0) {
+      activityFactor = 1.2; // Sedentary (little or no exercise)
+    } else if (workoutDays <= 3) {
+      activityFactor = 1.375; // Lightly active (light exercise/sports 1-3 days per week)
+    } else if (workoutDays <= 5) {
+      activityFactor = 1.55; // Moderately active (moderate exercise/sports 3-5 days per week)
+    } else if (workoutDays <= 7) {
+      activityFactor = 1.725; // Very active (hard exercise/sports 6-7 days per week)
+    } else {
+      activityFactor = 1.9; // Extra active (very hard exercise/sports and a physical job)
+    }
+
+    double dailyCalories = bmr * activityFactor;
+
+    return dailyCalories;
+  }
+
   bool _validateForm() {
     setState(() {
       _showUsernameError = _usernameController.text.isEmpty ||
@@ -92,8 +119,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         !_showExerciseDaysError;
   }
 
-  Future<void> _saveForm() async {
+  Future<void> _saveForm(double calorie) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('calorie', calorie);
     await prefs.setString('username', _usernameController.text);
     await prefs.setInt('age', int.parse(_ageController.text));
     await prefs.setDouble('height', double.parse(_heightController.text));
@@ -487,7 +515,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ElevatedButton(
               onPressed: () {
                 if (_validateForm()) {
-                  _saveForm();
+                  double calorie = _calculateCaloriesPerDay(int.tryParse(_ageController.text)!, double.tryParse(_heightController.text)!, double.tryParse(_weightController.text)!, _selectedGender!, int.tryParse(_exerciseDaysController.text)!);
+                  _saveForm(calorie);
                 }
               },
               child: const Text('Save'),
