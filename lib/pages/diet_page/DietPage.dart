@@ -6,16 +6,35 @@ import 'package:intl/intl.dart';
 import 'meal.dart';
 import 'package:animations/animations.dart';
 
+class DietPage extends StatefulWidget {
+  const DietPage({Key? key}) : super(key: key);
+  @override
+  State<DietPage> createState() => DietPageState();
+}
 
-
-
-
-
-
-class DietPage extends StatelessWidget {
-  DietPage({super.key});
-
+class DietPageState extends State<DietPage> with SingleTickerProviderStateMixin{
   String username = '';
+   
+    late TabController _tabController;
+    final selectedColor = Color(0xff1a73e8);
+    final unselectedColor = Color(0xff5f6368);
+    final tabs = [
+      Tab(text: 'MENU 1'),
+      Tab(text: 'MENU 2'),
+      Tab(text: 'MENU 3'),
+    ];
+
+ @override
+  void initState() {
+    _tabController = TabController(length: 3, vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +42,9 @@ class DietPage extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final today = DateTime.now();
+  
+     
+ 
     return Scaffold(
         backgroundColor: const Color(0xFFE9E9E9),
         body: Stack(
@@ -115,7 +137,28 @@ class DietPage extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: height * 0.38,
+              top: height * 0.36,
+              left: 0,
+              right: 0,
+              child:  Container(
+              height: kToolbarHeight - 8.0,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: TabBar(
+                controller: _tabController,
+                indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    color: selectedColor),
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.black,
+                tabs: tabs,
+              ),
+            ),
+            ),
+            Positioned(
+              top: height * 0.43,
               left: 0,
               right: 0,
               child: Container(
@@ -174,6 +217,7 @@ class DietPage extends StatelessWidget {
     username = storedUsername!;
   }
 }
+
 
 class _IngredientProgress extends StatelessWidget {
   final String ingredient;
@@ -334,7 +378,8 @@ class _MealCard extends StatelessWidget {
             Flexible(
               fit: FlexFit.tight,
               child: OpenContainer(
-                closedShape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+                closedShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
                 transitionDuration: const Duration(milliseconds: 1000),
                 openBuilder: (context, _) {
                   return MealDetailScreen(
