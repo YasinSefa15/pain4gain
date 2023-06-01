@@ -8,21 +8,22 @@ class ListCategories extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> _categoryList = [];
     List<String> _categoryNameList = [
-      'abs',
-      'back',
-      'biceps',
-      'calves',
-      'chest',
-      'glutes',
-      'legs',
-      'shoulders',
-      'traps',
-      'triceps'
+      'Abs',
+      'Back',
+      'Biceps',
+      'Calves',
+      'Chest',
+      'Glutes',
+      'Legs',
+      'Shoulders',
+      'Traps',
+      'Triceps'
     ];
 
     _categoryList = List.generate(_categoryNameList.length, (index) {
       return WorkoutType(
         imagePath: 'assets/categories/${_categoryNameList[index]}.png',
+        exerciseTitle : _categoryNameList[index],
       );
     });
 
