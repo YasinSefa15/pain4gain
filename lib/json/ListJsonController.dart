@@ -14,14 +14,14 @@ class ListJsonController {
     return jsonData;
   }
 
-  Future<Map<String, dynamic>?> readDefinedListJsonFile() async {
-    final JsonFileManager jsonFileManager =
-    JsonFileManager('assets/json_files/defined_workout_lists.json');
+  Future<Map<String, dynamic>?> readDefinedListJsonFile(bool isOption) async {
+    final JsonFileManager jsonFileManager = isOption
+        ? JsonFileManager('assets/json_files/defined_workout_lists.json')
+        : JsonFileManager('assets/json_files/user_workout_lists.json');
 
     Map<String, dynamic>? jsonData = await jsonFileManager.readJsonFile();
 
     return jsonData;
   }
-
 
 }

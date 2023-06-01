@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:pain4gain/components/lists/list_option.dart';
 import 'package:pain4gain/components/lists/workout_list.dart';
+import 'package:pain4gain/pages/ListsPage/user_defined_list/user_defined_list.dart';
+import 'package:pain4gain/pages/ListsPage/user_defined_list/user_exercise_page/user_exercise_page.dart';
 
 import '../../components/lists/categories/lists_categories.dart';
 import '../../json/ListJsonController.dart';
@@ -14,9 +18,11 @@ class _ListsPageState extends State<ListsPage> {
   bool isOption = true;
   List<Widget> _workoutList = [];
   List<Widget> _predefinedWorkoutList = [];
+  List<Widget> _userDefinedWorkoutList = [];
   double screenWidth = 0;
   double screenHeight = 0;
   ListJsonController listJsonController = ListJsonController();
+  Random random = Random();
 
   void changeOption(bool value) {
     setState(() {
@@ -24,40 +30,60 @@ class _ListsPageState extends State<ListsPage> {
       if (isOption == true) {
         _workoutList = _predefinedWorkoutList;
       } else {
-        _workoutList = [];
+        _workoutList = _userDefinedWorkoutList;
       }
     });
   }
 
   void readLists() {
-    if (isOption == true) {
-      listJsonController.readDefinedListJsonFile().then((value) {
-        if (value != null && _predefinedWorkoutList.isEmpty) {
-          setState(() {
-            _workoutList = List.generate(value.length, (index) {
-              //print(value);
-              print(value[index.toString()]['workouts'].runtimeType);
-              return GestureDetector(
-                onTap: () {
-                  // Yeni sayfa açılışını Navigator ile yönetebilirsiniz
-                },
-                child: WorkoutList(
-                  color: Color(int.parse(value[index.toString()]['color'])),
-                  title: value[index.toString()]['title'],
-                  imagePath: value[index.toString()]['imagePath'],
-                  workoutList: value[index.toString()]['workouts'],
-                ),
-              );
-            });
+    //first read the defined list and renders it
+    listJsonController.readDefinedListJsonFile(true).then((value) {
+      if (value != null && _predefinedWorkoutList.isEmpty) {
+        setState(() {
+          _workoutList = List.generate(value.length, (index) {
+            //print(value);
+            //print(value[index.toString()]['workouts'].runtimeType);
+            return WorkoutList(
+              color: Color(int.parse(value[index.toString()]['color'])),
+              title: value[index.toString()]['title'],
+              imagePath: value[index.toString()]['imagePath'],
+              workoutList: value[index.toString()]['workouts'],
+            );
           });
-          _predefinedWorkoutList = _workoutList;
-        }
-      }).catchError((onError) {
-        //print(onError);
-      });
-    } else {
-      _workoutList = [];
-    }
+        });
+        _predefinedWorkoutList = _workoutList;
+      }
+    }).catchError((onError) {
+      //print(onError);
+    });
+    //reads the user defined list
+    listJsonController.readDefinedListJsonFile(false).then((jsonMap) {
+      if (jsonMap != null) {
+        setState(() {
+          for (var key in jsonMap.keys) {
+            Color newColor = Color.fromARGB(255, random.nextInt(256),
+                random.nextInt(256), random.nextInt(256));
+            _userDefinedWorkoutList.add(GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserExercisePage(
+                        exercise: jsonMap[key], givenColor: newColor),
+                  ),
+                );
+              },
+              child: UserDefinedList(
+                workout: jsonMap[key],
+                givenColor: newColor,
+              ),
+            ));
+          }
+        });
+      }
+    }).catchError((onError) {
+      //print(onError);
+    });
   }
 
   @override
@@ -86,7 +112,11 @@ class _ListsPageState extends State<ListsPage> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          ListCategories(),
+          ListCategories(
+            deviceWidth: screenWidth,
+            deviceHeight: screenHeight,
+            listJsonController: listJsonController,
+          ),
           SizedBox(height: screenHeight * 0.02),
           const Align(
             alignment: Alignment.centerLeft,
