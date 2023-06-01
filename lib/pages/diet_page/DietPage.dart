@@ -13,11 +13,11 @@ class DietPage extends StatefulWidget {
 }
 
 class DietPageState extends State<DietPage> with SingleTickerProviderStateMixin{
-  String username = '';
+  late int calorie = 0;
    
     late TabController _tabController;
-    final selectedColor = Color(0xff1a73e8);
-    final unselectedColor = Color(0xff5f6368);
+    final selectedColor = const Color(0xff1a73e8);
+    final unselectedColor = const Color(0xff5f6368);
 
   final List<Meal> menu1Meals = [
   Meal(
@@ -286,9 +286,9 @@ Assemble tacos: Serve fish over grilled tortillas with corn slaw and avocado. Sq
 '''),
 ];
     final tabs = [
-      Tab(text: 'MENU 1'),
-      Tab(text: 'MENU 2'),
-      Tab(text: 'MENU 3'),
+      const Tab(text: 'MENU 1'),
+      const Tab(text: 'MENU 2'),
+      const Tab(text: 'MENU 3'),
     ];
 
  @override
@@ -305,7 +305,9 @@ Assemble tacos: Serve fish over grilled tortillas with corn slaw and avocado. Sq
 
   @override
   Widget build(BuildContext context) {
-    getUsername();
+   setState(() {
+      getDailyCalorie();
+   });
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final today = DateTime.now();
@@ -322,7 +324,7 @@ Assemble tacos: Serve fish over grilled tortillas with corn slaw and avocado. Sq
               left: 0,
               right: 0,
               child: ClipRRect(
-                borderRadius: BorderRadius.vertical(
+                borderRadius: const BorderRadius.vertical(
                   bottom: Radius.circular(40),
                 ),
                 child: Container(
@@ -335,67 +337,31 @@ Assemble tacos: Serve fish over grilled tortillas with corn slaw and avocado. Sq
                       ListTile(
                           title: Text(
                             " ${DateFormat("EEEE").format(today)},${DateFormat(" d MMM yyyy").format(today)}",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 18,
                             ),
                           ), //gün ay bilgisi çekilcek
-                          subtitle: Text(
+                          subtitle: const Text(
                             "Your daily calories and menu",
                             style: TextStyle(
                                 fontWeight: FontWeight.w800,
                                 fontSize: 20,
                                 color: Colors.black),
-                          ), //isim bilgisi yansıyacak
-                          trailing: ClipOval(
-                              child: Image.asset(
-                            "assets/emirhan.jpg",
-                          )) //kamera resmi alınacak,
                           ),
+                      ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           _RadialProgress(
                             width: width * 0.37,
                             height: width * 0.37,
                             progress: 0.7,
+                            calorie: calorie,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              _IngredientProgress(
-                                ingredient: "Protein",
-                                progress: 0.3,
-                                progressColor: Colors.green,
-                                leftAmount: 72,
-                                width: width * 0.28,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              _IngredientProgress(
-                                ingredient: "Carbs",
-                                progress: 0.2,
-                                progressColor: Colors.red,
-                                leftAmount: 252,
-                                width: width * 0.28,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              _IngredientProgress(
-                                ingredient: "Fat",
-                                progress: 0.1,
-                                progressColor: Colors.yellow,
-                                leftAmount: 61,
-                                width: width * 0.28,
-                              ),
-                            ],
-                          )
                         ],
                       ),
                     ],
@@ -462,7 +428,7 @@ Assemble tacos: Serve fish over grilled tortillas with corn slaw and avocado. Sq
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: <Widget>[
-                                SizedBox(width: 32),
+                                const SizedBox(width: 32),
                                 for (int i = 0; i < menu1Meals.length; i++)
                                   _MealCard(meal: menu1Meals[i]),
                               ],
@@ -472,7 +438,7 @@ Assemble tacos: Serve fish over grilled tortillas with corn slaw and avocado. Sq
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: <Widget>[
-                                SizedBox(width: 32),
+                                const SizedBox(width: 32),
                                 for (int i = 0; i < menu2Meals.length; i++)
                                   _MealCard(meal: menu2Meals[i]),
                               ],
@@ -482,7 +448,7 @@ Assemble tacos: Serve fish over grilled tortillas with corn slaw and avocado. Sq
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: <Widget>[
-                                SizedBox(width: 32),
+                                const SizedBox(width: 32),
                                 for (int i = 0; i < menu3Meals.length; i++)
                                   _MealCard(meal: menu3Meals[i]),
                               ],
@@ -491,7 +457,7 @@ Assemble tacos: Serve fish over grilled tortillas with corn slaw and avocado. Sq
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Expanded(
                       child: Container(
                         color: Colors.blueAccent,
@@ -505,12 +471,13 @@ Assemble tacos: Serve fish over grilled tortillas with corn slaw and avocado. Sq
         ));
   }
 
-  Future<void> getUsername() async {
+  void getDailyCalorie() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? storedUsername = prefs.getString('username');
-
-    username = storedUsername!;
+    setState(() {
+      calorie = (prefs.getInt('calorie') ?? 0);
+    });
   }
+
 }
 class _MealCard extends StatelessWidget {
   final Meal meal;
@@ -525,7 +492,7 @@ class _MealCard extends StatelessWidget {
         bottom: 10,
       ),
       child: Material(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
         elevation: 4,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -534,7 +501,7 @@ class _MealCard extends StatelessWidget {
             Flexible(
               fit: FlexFit.tight,
               child: OpenContainer(
-                closedShape: RoundedRectangleBorder(
+                closedShape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 transitionDuration: const Duration(milliseconds: 1000),
                 openBuilder: (context, _) {
@@ -546,7 +513,7 @@ class _MealCard extends StatelessWidget {
                   return GestureDetector(
                     onTap: openContainer,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
                       child: Image.asset(
                         meal.imagePath,
                         width: 150,
@@ -565,7 +532,7 @@ class _MealCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
                       meal.mealTime,
                       style: const TextStyle(
@@ -592,12 +559,12 @@ class _MealCard extends StatelessWidget {
                     ),
                     Row(
                       children: <Widget>[
-                        Icon(
+                        const Icon(
                           Icons.access_time,
                           size: 15,
                           color: Colors.purpleAccent,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 4,
                         ),
                         Text(
@@ -610,7 +577,7 @@ class _MealCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                   ],
                 ),
               ),
@@ -622,6 +589,7 @@ class _MealCard extends StatelessWidget {
   }
 }
 
+/*
 class _IngredientProgress extends StatelessWidget {
   final String ingredient;
   final int leftAmount;
@@ -644,7 +612,7 @@ class _IngredientProgress extends StatelessWidget {
       children: <Widget>[
         Text(
           ingredient.toUpperCase(),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w700,
           ),
@@ -658,7 +626,7 @@ class _IngredientProgress extends StatelessWidget {
                 Container(
                   height: 10,
                   width: width,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.black12,
                   ),
@@ -667,13 +635,13 @@ class _IngredientProgress extends StatelessWidget {
                   height: 10,
                   width: width * progress,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
                     color: progressColor,
                   ),
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text("${leftAmount}g left"),
@@ -683,14 +651,17 @@ class _IngredientProgress extends StatelessWidget {
     );
   }
 }
+*/
 
 class _RadialProgress extends StatelessWidget {
   const _RadialProgress(
       {
       required this.height,
       required this.width,
-      required this.progress});
+      required this.progress,
+      required this.calorie});
   final double height, width, progress;
+  final int calorie;
 
   @override
   Widget build(BuildContext context) {
@@ -707,20 +678,20 @@ class _RadialProgress extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: "1731", // kalan ihriyac yemeğin değeri girilecek
-                  style: TextStyle(
+                  text: "$calorie",
+                  style: const TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
-                    color: const Color(0xFF200087),
+                    color: Color(0xFF200087),
                   ),
                 ),
-                TextSpan(text: "\n"),
-                TextSpan(
-                  text: "kcal left",
+                const TextSpan(text: "\n"),
+                const TextSpan(
+                  text: "cal",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
-                    color: const Color(0xFF200087),
+                    color: Color(0xFF200087),
                   ),
                 ),
               ],
@@ -741,15 +712,14 @@ class _RadialPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
       ..strokeWidth = 10
-      ..color = Color(0xFF200087)
+      ..color = const Color(0xFF200087)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
     Offset center = Offset(size.width / 2, size.height / 2);
-    double relativeProgress = 360 * progress;
+    double relativeProgress = 360;
     canvas.drawArc(Rect.fromCircle(center: center, radius: size.width / 2),
         mathe.radians(-90), mathe.radians(-relativeProgress), false, paint);
-    // grafiğin dönmesi vs yapılacak
   }
 
   @override

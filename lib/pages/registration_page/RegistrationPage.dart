@@ -60,7 +60,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  double _calculateCaloriesPerDay(int age, double height, double weight, String gender, int workoutDays) {
+  int _calculateCaloriesPerDay(int age, double height, double weight, String gender, int workoutDays) {
     double bmr;
     if (gender == 'male') {
       bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
@@ -84,7 +84,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
     double dailyCalories = bmr * activityFactor;
 
-    return dailyCalories;
+    return int.tryParse(dailyCalories.toStringAsFixed(0))!;
   }
 
   bool _validateForm() {
@@ -119,9 +119,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         !_showExerciseDaysError;
   }
 
-  Future<void> _saveForm(double calorie) async {
+  Future<void> _saveForm(int calorie) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setDouble('calorie', calorie);
+    await prefs.setInt('calorie', calorie);
     await prefs.setString('username', _usernameController.text);
     await prefs.setInt('age', int.parse(_ageController.text));
     await prefs.setDouble('height', double.parse(_heightController.text));
@@ -515,7 +515,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ElevatedButton(
               onPressed: () {
                 if (_validateForm()) {
-                  double calorie = _calculateCaloriesPerDay(int.tryParse(_ageController.text)!, double.tryParse(_heightController.text)!, double.tryParse(_weightController.text)!, _selectedGender!, int.tryParse(_exerciseDaysController.text)!);
+                  int calorie = _calculateCaloriesPerDay(int.tryParse(_ageController.text)!, double.tryParse(_heightController.text)!, double.tryParse(_weightController.text)!, _selectedGender!, int.tryParse(_exerciseDaysController.text)!);
                   _saveForm(calorie);
                 }
               },
