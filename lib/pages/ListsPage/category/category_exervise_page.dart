@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class CategoryExercisePage extends StatelessWidget{
   final String exerciseTitle;
-  const CategoryExercisePage({super.key, required this.exerciseTitle});
+  final List workouts;
+  const CategoryExercisePage({super.key, required this.exerciseTitle, required this.workouts});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class CategoryExercisePage extends StatelessWidget{
         title: Text(exerciseTitle),
       ),
       body: Center(
-        child: Text("Category Exercise Page"),
+        child: Text(workouts.toString()),
       ),
     );
   }

@@ -37,9 +37,7 @@ class _AppPageState extends State<AppPage> {
         backgroundColor: const Color(0xFF1D1D1D),
         leading: null,
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: CustomBottomNavigationBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,

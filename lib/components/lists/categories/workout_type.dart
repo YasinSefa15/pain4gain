@@ -5,8 +5,9 @@ import 'package:pain4gain/pages/ListsPage/category/category_exervise_page.dart';
 class WorkoutType extends StatelessWidget {
   final String imagePath;
   final String exerciseTitle;
+  final List workouts;
 
-  const WorkoutType({Key? key, required this.imagePath, required this.exerciseTitle}) : super(key: key);
+  const WorkoutType({Key? key, required this.imagePath, required this.exerciseTitle, required this.workouts}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class WorkoutType extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (context) => CategoryExercisePage(
+                workouts : workouts,
                 exerciseTitle: exerciseTitle,
               )
           ),
