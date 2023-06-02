@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pain4gain/components/CustomBottomNavigationBar.dart';
+import 'package:pain4gain/pages/ListsPage/category/favori.dart';
 import 'package:pain4gain/pages/diet_page/DietPage.dart';
 import 'package:pain4gain/pages/home_page/HomePage.dart';
 import 'package:pain4gain/pages/ListsPage/ListsPage.dart';
@@ -16,8 +17,9 @@ class _AppPageState extends State<AppPage> {
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
     ListsPage(),
-    DietPage(),
-    const ProfilePage()
+    const DietPage(),
+    const ProfilePage(),
+    FavoritesPage(),
   ];
 
   int _selectedIndex = 0;
@@ -26,6 +28,13 @@ class _AppPageState extends State<AppPage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void _onFavoritePressed() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => FavoritesPage()),
+    );
   }
 
   @override
@@ -41,6 +50,10 @@ class _AppPageState extends State<AppPage> {
       bottomNavigationBar: CustomBottomNavigationBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
+        trailing: IconButton(
+          onPressed: _onFavoritePressed,
+          icon: Icon(Icons.favorite),
+        ),
       ),
     );
   }

@@ -2,38 +2,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CategoryExercisePage extends StatefulWidget {
-  final String exerciseTitle;
-  final List workouts;
-  const CategoryExercisePage(
-      {Key? key, required this.exerciseTitle, required this.workouts})
-      : super(key: key);
-
+class FavoritesPage extends StatefulWidget {
   @override
-  _CategoryExercisePageState createState() => _CategoryExercisePageState();
+  _FavoritesPageState createState() => _FavoritesPageState();
 }
 
-class _CategoryExercisePageState extends State<CategoryExercisePage> {
+class _FavoritesPageState extends State<FavoritesPage> {
   List<Map<String, dynamic>> favoriteWorkouts = [];
 
   @override
   void initState() {
     super.initState();
     _loadFavorites();
-  }
-
-  void _addFavorite(Map<String, dynamic> workout) {
-    setState(() {
-      favoriteWorkouts.add(workout);
-      _saveFavorites();
-    });
-  }
-
-  void _removeFavorite(Map<String, dynamic> workout) {
-    setState(() {
-      favoriteWorkouts.remove(workout);
-      _saveFavorites();
-    });
   }
 
   void _loadFavorites() async {
@@ -46,29 +26,28 @@ class _CategoryExercisePageState extends State<CategoryExercisePage> {
     });
   }
 
-  void _saveFavorites() async {
+  void _removeFavorite(Map<String, dynamic> workout) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> favorites = favoriteWorkouts.map((w) => json.encode(w)).toList();
-    prefs.setStringList('favorites', favorites);
-  }
-
-  bool _isFavorite(Map<String, dynamic> workout) {
-    return favoriteWorkouts.any((w) => w['name'] == workout['name']);
+    setState(() {
+      favoriteWorkouts.remove(workout);
+      List<String> favorites = favoriteWorkouts.map((w) => json.encode(w)).toList();
+      prefs.setStringList('favorites', favorites);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.exerciseTitle),
+        title: Text('Favorites'),
       ),
       body: Column(
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: widget.workouts.length,
+              itemCount: favoriteWorkouts.length,
               itemBuilder: (context, index) {
-                Map<String, dynamic> workout = widget.workouts[index];
+                Map<String, dynamic> workout = favoriteWorkouts[index];
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -133,19 +112,13 @@ class _CategoryExercisePageState extends State<CategoryExercisePage> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 80),
+                            SizedBox(width: 90),
                             IconButton(
                               onPressed: () {
-                                if (_isFavorite(workout)) {
-                                  _removeFavorite(workout);
-                                } else {
-                                  _addFavorite(workout);
-                                }
+                                _removeFavorite(workout);
                               },
                               icon: Icon(
-                                _isFavorite(workout)
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
+                                Icons.favorite,
                                 color: Colors.redAccent,
                               ),
                             ),
@@ -177,5 +150,3 @@ class _CategoryExercisePageState extends State<CategoryExercisePage> {
     );
   }
 }
-
-

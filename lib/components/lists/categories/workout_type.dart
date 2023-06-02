@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pain4gain/pages/ListsPage/category/category_exervise_page.dart';
 
@@ -19,15 +18,15 @@ class WorkoutType extends StatelessWidget {
           MaterialPageRoute(
               builder: (context) => CategoryExercisePage(
                 workouts : workouts,
-                exerciseTitle: exerciseTitle,
+                exerciseTitle: exerciseTitle, 
               )
           ),
         );
       },
       child: Container(
         margin: const EdgeInsets.only(right: 5),
-        width: 50,
-        height: 50,
+        width: 150,
+        height: 130,
         color: Colors.transparent,
         child: Image.asset(
           imagePath,
@@ -38,3 +37,12 @@ class WorkoutType extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+

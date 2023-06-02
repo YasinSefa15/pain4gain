@@ -257,7 +257,7 @@
         "name": "Overhead Triceps",
         "force": "static",
         "level": "expert",
-        "mechanic": null,
+        "mechanic": "compound",
         "equipment": "body only",
         "primaryMuscles": [
           "triceps"
@@ -453,7 +453,7 @@
         "force": "push",
         "level": "beginner",
         "mechanic": "compound",
-        "equipment": null,
+        "equipment": "body only",
         "primaryMuscles": [
           "chest"
         ],
@@ -552,7 +552,7 @@
         "force": "push",
         "level": "beginner",
         "mechanic": "isolation",
-        "equipment": null,
+        "equipment": "body only",
         "primaryMuscles": [
           "shoulders"
         ],
@@ -828,8 +828,8 @@
         "name": "Split Squats",
         "force": "push",
         "level": "intermediate",
-        "mechanic": null,
-        "equipment": null,
+        "mechanic": "isolation",
+        "equipment": "body only",
         "primaryMuscles": [
           "hamstrings"
         ],
@@ -918,7 +918,7 @@
         "force": "pull",
         "level": "beginner",
         "mechanic": "compound",
-        "equipment": null,
+        "equipment": "body only",
         "primaryMuscles": [
           "quadriceps"
         ],

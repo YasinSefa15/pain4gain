@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:pain4gain/components/lists/list_option.dart';
 import 'package:pain4gain/components/lists/workout_list.dart';
-import 'package:pain4gain/pages/ListsPage/user_defined_list/user_defined_list.dart';
+import 'package:pain4gain/pages/ListsPage/user_defined_list.dart';
 import 'package:pain4gain/pages/ListsPage/user_defined_list/user_exercise_page/user_exercise_page.dart';
 
 import '../../components/lists/categories/lists_categories.dart';
@@ -104,26 +104,52 @@ class _ListsPageState extends State<ListsPage> {
       padding: const EdgeInsets.all(12.0),
       child: Column(
         children: [
-          SizedBox(height: screenHeight * 0.02),
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'ListCategories',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+          Row(
+            children:[
+              Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              'Bodypart',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+            ]
           ),
+                  SizedBox(height: 3),
           ListCategories(
             deviceWidth: screenWidth,
             deviceHeight: screenHeight,
             listJsonController: listJsonController,
           ),
           SizedBox(height: screenHeight * 0.02),
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Workout Lists',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+          Row(
+            children:[
+              Container(
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 116, 124, 175),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              'Workout List',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+            ]
           ),
           SizedBox(height: screenHeight * 0.02),
           ListOption(
