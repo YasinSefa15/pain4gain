@@ -165,8 +165,13 @@ class DietPageState extends State<DietPage> with SingleTickerProviderStateMixin{
                             child: Row(
                               children: <Widget>[
                                 const SizedBox(width: 32),
-                                for (int i = 0; i < kcal2000_MENU1.length; i++)
-                                  _MealCard(meal: kcal2000_MENU1[i]),
+                                if(calorie<=2400)
+                                  for (int i = 0; i < kcal2000_MENU1.length; i++)
+                                     _MealCard(meal: kcal2000_MENU1[i]),
+                                if(calorie>2400)   
+                                  for (int i = 0; i < kcal2500_MENU1.length; i++)
+                                     _MealCard(meal: kcal2500_MENU1[i]),
+                                
                               ],
                             ),
                           ),
@@ -325,69 +330,6 @@ class _MealCard extends StatelessWidget {
   }
 }
 
-/*
-class _IngredientProgress extends StatelessWidget {
-  final String ingredient;
-  final int leftAmount;
-  final double progress, width;
-  final Color progressColor;
-
-  const _IngredientProgress(
-      {Key? key,
-      required this.ingredient,
-      required this.leftAmount,
-      required this.progress,
-      required this.progressColor,
-      required this.width})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          ingredient.toUpperCase(),
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  height: 10,
-                  width: width,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: Colors.black12,
-                  ),
-                ),
-                Container(
-                  height: 10,
-                  width: width * progress,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    color: progressColor,
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Text("${leftAmount}g left"),
-          ],
-        ),
-      ],
-    );
-  }
-}
-*/
 
 class _RadialProgress extends StatelessWidget {
   const _RadialProgress(
@@ -464,113 +406,3 @@ class _RadialPainter extends CustomPainter {
     return true;
   }
 }
-
-/*class _MealCard extends StatelessWidget {
-  final Meal meal;
-
-  const _MealCard({Key? key, required this.meal}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(
-        right: 20,
-        bottom: 10,
-      ),
-      child: Material(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        elevation: 4,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Flexible(
-              fit: FlexFit.tight,
-              child: OpenContainer(
-                closedShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                transitionDuration: const Duration(milliseconds: 1000),
-                openBuilder: (context, _) {
-                  return MealDetailScreen(
-                    meal: meal,
-                  );
-                },
-                closedBuilder: (context, openContainer) {
-                  return GestureDetector(
-                    onTap: openContainer,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      child: Image.asset(
-                        meal.imagePath,
-                        width: 150,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            Flexible(
-              fit: FlexFit.tight,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(height: 5),
-                    Text(
-                      meal.mealTime,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        color: Colors.blueGrey,
-                      ),
-                    ),
-                    Text(
-                      meal.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
-                        color: Colors.black,
-                      ),
-                    ),
-                    Text(
-                      "${meal.kiloCaloriesBurnt} kcal",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        color: Colors.blueGrey,
-                      ),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.access_time,
-                          size: 15,
-                          color: Colors.black12,
-                        ),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          "${meal.timeTaken} min",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                            color: Colors.blueGrey,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}*/
