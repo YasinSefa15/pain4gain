@@ -13,93 +13,13 @@ class Meal {
       required this.ingredients});
 }
 
-final underweight_MENU1 = [
-  Meal(
-      mealTime: "BREAKFAST",
-      name: "Green Chutney",
-      kiloCaloriesBurnt: "232",
-      timeTaken: "20",
-      imagePath: "assets/greenchutney.jpeg",
-      ingredients: [
-        "  1 cup coriander leaves",
-        "½ cup mint leaves / pudina",
-        "3 clove garlic",
-        "3 inch ginger",
-        "2 tbsp roasted gram dal / putani",
-        "3 green chilli",
-        "½ tsp cumin powder / jeera powder",
-        "1 tsp chaat masala",
-        "½ tsp sugar",
-        "½ tsp salt",
-        "pinch of hing / asafoetida",
-        "½ cup water",
-        "1 tbsp lemon juice",
-      ],
-      preparation:
-          '''firstly, in a blender take 1 cup coriander leaves and ½ cup mint leaves.
-
-also add 3 clove garlic, 3 inch ginger and 3 green chilli.
-
-additionally add 2 tbsp roasted gram dal, ½ tsp cumin powder, 1 tsp chaat masala, ½ tsp sugar, ½ tsp salt and pinch of hing.
-
-blend smooth adding ½ cup water.
-
-transfer to a cup and mix 1 tbsp lemon juice.
-
-finally, green chutney for chaat is ready to use for sandwich or chaats..'''),
-  Meal(
-      mealTime: "Lunch",
-      name: "Potato Curry",
-      kiloCaloriesBurnt: "125",
-      timeTaken: "30",
-      imagePath: "assets/potatocurry.jpeg",
-      ingredients: [
-        "  2 tbsp vegetable or sunflower oil",
-        "1 tbsp brown or black mustard seeds",
-        "3 long dried red Indian chillies",
-        "12-15 curry leaves",
-        "2 onions, sliced",
-        "2 tsp ground coriander",
-        "2 tsp garam masala",
-        "2 tsp turmeric",
-        "500g tomatoes, quartered",
-        "800g potatoes, peeled and cut into very large chunks",
-        "400g can coconut milk",
-        "chapatis, rotis or naan bread, to serve",
-      ],
-      preparation:
-          '''Heat the oil in a large pan and fry the mustard seeds, chillies and curry leaves until the seeds start to pop. Add the onions and fry until softened and starting to brown. stir in the spices, add the tomatoes and fry for 5 mins. Add the potatoes and stir to coat. Pour in the coconut milk with 200ml water. Bring to the boil and simmer for 20-25 mins, stirring occasionally, until the potatoes are just tender.
-          To make the raita, mix all the ingredients together with some seasoning.
-          If the curry looks a little too saucy, scoop out the potatoes with a slotted spoon into another dish, then boil the sauce until reduced a little. stir the potatoes back in to heat through, and season well (this curry needs a good sprinkling of salt). serve with warmed Indian bread and a dollop of raita.
-          '''),
-  Meal(
-      mealTime: "DINNER",
-      name: "Chicken Curry",
-      kiloCaloriesBurnt: "235",
-      timeTaken: "15",
-      imagePath: "assets/ChickenCurryCupofNoodles.jpeg",
-      ingredients: [
-        "1 teaspoons reduced-sodium chicken bouillon paste, divided",
-        "2 teaspoons red curry paste, divided",
-        "2 tablespoons coconut milk, divided",
-        "1 ½ cups frozen stir-fry vegetable mix, divided",
-        "3 ounces chopped cooked boneless, skinless chicken breast, divided",
-        "1 ½ cups spiralized zucchini noodles, divided",
-        "1 teaspoons chopped cilantro, divided",
-        "1 cups very hot water, divided,",
-      ],
-      preparation:
-          '''Add 1 teaspoon bouillon paste, 2 teaspoons curry paste and 2 tablespoons coconut milk to each of three 1 1/2-pint canning jars. Layer 1/2 cup vegetables, 3 ounces chicken and 1/2 cup noodles in each jar. Top each with 1 teaspoon cilantro. Cover and refrigerate for up to 3 days.
-
-To prepare one jar of noodles: Add 1 cup very hot water to a jar. Cover and shake to combine. Uncover and microwave on High in 1-minute increments until steaming hot, 2 to 3 minutes total. Let stand 5 minutes. Stir before eating.'''),
-];
-final kcal2000_MENU1 = [
+final List<Meal> kcal2000_MENU1 = [
   Meal(
       mealTime: "BREAKFAST",
       name: "Vegetarian Omelette ",
       kiloCaloriesBurnt: "464",
       timeTaken: "10",
-      imagePath: "assets/greenchutney.jpeg",
+      imagePath: "assets/VEGETARIAN-OMELETTE.jpeg",
       ingredients: [
         "  2 large eggs",
         "¼ red pepper, chopped",
@@ -122,7 +42,7 @@ Serve immediately.'''),
       name: "Mediterranean tuna pita pockets",
       kiloCaloriesBurnt: "680",
       timeTaken: "15",
-      imagePath: "assets/potatocurry.jpeg",
+      imagePath: "assets/Mediterranean-tuna-pita-pockets.jpeg",
       ingredients: [
         "4 teaspoons roasted red pepper olive oil",
         "4 teaspoons balsamic vinegar",
@@ -149,7 +69,7 @@ Serve immediately.
       name: "Salmon with veggies and wild rice",
       kiloCaloriesBurnt: "810",
       timeTaken: "30",
-      imagePath: "assets/ChickenCurryCupofNoodles.jpeg",
+      imagePath: "assets/salmon-with-veggies-and-wild-rice.jpeg",
       ingredients: [
         "5 skinless salmon fillets, fresh or frozen (1 1/4 lbs.)"
             "2 tablespoons balsamic vinegar",
@@ -171,13 +91,14 @@ Coat a 10-inch nonstick skillet with cooking spray; heat over medium heat. Add b
 
 Top 4 of the salmon fillets with the pepper mixture and parsley. Serve with pilaf. (Refrigerate the remaining salmon for another use, see Note.)'''),
 ];
-final kcal2000_MENU2 = [
+
+final List<Meal> kcal2000_MENU2 = [
   Meal(
       mealTime: "BREAKFAST",
       name: "nut butter and banana toast ",
       kiloCaloriesBurnt: "507",
       timeTaken: "5",
-      imagePath: "assets/greenchutney.jpeg",
+      imagePath: "assets/nut-butter-and-banana-toast.jpeg",
       ingredients: [
         " 2 slices granary bread",
         "1 small banana",
@@ -191,7 +112,7 @@ final kcal2000_MENU2 = [
       name: "avocado-tuna salad",
       kiloCaloriesBurnt: "717",
       timeTaken: "10",
-      imagePath: "assets/potatocurry.jpeg",
+      imagePath: "assets/Avocado-Tuna-Salad.jpg",
       ingredients: [
         "1 5-ounce can tuna, preferably packed in olive oil, drained",
         "1/2 ripe avocado, roughly chopped",
@@ -211,9 +132,9 @@ final kcal2000_MENU2 = [
   Meal(
       mealTime: "DINNER",
       name: "chicken and broccoli stir-fry",
-      kiloCaloriesBurnt: "810",
+      kiloCaloriesBurnt: "932",
       timeTaken: "35",
-      imagePath: "assets/ChickenCurryCupofNoodles.jpeg",
+      imagePath: "assets/brokoliandchicken.jpeg",
       ingredients: [
         "5 skinless salmon fillets, fresh or frozen (1 1/4 lbs.)",
         "⅔ cup soy sauce",
@@ -235,7 +156,8 @@ Push chicken and vegetable mixture to the side of the skillet. Pour soy sauce mi
 Move chicken and vegetables back into the center of the pan; sauté until sauce thickens and coats chicken and vegetables, about 5 minutes more.
 '''),
 ];
-final kcal2000_MENU3 = [
+
+final List<Meal> kcal2000_MENU3 = [
   Meal(
       mealTime: "BREAKFAST",
       name: "berry yogurt parfait ",
@@ -307,32 +229,33 @@ Pour in the marinade, bean sprouts and pea pods and coat entirely. Cook over med
       timeTaken: "40",
       imagePath: "assets/fish-tacos.jpeg",
       ingredients: [
-      " 3 tbsp. extra-virgin olive oil",
-"Juice of 1 lime",
-"2 tsp. chili powder",
-"1 tsp. paprika ",
-"1/2 tsp. ground cumin",
-"1/2 tsp. cayenne pepper",
-"1 1/2 lb. cod (or other flaky white fish)",
-"1/2 tbsp. vegetable oil",
-"Kosher salt",
-"Freshly ground black pepper",
-"8 corn tortillas",
-"1 avocado, diced",
-"Lime wedges, for serving",
-"Sour cream, for serving",
-"",
-"FOR THE CORN SLAW:",
-"",
-"1/4 c. mayonnaise",
-"Juice of 1 lime",
-"2 tbsp. freshly chopped cilantro",
-"1 tbsp. honey",
-"2 c. shredded purple cabbage",
-"1 c. corn kernels",
-"1 jalapeño, minced",
+        " 3 tbsp. extra-virgin olive oil",
+        "Juice of 1 lime",
+        "2 tsp. chili powder",
+        "1 tsp. paprika ",
+        "1/2 tsp. ground cumin",
+        "1/2 tsp. cayenne pepper",
+        "1 1/2 lb. cod (or other flaky white fish)",
+        "1/2 tbsp. vegetable oil",
+        "Kosher salt",
+        "Freshly ground black pepper",
+        "8 corn tortillas",
+        "1 avocado, diced",
+        "Lime wedges, for serving",
+        "Sour cream, for serving",
+        "",
+        "FOR THE CORN SLAW:",
+        "",
+        "1/4 c. mayonnaise",
+        "Juice of 1 lime",
+        "2 tbsp. freshly chopped cilantro",
+        "1 tbsp. honey",
+        "2 c. shredded purple cabbage",
+        "1 c. corn kernels",
+        "1 jalapeño, minced",
       ],
-      preparation: '''In a medium shallow bowl, whisk together olive oil, lime juice, paprika, chili powder, cumin, and cayenne.
+      preparation:
+          '''In a medium shallow bowl, whisk together olive oil, lime juice, paprika, chili powder, cumin, and cayenne.
 
 Add cod, tossing until evenly coated. Let marinate 15 minutes.
 
