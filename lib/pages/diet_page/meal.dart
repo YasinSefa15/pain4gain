@@ -13,93 +13,13 @@ class Meal {
       required this.ingredients});
 }
 
-final underweight_MENU1 = [
-  Meal(
-      mealTime: "BREAKFAST",
-      name: "Green Chutney",
-      kiloCaloriesBurnt: "232",
-      timeTaken: "20",
-      imagePath: "assets/greenchutney.jpeg",
-      ingredients: [
-        "  1 cup coriander leaves",
-        "½ cup mint leaves / pudina",
-        "3 clove garlic",
-        "3 inch ginger",
-        "2 tbsp roasted gram dal / putani",
-        "3 green chilli",
-        "½ tsp cumin powder / jeera powder",
-        "1 tsp chaat masala",
-        "½ tsp sugar",
-        "½ tsp salt",
-        "pinch of hing / asafoetida",
-        "½ cup water",
-        "1 tbsp lemon juice",
-      ],
-      preparation:
-          '''firstly, in a blender take 1 cup coriander leaves and ½ cup mint leaves.
-
-also add 3 clove garlic, 3 inch ginger and 3 green chilli.
-
-additionally add 2 tbsp roasted gram dal, ½ tsp cumin powder, 1 tsp chaat masala, ½ tsp sugar, ½ tsp salt and pinch of hing.
-
-blend smooth adding ½ cup water.
-
-transfer to a cup and mix 1 tbsp lemon juice.
-
-finally, green chutney for chaat is ready to use for sandwich or chaats..'''),
-  Meal(
-      mealTime: "Lunch",
-      name: "Potato Curry",
-      kiloCaloriesBurnt: "125",
-      timeTaken: "30",
-      imagePath: "assets/potatocurry.jpeg",
-      ingredients: [
-        "  2 tbsp vegetable or sunflower oil",
-        "1 tbsp brown or black mustard seeds",
-        "3 long dried red Indian chillies",
-        "12-15 curry leaves",
-        "2 onions, sliced",
-        "2 tsp ground coriander",
-        "2 tsp garam masala",
-        "2 tsp turmeric",
-        "500g tomatoes, quartered",
-        "800g potatoes, peeled and cut into very large chunks",
-        "400g can coconut milk",
-        "chapatis, rotis or naan bread, to serve",
-      ],
-      preparation:
-          '''Heat the oil in a large pan and fry the mustard seeds, chillies and curry leaves until the seeds start to pop. Add the onions and fry until softened and starting to brown. stir in the spices, add the tomatoes and fry for 5 mins. Add the potatoes and stir to coat. Pour in the coconut milk with 200ml water. Bring to the boil and simmer for 20-25 mins, stirring occasionally, until the potatoes are just tender.
-          To make the raita, mix all the ingredients together with some seasoning.
-          If the curry looks a little too saucy, scoop out the potatoes with a slotted spoon into another dish, then boil the sauce until reduced a little. stir the potatoes back in to heat through, and season well (this curry needs a good sprinkling of salt). serve with warmed Indian bread and a dollop of raita.
-          '''),
-  Meal(
-      mealTime: "DINNER",
-      name: "Chicken Curry",
-      kiloCaloriesBurnt: "235",
-      timeTaken: "15",
-      imagePath: "assets/ChickenCurryCupofNoodles.jpeg",
-      ingredients: [
-        "1 teaspoons reduced-sodium chicken bouillon paste, divided",
-        "2 teaspoons red curry paste, divided",
-        "2 tablespoons coconut milk, divided",
-        "1 ½ cups frozen stir-fry vegetable mix, divided",
-        "3 ounces chopped cooked boneless, skinless chicken breast, divided",
-        "1 ½ cups spiralized zucchini noodles, divided",
-        "1 teaspoons chopped cilantro, divided",
-        "1 cups very hot water, divided,",
-      ],
-      preparation:
-          '''Add 1 teaspoon bouillon paste, 2 teaspoons curry paste and 2 tablespoons coconut milk to each of three 1 1/2-pint canning jars. Layer 1/2 cup vegetables, 3 ounces chicken and 1/2 cup noodles in each jar. Top each with 1 teaspoon cilantro. Cover and refrigerate for up to 3 days.
-
-To prepare one jar of noodles: Add 1 cup very hot water to a jar. Cover and shake to combine. Uncover and microwave on High in 1-minute increments until steaming hot, 2 to 3 minutes total. Let stand 5 minutes. Stir before eating.'''),
-];
-final kcal2000_MENU1 = [
+final List<Meal> kcal2000_MENU1 = [
   Meal(
       mealTime: "BREAKFAST",
       name: "Vegetarian Omelette ",
       kiloCaloriesBurnt: "464",
       timeTaken: "10",
-      imagePath: "assets/greenchutney.jpeg",
+      imagePath: "assets/VEGETARIAN-OMELETTE.jpeg",
       ingredients: [
         "  2 large eggs",
         "¼ red pepper, chopped",
@@ -122,7 +42,7 @@ Serve immediately.'''),
       name: "Mediterranean tuna pita pockets",
       kiloCaloriesBurnt: "680",
       timeTaken: "15",
-      imagePath: "assets/potatocurry.jpeg",
+      imagePath: "assets/Mediterranean-tuna-pita-pockets.jpeg",
       ingredients: [
         "4 teaspoons roasted red pepper olive oil",
         "4 teaspoons balsamic vinegar",
@@ -149,7 +69,7 @@ Serve immediately.
       name: "Salmon with veggies and wild rice",
       kiloCaloriesBurnt: "810",
       timeTaken: "30",
-      imagePath: "assets/ChickenCurryCupofNoodles.jpeg",
+      imagePath: "assets/salmon-with-veggies-and-wild-rice.jpeg",
       ingredients: [
         "5 skinless salmon fillets, fresh or frozen (1 1/4 lbs.)"
             "2 tablespoons balsamic vinegar",
@@ -171,13 +91,14 @@ Coat a 10-inch nonstick skillet with cooking spray; heat over medium heat. Add b
 
 Top 4 of the salmon fillets with the pepper mixture and parsley. Serve with pilaf. (Refrigerate the remaining salmon for another use, see Note.)'''),
 ];
-final kcal2000_MENU2 = [
+
+final List<Meal> kcal2000_MENU2 = [
   Meal(
       mealTime: "BREAKFAST",
       name: "nut butter and banana toast ",
       kiloCaloriesBurnt: "507",
       timeTaken: "5",
-      imagePath: "assets/greenchutney.jpeg",
+      imagePath: "assets/nut-butter-and-banana-toast.jpeg",
       ingredients: [
         " 2 slices granary bread",
         "1 small banana",
@@ -191,7 +112,7 @@ final kcal2000_MENU2 = [
       name: "avocado-tuna salad",
       kiloCaloriesBurnt: "717",
       timeTaken: "10",
-      imagePath: "assets/potatocurry.jpeg",
+      imagePath: "assets/Avocado-Tuna-Salad.jpg",
       ingredients: [
         "1 5-ounce can tuna, preferably packed in olive oil, drained",
         "1/2 ripe avocado, roughly chopped",
@@ -211,9 +132,9 @@ final kcal2000_MENU2 = [
   Meal(
       mealTime: "DINNER",
       name: "chicken and broccoli stir-fry",
-      kiloCaloriesBurnt: "810",
+      kiloCaloriesBurnt: "932",
       timeTaken: "35",
-      imagePath: "assets/ChickenCurryCupofNoodles.jpeg",
+      imagePath: "assets/brokoliandchicken.jpeg",
       ingredients: [
         "5 skinless salmon fillets, fresh or frozen (1 1/4 lbs.)",
         "⅔ cup soy sauce",
@@ -235,7 +156,8 @@ Push chicken and vegetable mixture to the side of the skillet. Pour soy sauce mi
 Move chicken and vegetables back into the center of the pan; sauté until sauce thickens and coats chicken and vegetables, about 5 minutes more.
 '''),
 ];
-final kcal2000_MENU3 = [
+
+final List<Meal> kcal2000_MENU3 = [
   Meal(
       mealTime: "BREAKFAST",
       name: "berry yogurt parfait ",
@@ -307,32 +229,33 @@ Pour in the marinade, bean sprouts and pea pods and coat entirely. Cook over med
       timeTaken: "40",
       imagePath: "assets/fish-tacos.jpeg",
       ingredients: [
-      " 3 tbsp. extra-virgin olive oil",
-"Juice of 1 lime",
-"2 tsp. chili powder",
-"1 tsp. paprika ",
-"1/2 tsp. ground cumin",
-"1/2 tsp. cayenne pepper",
-"1 1/2 lb. cod (or other flaky white fish)",
-"1/2 tbsp. vegetable oil",
-"Kosher salt",
-"Freshly ground black pepper",
-"8 corn tortillas",
-"1 avocado, diced",
-"Lime wedges, for serving",
-"Sour cream, for serving",
-"",
-"FOR THE CORN SLAW:",
-"",
-"1/4 c. mayonnaise",
-"Juice of 1 lime",
-"2 tbsp. freshly chopped cilantro",
-"1 tbsp. honey",
-"2 c. shredded purple cabbage",
-"1 c. corn kernels",
-"1 jalapeño, minced",
+        " 3 tbsp. extra-virgin olive oil",
+        "Juice of 1 lime",
+        "2 tsp. chili powder",
+        "1 tsp. paprika ",
+        "1/2 tsp. ground cumin",
+        "1/2 tsp. cayenne pepper",
+        "1 1/2 lb. cod (or other flaky white fish)",
+        "1/2 tbsp. vegetable oil",
+        "Kosher salt",
+        "Freshly ground black pepper",
+        "8 corn tortillas",
+        "1 avocado, diced",
+        "Lime wedges, for serving",
+        "Sour cream, for serving",
+        "",
+        "FOR THE CORN SLAW:",
+        "",
+        "1/4 c. mayonnaise",
+        "Juice of 1 lime",
+        "2 tbsp. freshly chopped cilantro",
+        "1 tbsp. honey",
+        "2 c. shredded purple cabbage",
+        "1 c. corn kernels",
+        "1 jalapeño, minced",
       ],
-      preparation: '''In a medium shallow bowl, whisk together olive oil, lime juice, paprika, chili powder, cumin, and cayenne.
+      preparation:
+          '''In a medium shallow bowl, whisk together olive oil, lime juice, paprika, chili powder, cumin, and cayenne.
 
 Add cod, tossing until evenly coated. Let marinate 15 minutes.
 
@@ -346,65 +269,129 @@ Assemble tacos: Serve fish over grilled tortillas with corn slaw and avocado. Sq
 final kcal2500_MENU1 = [
   Meal(
       mealTime: "BREAKFAST",
-      name: "nut butter and banana toast ",
-      kiloCaloriesBurnt: "507",
-      timeTaken: "5",
-      imagePath: "assets/greenchutney.jpeg",
+      name: "Vegetable Sandwich  ",
+      kiloCaloriesBurnt: "768",
+      timeTaken: "15",
+      imagePath: "assets/Veg. Sandwich .jpeg",
       ingredients: [
-        " 2 slices granary bread",
-        "1 small banana",
-        "½ tsp cinnamon",
-        "1 tbsp crunchy peanut butter",
+        "8 slices white bread or whole wheat, brown bread or any soft bread",
+"1.6 potatoes small to medium-sized, boiled and sliced into rounds",
+"0.8 beetroot  medium sized, boiled and thinly sliced",
+"0.8 cucumber thinly sliced",
+"0.8 small to medium onion  thinly sliced",
+"0.8 medium tomato  thinly sliced",
+"Butter softened and at room temperature, salted or unsalted, as required",
+"chaat masala as required",
+"black salt as required",
+"roasted cumin powder as requiredoptional",
+"freshly ground black pepper optional",
+"tomato ketchup or sauce to be served with the sandwiches",
+"",
+"For Making Coriander Chutney",
+"",
+"0.8 cup tightly packed coriander leaves (cilantro) Or ½ cup coriander leaves and ½ cup mint leaves",
+"0.4 to 0.8 teaspoon chaat masala powder or add as required",
+"0.8 to 1.6 green chilies you can also add 2 to 3 green chilies",
+"salt or black salt as per taste",
+"0.8 to 1.6 teaspoons water for blending or grinding, optional",
       ],
       preparation:
-          '''Toast bread and slice banana. Layer banana on one slice of toast and dust with cinnamon. Spread the second slice with peanut butter, then sandwich the two together and eat straight away.'''),
+          '''In a mixie or blender, take coriander leaves, chaat masala powder and green chilies.
+Just add a pinch or two of salt as chaat masala already has salt in it.
+Grind the chutney ingredients till smooth. No need to add water. But if you cannot grind, then add 1 or 2 teaspoons of water.
+Collect the coriander chutney in a bowl. 
+Check the taste and add more salt if required. 
+Cover and keep the chutney aside if you are making veg sandwiches immediately or else refrigerate.
+Preparing Vegetables
+Boil or steam the beetroot and potatoes till they are tender. You can steam both the veggies in a pan, stove-top pressure cooker or in the instant pot.
+When cooled, peel both the vegetables. Then thinly slice the beetroot and slice the potatoes as well.
+Peel and thinly slice onion and cucumber. 
+Thinly slice the tomatoes as well. Peel and rinse the onions. Thinly slice the onions.
+Making Veg Sandwich
+Trim the edges of the bread slices if you want.
+Butter the bread slices evenly and very well.
+Now apply the coriander chutney to the slices.
+Place all the veggie slices one by one.
+Sprinkle the black salt and chaat masala on each one of them or alternately.
+Cover the sandwich with the bread slices with the butter and chutney on them.
+Slice into triangles or rectangles.
+Serve Bombay veg sandwich immediately with tomato ketchup and the coriander chutney. Do not let them rest as they become soggy.'''),
   Meal(
       mealTime: "Lunch",
-      name: "avocado-tuna salad",
-      kiloCaloriesBurnt: "717",
-      timeTaken: "10",
-      imagePath: "assets/potatocurry.jpeg",
+      name: "DAL CHAWAL",
+      kiloCaloriesBurnt: "878",
+      timeTaken: "75",
+      imagePath: "assets/DAL CHAWAL.jpeg",
       ingredients: [
-        "1 5-ounce can tuna, preferably packed in olive oil, drained",
-        "1/2 ripe avocado, roughly chopped",
-        "1/2 cup minced celery",
-        "1/4 cup minced red onion",
-        "1 tablespoon extra virgin olive oil",
-        "2 teaspoons lemon juice",
-        "1 teaspoon lemon zest",
-        "2 tablespoons chopped fresh cilantro or parsley",
-        "1/2 teaspoon kosher salt",
-        "Freshly ground black pepper",
+   "    1 cup Mix daal 1/4 cup each split chickpeas (Chana Dal), split pigeon peas (Toor Dal), petite yellow lentils (Moong Dal), and red lentils (Masoor dal), see notes",
+"4 tbsp Oil",
+"5-7 Curry leaves see notes",
+"½ tsp Mustard seeds see notes",
+"¼ tsp Fenugreek seeds see notes",
+"2-3 Whole red chili see notes",
+"1 tbsp Ginger/garlic paste",
+"1 Onion, chopped or 3-4 tbsp fried onion",
+"1 tsp Cumin powder",
+"1 tsp Coriander powder",
+"1 tsp Red chilli powder to taste",
+"½ tsp Turmeric powder",
+"1 tsp Salt to taste",
+"2 medium tomatoes, chopped or 4 tbsp Crushed Tomato",
+"2 tbsp cilantro, chopped optional, for garnish",
+"1-2 green chilis, chopped optional, for garnish",
+"",
+"Rice",
+"",
+"1 cup basmati rice soaked",
+"1 tsp salt adjust to taste",
       ],
       preparation:
-          '''Place all of the ingredients in a medium bowl. Mix with a fork, mashing the avocado and breaking up the chunks of tuna as you go, until the ingredients are well combined.
-          Add more oil or salt and pepper if necessary, serve on your favorite sandwich bread or toast.
+          '''Soak the mixed daal for at least 20 minutes
+In a large pot, with 2-3 cups of water, boil it till tender.
+Blend the daal with the water using a blender or an immersion blender, until it is smooth, or leave a little chunky as desired.
+In a separate pot, on low heat, add oil and curry leaves, mustard seeds, fenugreek, and whole red chilli, if using (see notes) until fragrant and mustard seeds start cracking.
+Add chopped onions and cook till golden. If using fried onions, cook for 2-3 minutes.
+Add ginger/garlic paste and cook for few minutes make sure it does not burn. Add couple of tbsp water at this point. If the pan is too hot your spices might burn.
+Add all the powder spices and cook for few minutes, making sure it does not stick. Add a little water if needed.
+Add tomatoes, mix well and let it cook for 2-3 minutes.
+Add the blended dal and mix together.
+Simmer on low heat, for 15 minutes to allow the flavors to blend together. Add water if desired to make daal with a thinner consistency.
+Top with chopped cilantro and/or chopped green chili
+Rice
+Wash, then soak 1 cup basmati rice for 20 minutes.
+In a medium pot, on high heat, let 4 cups of water come to a boil with the salt.
+Drain, then add the soaked basmati rice to the boiling water. Turn heat down to medium.
+Let rice cook uncovered for 10-15 minutes, or until tender
+Strain rice in a colander or sieve.
           '''),
   Meal(
       mealTime: "DINNER",
-      name: "chicken and broccoli stir-fry",
-      kiloCaloriesBurnt: "810",
-      timeTaken: "35",
-      imagePath: "assets/ChickenCurryCupofNoodles.jpeg",
+      name: "Chicken stew",
+      kiloCaloriesBurnt: "1152",
+      timeTaken: "45",
+      imagePath: "assets/Chicken-stew.jpeg",
       ingredients: [
-        "5 skinless salmon fillets, fresh or frozen (1 1/4 lbs.)",
-        "⅔ cup soy sauce",
-        "¼ cup brown sugar",
-        "½ teaspoon ground ginger",
-        "1 pinch red pepper flakes, or to taste",
-        "2 tablespoons water",
-        "2 tablespoons cornstarch",
-        "2 teaspoons vegetable oil, or to taste",
-        "3 skinless, boneless chicken breast halves, cut into chunks",
-        "1 onion, sliced",
-        "3 cups broccoli florets",
+       " 2 tbsp. butter",
+"2 large carrots, peeled and sliced into coins",
+"1 stalk celery, chopped",
+"Kosher salt",
+"Freshly ground black pepper",
+"3 cloves garlic, minced",
+"1 tbsp. all-purpose flour",
+"1 1/2 lb. boneless skinless chicken breasts",
+"3 sprigs fresh thyme",
+"1 bay leaf",
+"3/4 lb. baby potatoes, quartered",
+"3 c. low-sodium chicken broth ",
+"Freshly chopped parsley, for garnish",
       ],
-      preparation: '''Gather all ingredients.
-          Stir soy sauce, brown sugar, ginger, and red pepper flakes together in a bowl until sugar dissolves. Mix water and cornstarch together in a small bowl; stir with a whisk until cornstarch dissolves completely.
-          Heat oil in a large skillet over high heat. Fry chicken and onion in hot oil until chicken is no longer pink in the center and onion is tender, 5 to 7 minutes.
-Stir in broccoli with chicken and onion; sauté until broccoli is hot, about 5 minutes.
-Push chicken and vegetable mixture to the side of the skillet. Pour soy sauce mixture into the vacant part of the skillet. Stir cornstarch slurry into soy sauce mixture until the color is consistent.
-Move chicken and vegetables back into the center of the pan; sauté until sauce thickens and coats chicken and vegetables, about 5 minutes more.
+      preparation: '''GIn a large pot over medium heat, melt butter. Add carrots and celery and season with salt and pepper. Cook, stirring often, until vegetables are tender, about 5 minutes. Add garlic and cook until fragrant, about 30 seconds.
+
+Add flour and stir until vegetables are coated, then add chicken, thyme, bay leaf, potatoes, and broth. Season with salt and pepper. Bring mixture to a simmer and cook until the chicken is no longer pink and potatoes are tender, 15 minutes.
+
+Remove from heat and transfer chicken to a medium bowl. Using two forks, shred chicken into small pieces and return to pot. 
+
+Garnish with parsley before serving.
 '''),
 ];
 
