@@ -268,7 +268,7 @@ class _MealCard extends StatelessWidget {
             Flexible(
               fit: FlexFit.tight,
               child: Padding(
-                padding: const EdgeInsets.only(left: 12.0),
+                padding: const EdgeInsets.only(left: 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

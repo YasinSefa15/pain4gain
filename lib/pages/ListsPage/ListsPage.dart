@@ -100,70 +100,73 @@ class _ListsPageState extends State<ListsPage> {
     double screenHeight =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(12.0),
-      child: Column(
-        children: [
-          Row(
-            children:[
-              Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              'Bodypart',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ),
-            ]
-          ),
-                  SizedBox(height: 3),
-          ListCategories(
-            deviceWidth: screenWidth,
-            deviceHeight: screenHeight,
-            listJsonController: listJsonController,
-          ),
-          SizedBox(height: screenHeight * 0.02),
-          Row(
-            children:[
-              Container(
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 116, 124, 175),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              'Workout List',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
+    return Container(
+      color: Color(0xFF1D1D1D),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            Row(
+                children:[
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Bodypart',
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-            ]
-          ),
-          SizedBox(height: screenHeight * 0.02),
-          ListOption(
-            onOptionChanged: (value) {
-              changeOption(value);
-            },
-            deviceWidth: screenWidth,
-            deviceHeight: screenHeight,
-          ),
-          SizedBox(height: screenHeight * 0.02),
-          Column(
-            children: _workoutList,
-          )
-        ],
+                    ),
+                  ),
+                ]
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            ListCategories(
+              deviceWidth: screenWidth,
+              deviceHeight: screenHeight,
+              listJsonController: listJsonController,
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            Row(
+                children:[
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 116, 124, 175),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Workout List',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                ]
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            ListOption(
+              onOptionChanged: (value) {
+                changeOption(value);
+              },
+              deviceWidth: screenWidth,
+              deviceHeight: screenHeight,
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            Column(
+              children: _workoutList,
+            )
+          ],
+        ),
       ),
     );
   }

@@ -10,10 +10,10 @@ class WorkoutPage extends StatelessWidget {
 
   const WorkoutPage(
       {super.key,
-      required this.workoutTitle,
-      required this.workoutColor,
-      required this.workoutList,
-      required this.filePath});
+        required this.workoutTitle,
+        required this.workoutColor,
+        required this.workoutList,
+        required this.filePath});
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +49,18 @@ class WorkoutPage extends StatelessWidget {
               );
             },
             child: Container(
-              color: Colors.green,
-              width: screenWidth * 0.2,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.green
+
+              ),
+              //color: Colors.green,
+              width: screenWidth * 0.22,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.play_arrow,
