@@ -38,8 +38,8 @@ The other side will cook a lot quicker, it only needs about 1-2 minutes.
 When it is done, place a large plate on top of the pan and flip the omelette as fast as you can.
 Serve immediately.'''),
   Meal(
-      mealTime: "Lunch",
-      name: "Mediterranean tuna pita pockets",
+      mealTime: "LUNCH",
+      name: "Mediterranean tuna \npita pockets",
       kiloCaloriesBurnt: "680",
       timeTaken: "15",
       imagePath: "assets/Mediterranean-tuna-pita-pockets.jpeg",
@@ -66,7 +66,7 @@ Serve immediately.
           '''),
   Meal(
       mealTime: "DINNER",
-      name: "Salmon with veggies and wild rice",
+      name: "Salmon with veggies \nand wild rice",
       kiloCaloriesBurnt: "810",
       timeTaken: "30",
       imagePath: "assets/salmon-with-veggies-and-wild-rice.jpeg",
@@ -95,7 +95,7 @@ Top 4 of the salmon fillets with the pepper mixture and parsley. Serve with pila
 final List<Meal> kcal2000_MENU2 = [
   Meal(
       mealTime: "BREAKFAST",
-      name: "nut butter and banana toast ",
+      name: "nut butter and \nbanana toast    ",
       kiloCaloriesBurnt: "507",
       timeTaken: "5",
       imagePath: "assets/nut-butter-and-banana-toast.jpeg",
@@ -108,8 +108,8 @@ final List<Meal> kcal2000_MENU2 = [
       preparation:
           '''Toast bread and slice banana. Layer banana on one slice of toast and dust with cinnamon. Spread the second slice with peanut butter, then sandwich the two together and eat straight away.'''),
   Meal(
-      mealTime: "Lunch",
-      name: "avocado-tuna salad",
+      mealTime: "LUNCH",
+      name: "avocado-tuna salad ",
       kiloCaloriesBurnt: "717",
       timeTaken: "10",
       imagePath: "assets/Avocado-Tuna-Salad.jpg",
@@ -131,7 +131,7 @@ final List<Meal> kcal2000_MENU2 = [
           '''),
   Meal(
       mealTime: "DINNER",
-      name: "chicken and broccoli stir-fry",
+      name: "chicken and broccoli \nstir-fry",
       kiloCaloriesBurnt: "932",
       timeTaken: "35",
       imagePath: "assets/brokoliandchicken.jpeg",
@@ -177,8 +177,8 @@ final List<Meal> kcal2000_MENU3 = [
 
 '''),
   Meal(
-      mealTime: "Lunch",
-      name: "peanut noodles with tofu and peas",
+      mealTime: "LUNCH",
+      name: "peanut noodles with \ntofu and peas",
       kiloCaloriesBurnt: "1075",
       timeTaken: "25",
       imagePath: "assets/TofuPeanutNoodless.jpeg",
@@ -317,7 +317,7 @@ Cover the sandwich with the bread slices with the butter and chutney on them.
 Slice into triangles or rectangles.
 Serve Bombay veg sandwich immediately with tomato ketchup and the coriander chutney. Do not let them rest as they become soggy.'''),
   Meal(
-      mealTime: "Lunch",
+      mealTime: "LUNCH",
       name: "DAL CHAWAL",
       kiloCaloriesBurnt: "878",
       timeTaken: "75",

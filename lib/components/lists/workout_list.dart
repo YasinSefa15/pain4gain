@@ -3,7 +3,7 @@ import '../../pages/ListsPage/workout_page.dart';
 
 class WorkoutList extends StatelessWidget {
   final Color color;
- // final double desiredWidth;
+  // final double desiredWidth;
   final String title;
   final String imagePath;
   //final double desiredHeight;
@@ -11,12 +11,12 @@ class WorkoutList extends StatelessWidget {
 
   const WorkoutList(
       {Key? key,
-      required this.color,
-      //required this.desiredWidth,
-      required this.title,
-      required this.imagePath,
-      //required this.desiredHeight,
-      required this.workoutList})
+        required this.color,
+        //required this.desiredWidth,
+        required this.title,
+        required this.imagePath,
+        //required this.desiredHeight,
+        required this.workoutList})
       : super(key: key);
 
   @override
@@ -24,11 +24,15 @@ class WorkoutList extends StatelessWidget {
     double desiredWidth = MediaQuery.of(context).size.width * 0.9;
     double desiredHeight = MediaQuery.of(context).size.height * 0.2;
     return Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: color
+        ),
         width: desiredWidth,
         height: desiredHeight,
         margin: const EdgeInsets.all(10),
         //generate random color
-        color: color,
+        //color: color,
         child: Row(
           children: [
             Container(

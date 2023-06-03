@@ -7,8 +7,8 @@ class ListOption extends StatefulWidget {
 
   const ListOption(
       {required this.onOptionChanged,
-      required this.deviceWidth,
-      required this.deviceHeight});
+        required this.deviceWidth,
+        required this.deviceHeight});
 
   @override
   _ListOptionState createState() => _ListOptionState();
@@ -30,14 +30,26 @@ class _ListOptionState extends State<ListOption> {
             widget.onOptionChanged(isOption); // isOption değerini geri döndür
           },
           child: Container(
-            color: Colors.blue,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                colors: [
+                  Color.fromRGBO(85, 131, 238, 1),
+                  Color.fromRGBO(65, 216, 221, 1)
+                ],
+              ),
+            ),
+            //color: Colors.blue,
             width: widget.deviceWidth * 0.25,
             height: widget.deviceHeight * 0.06,
             child: const Center(
                 child: Text(
-              "Pre-Defined Lists",
-              textAlign: TextAlign.center,
-            )),
+                  "Pre-Defined Lists",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
           ),
         ),
         SizedBox(width: widget.deviceWidth * 0.05),
@@ -49,14 +61,26 @@ class _ListOptionState extends State<ListOption> {
             widget.onOptionChanged(isOption); // isOption değerini geri döndür
           },
           child: Container(
-            color: Colors.green,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                colors: [
+                  Color.fromRGBO(196, 231, 89, 1),
+                  Color.fromRGBO(109, 225, 149, 1)
+                ],
+              ),
+            ),
+            //color: Colors.green,
             width: widget.deviceWidth * 0.25,
             height: widget.deviceHeight * 0.06,
             child: const Center(
                 child: Text(
-              "My Lists",
-              textAlign: TextAlign.center,
-            )),
+                  "My Lists",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
           ),
         ),
       ],
