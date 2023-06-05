@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pain4gain/components/lists/list_option.dart';
 import 'package:pain4gain/components/lists/workout_list.dart';
 import 'package:pain4gain/pages/ListsPage/user_defined_list.dart';
-import 'package:pain4gain/pages/ListsPage/user_defined_list/user_exercise_page/user_exercise_page.dart';
+import 'package:pain4gain/pages/ListsPage/user_defined_list/user_exercise_page/user_workout_page.dart';
 
 import '../../components/lists/categories/lists_categories.dart';
 import '../../json/ListJsonController.dart';
@@ -65,7 +65,7 @@ class _ListsPageState extends State<ListsPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Pop-up Başlığı'),
+              title: Text('Create List'),
               content: TextField(
                 onChanged: (text) {
                   setState(() {
@@ -74,7 +74,7 @@ class _ListsPageState extends State<ListsPage> {
                 },
                 controller: null,
                 decoration: InputDecoration(
-                  hintText: 'Metin girin',
+                  hintText: 'Enter the title of the list',
                 ),
               ),
               actions: <Widget>[
@@ -85,7 +85,6 @@ class _ListsPageState extends State<ListsPage> {
                     listJsonController.writeDefinedListJsonFile(enteredText);
                     print('Girilen metin: $enteredText');
                     Navigator.of(context).pop();
-
                   },
                 ),
               ],
@@ -96,43 +95,40 @@ class _ListsPageState extends State<ListsPage> {
       print('Düğmeye tıklandı!');
     }
 
-    void addUserDefinedList ( jsonMap) {
-      for (var key in jsonMap.keys) {
-        Color newColor = Color.fromARGB(255, random.nextInt(256),
-            random.nextInt(256), random.nextInt(256));
-
-        _userDefinedWorkoutList.add(GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    UserExercisePage(
-                        exercise: jsonMap[key], givenColor: newColor),
-              ),
-            );
-          },
-          child: UserDefinedList(
-            workout: jsonMap[key],
-            givenColor: newColor,
-          ),
-        ));
-      }
-    }
     //reads the user defined list
     listJsonController.readDefinedListJsonFile(false).then((jsonMap) {
-      setState(() {
-        _userDefinedWorkoutList.add(Row(children: [
-          ElevatedButton(
-            onPressed: onPressedCreateFunction,
-            child: Text("Create List!!",
-                style: TextStyle(fontSize: 20, color: Colors.white)),
-          ),
-        ]));
-      });
+      _userDefinedWorkoutList.add(Row(children: [
+        ElevatedButton(
+          onPressed: onPressedCreateFunction,
+          child: Text("Create List!!",
+              style: TextStyle(fontSize: 20, color: Colors.white)),
+        ),
+      ]));
       if (jsonMap != null) {
         setState(() {
-          addUserDefinedList(jsonMap);
+          for (var key in jsonMap.keys) {
+            Color newColor = Color.fromARGB(255, random.nextInt(256),
+                random.nextInt(256), random.nextInt(256));
+            _userDefinedWorkoutList.add(GestureDetector(
+              onTap: () {
+                print(jsonMap[key]['workouts']);
+                print(jsonMap[key]['workouts'].runtimeType);
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        UserWorkoutPage(
+                            exercise: jsonMap[key], givenColor: newColor),
+                  ),
+                );
+              },
+              child: UserDefinedList(
+                workout: jsonMap[key],
+                givenColor: newColor,
+              ),
+            ));
+          }
         });
       }
     }).catchError((onError) {
