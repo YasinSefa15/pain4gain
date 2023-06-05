@@ -1,0 +1,393 @@
+[
+    {
+        "gif": "https://cdn.shopify.com/s/files/1/0075/4673/2662/files/ab-roller-exercise.gif",
+        "name": "Ab Roller",
+        "force": "pull",
+        "level": "intermediate",
+        "mechanic": "compound",
+        "equipment": "other",
+        "primaryMuscles": [
+          "abdominals"
+        ],
+        "secondaryMuscles": [
+          "shoulders"
+        ],
+        "instructions": [
+          "Hold the Ab Roller with both hands and kneel on the floor.",
+          "Now place the ab roller on the floor in front of you so that you are on all your hands and knees (as in a kneeling push up position). This will be your starting position.",
+          "Slowly roll the ab roller straight forward, stretching your body into a straight position. Tip: Go down as far as you can without touching the floor with your body. Breathe in during this portion of the movement.",
+          "After a pause at the stretched position, start pulling yourself back to the starting position as you breathe out. Tip: Go slowly and keep your abs tight at all times."
+        ],
+        "category": "strength",
+        "estimatedTime":10
+      },
+      {
+        "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Barbell-Curl.gif",
+        "name": "Barbell Curl",
+        "force": "pull",
+        "level": "beginner",
+        "mechanic": "isolation",
+        "equipment": "barbell",
+        "primaryMuscles": [
+          "biceps"
+        ],
+        "secondaryMuscles": [
+          "forearms"
+        ],
+        "instructions": [
+          "Stand up with your torso upright while holding a barbell at a shoulder-width grip. The palm of your hands should be facing forward and the elbows should be close to the torso. This will be your starting position.",
+          "While holding the upper arms stationary, curl the weights forward while contracting the biceps as you breathe out. Tip: Only the forearms should move.",
+          "Continue the movement until your biceps are fully contracted and the bar is at shoulder level. Hold the contracted position for a second and squeeze the biceps hard.",
+          "Slowly begin to bring the bar back to starting position as your breathe in.",
+          "Repeat for the recommended amount of repetitions."
+        ],
+        "category": "strength",
+        "estimatedTime":10
+      },
+      {
+        "gif": "https://www.inspireusafoundation.org/wp-content/uploads/2022/09/negative-calf-raise.gif",
+        "name": "Smith Machine Calf Raise",
+        "force": "push",
+        "level": "beginner",
+        "mechanic": "isolation",
+        "equipment": "machine",
+        "primaryMuscles": [
+          "calves"
+        ],
+        "secondaryMuscles": [],
+        "instructions": [
+          "Place a block or weight plate below the bar on the Smith machine. Set the bar to a position that best matches your height. Once the correct height is chosen and the bar is loaded, step onto the plates with the balls of your feet and place the bar on the back of your shoulders.",
+          "Take the bar with both hands facing forward. Rotate the bar to unrack it. This will be your starting position.",
+          "Raise your heels as high as possible by pushing off of the balls of your feet, flexing your calf at the top of the contraction. Your knees should remain extended. Hold the contracted position for a second before you start to go back down.",
+          "Return slowly to the starting position as you breathe in while lowering your heels.",
+          "Repeat for the recommended amount of repetitions."
+        ],
+        "category": "strength",
+        "estimatedTime":10
+      },
+      {
+        "gif": "https://www.inspireusafoundation.org/wp-content/uploads/2022/11/overhead-cable-tricep-extension.gif",
+        "name": "Overhead Triceps",
+        "force": "static",
+        "level": "expert",
+        "mechanic": null,
+        "equipment": "body only",
+        "primaryMuscles": [
+          "triceps"
+        ],
+        "secondaryMuscles": [
+          "lats"
+        ],
+        "instructions": [
+          "Sit upright on the floor with your partner behind you. Raise one arm straight up, and flex the elbow, attempting to touch your hand to your back. Your parner should hold your elbow and wrist. This will be your starting position.",
+          "Attempt to extend the arm straight into the air as your partner prevents you from doing actually doing so.",
+          "After 10-20 seconds, relax the arm and allow your partner to further stretch the tricep by applying gentle pressure to the wrist. Hold for 10-20 seconds, and then switch sides."
+        ],
+        "category": "stretching",
+        "estimatedTime":15
+      },
+      {
+        "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/05/Seated-Behind-the-Neck-Press.gif",
+        "name": "Neck Press",
+        "force": "push",
+        "level": "intermediate",
+        "mechanic": "compound",
+        "equipment": "barbell",
+        "primaryMuscles": [
+          "chest"
+        ],
+        "secondaryMuscles": [
+          "shoulders",
+          "triceps"
+        ],
+        "instructions": [
+          "Lie back on a flat bench. Using a medium-width grip (a grip that creates a 90-degree angle in the middle of the movement between the forearms and the upper arms), lift the bar from the rack and hold it straight over your neck with your arms locked. This will be your starting position.",
+          "As you breathe in, come down slowly until you feel the bar on your neck.",
+          "After a second pause, bring the bar back to the starting position as you breathe out and push the bar using your chest muscles. Lock your arms and squeeze your chest in the contracted position, hold for a second and then start coming down slowly again. Tip: It should take at least twice as long to go down than to come up).",
+          "Repeat the movement for the prescribed amount of repetitions.",
+          "When you are done, place the bar back in the rack."
+        ],
+        "category": "strength",
+        "estimatedTime":18
+      },
+      {
+        "gif": "https://www.inspireusafoundation.org/wp-content/uploads/2021/10/cable-cross-over.gif",
+        "name": "Cable Chest Press",
+        "force": "push",
+        "level": "beginner",
+        "mechanic": "compound",
+        "equipment": "cable",
+        "primaryMuscles": [
+          "chest"
+        ],
+        "secondaryMuscles": [
+          "shoulders",
+          "triceps"
+        ],
+        "instructions": [
+          "Adjust the weight to an appropriate amount and be seated, grasping the handles. Your upper arms should be about 45 degrees to the body, with your head and chest up. The elbows should be bent to about 90 degrees. This will be your starting position.",
+          "Begin by extending through the elbow, pressing the handles together straight in front of you. Keep your shoulder blades retracted as you execute the movement.",
+          "After pausing at full extension, return to th starting position, keeping tension on the cables.",
+          "You can also execute this movement with your back off the pad, at an incline or decline, or alternate hands."
+        ],
+        "category": "strength",
+        "estimatedTime":16
+      },
+      {
+        "gif": "https://d38ty1ecdjk742.cloudfront.net/wp-content/uploads/cable-shrug-exercise.gif",
+        "name": "Cable Shrugs",
+        "force": "pull",
+        "level": "beginner",
+        "mechanic": "isolation",
+        "equipment": "cable",
+        "primaryMuscles": [
+          "traps"
+        ],
+        "secondaryMuscles": [],
+        "instructions": [
+          "Grasp a cable bar attachment that is attached to a low pulley with a shoulder width or slightly wider overhand (palms facing down) grip.",
+          "Stand erect close to the pulley with your arms extended in front of you holding the bar. This will be your starting position.",
+          "Lift the bar by elevating the shoulders as high as possible as you exhale. Hold the contraction at the top for a second. Tip: The arms should remain extended at all times. Refrain from using the biceps to help lift the bar. Only the shoulders should be moving up and down.",
+          "Lower the bar back to the original position.",
+          "Repeat for the recommended amount of repetitions."
+        ],
+        "category": "strength",
+        "estimatedTime":15
+      },
+      {
+        "gif": "https://www.inspireusafoundation.org/wp-content/uploads/2022/04/military-press.gif",
+        "name": "Barbell Shoulder Press",
+        "force": "push",
+        "level": "intermediate",
+        "mechanic": "compound",
+        "equipment": "barbell",
+        "primaryMuscles": [
+          "shoulders"
+        ],
+        "secondaryMuscles": [
+          "chest",
+          "triceps"
+        ],
+        "instructions": [
+          "Sit on a bench with back support in a squat rack. Position a barbell at a height that is just above your head. Grab the barbell with a pronated grip (palms facing forward).",
+          "Once you pick up the barbell with the correct grip width, lift the bar up over your head by locking your arms. Hold at about shoulder level and slightly in front of your head. This is your starting position.",
+          "Lower the bar down to the shoulders slowly as you inhale.",
+          "Lift the bar back up to the starting position as you exhale.",
+          "Repeat for the recommended amount of repetitions."
+        ],
+        "category": "strength",
+        "estimatedTime":10
+      },
+      {
+        "gif": "https://www.inspireusafoundation.org/wp-content/uploads/2022/03/cable-face-pull.gif",
+        "name": "Face Pull",
+        "force": "pull",
+        "level": "intermediate",
+        "mechanic": "compound",
+        "equipment": "cable",
+        "primaryMuscles": [
+          "shoulders"
+        ],
+        "secondaryMuscles": [
+          "middle back"
+        ],
+        "instructions": [
+          "Facing a high pulley with a rope or dual handles attached, pull the weight directly towards your face, separating your hands as you do so. Keep your upper arms parallel to the ground."
+        ],
+        "category": "strength",
+        "estimatedTime":10
+      },
+      {
+        "gif": "https://www.inspireusafoundation.org/wp-content/uploads/2022/08/wide-grip-lat-pulldown.gif",
+        "name": "Wide-Grip Lat Pulldown",
+        "force": "pull",
+        "level": "beginner",
+        "mechanic": "compound",
+        "equipment": "cable",
+        "primaryMuscles": [
+          "lats"
+        ],
+        "secondaryMuscles": [
+          "biceps",
+          "middle back",
+          "shoulders"
+        ],
+        "instructions": [
+          "Sit down on a pull-down machine with a wide bar attached to the top pulley. Make sure that you adjust the knee pad of the machine to fit your height. These pads will prevent your body from being raised by the resistance attached to the bar.",
+          "Grab the bar with the palms facing forward using the prescribed grip. Note on grips: For a wide grip, your hands need to be spaced out at a distance wider than shoulder width. For a medium grip, your hands need to be spaced out at a distance equal to your shoulder width and for a close grip at a distance smaller than your shoulder width.",
+          "As you have both arms extended in front of you holding the bar at the chosen grip width, bring your torso back around 30 degrees or so while creating a curvature on your lower back and sticking your chest out. This is your starting position.",
+          "As you breathe out, bring the bar down until it touches your upper chest by drawing the shoulders and the upper arms down and back. Tip: Concentrate on squeezing the back muscles once you reach the full contracted position. The upper torso should remain stationary and only the arms should move. The forearms should do no other work except for holding the bar; therefore do not try to pull down the bar using the forearms.",
+          "After a second at the contracted position squeezing your shoulder blades together, slowly raise the bar back to the starting position when your arms are fully extended and the lats are fully stretched. Inhale during this portion of the movement.",
+          "Repeat this motion for the prescribed amount of repetitions."
+        ],
+        "category": "strength",
+        "estimatedTime":15
+      },
+      {
+        "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Seated-Cable-Row.gif",
+        "name": "Seated Cable Rows",
+        "force": "pull",
+        "level": "beginner",
+        "mechanic": "compound",
+        "equipment": "cable",
+        "primaryMuscles": [
+          "middle back"
+        ],
+        "secondaryMuscles": [
+          "biceps",
+          "lats",
+          "shoulders"
+        ],
+        "instructions": [
+          "For this exercise you will need access to a low pulley row machine with a V-bar. Note: The V-bar will enable you to have a neutral grip where the palms of your hands face each other. To get into the starting position, first sit down on the machine and place your feet on the front platform or crossbar provided making sure that your knees are slightly bent and not locked.",
+          "Lean over as you keep the natural alignment of your back and grab the V-bar handles.",
+          "With your arms extended pull back until your torso is at a 90-degree angle from your legs. Your back should be slightly arched and your chest should be sticking out. You should be feeling a nice stretch on your lats as you hold the bar in front of you. This is the starting position of the exercise.",
+          "Keeping the torso stationary, pull the handles back towards your torso while keeping the arms close to it until you touch the abdominals. Breathe out as you perform that movement. At that point you should be squeezing your back muscles hard. Hold that contraction for a second and slowly go back to the original position while breathing in.",
+          "Repeat for the recommended amount of repetitions."
+        ],
+        "category": "strength",
+        "estimatedTime":18
+      },
+      {
+        "gif": "https://newlife.com.cy/wp-content/uploads/2019/11/00541301-Barbell-Lunge_Thighs_360.gif",
+        "name": "Barbell Lunge",
+        "force": "push",
+        "level": "intermediate",
+        "mechanic": "compound",
+        "equipment": "barbell",
+        "primaryMuscles": [
+          "quadriceps"
+        ],
+        "secondaryMuscles": [
+          "calves",
+          "glutes",
+          "hamstrings"
+        ],
+        "instructions": [
+          "This exercise is best performed inside a squat rack for safety purposes. To begin, first set the bar on a rack just below shoulder level. Once the correct height is chosen and the bar is loaded, step under the bar and place the back of your shoulders (slightly below the neck) across it.",
+          "Hold on to the bar using both arms at each side and lift it off the rack by first pushing with your legs and at the same time straightening your torso.",
+          "Step away from the rack and step forward with your right leg and squat down through your hips, while keeping the torso upright and maintaining balance. Inhale as you go down. Note: Do not allow your knee to go forward beyond your toes as you come down, as this will put undue stress on the knee joint. li>",
+          "Using mainly the heel of your foot, push up and go back to the starting position as you exhale.",
+          "Repeat the movement for the recommended amount of repetitions and then perform with the left leg."
+        ],
+        "category": "strength",
+        "estimatedTime":16
+      },
+      {
+        "gif": "https://www.inspireusafoundation.org/wp-content/uploads/2022/05/box-squat-muscles-used.gif",
+        "name": "Box Squat",
+        "force": "push",
+        "level": "intermediate",
+        "mechanic": "compound",
+        "equipment": "barbell",
+        "primaryMuscles": [
+          "quadriceps"
+        ],
+        "secondaryMuscles": [
+          "adductors",
+          "calves",
+          "glutes",
+          "hamstrings",
+          "lower back"
+        ],
+        "instructions": [
+          "The box squat allows you to squat to desired depth and develop explosive strength in the squat movement. Begin in a power rack with a box at the appropriate height behind you. Typically, you would aim for a box height that brings you to a parallel squat, but you can train higher or lower if desired.",
+          "Begin by stepping under the bar and placing it across the back of the shoulders. Squeeze your shoulder blades together and rotate your elbows forward, attempting to bend the bar across your shoulders. Remove the bar from the rack, creating a tight arch in your lower back, and step back into position. Place your feet wider for more emphasis on the back, glutes, adductors, and hamstrings, or closer together for more quad development. Keep your head facing forward.",
+          "With your back, shoulders, and core tight, push your knees and butt out and you begin your descent. Sit back with your hips until you are seated on the box. Ideally, your shins should be perpendicular to the ground. Pause when you reach the box, and relax the hip flexors. Never bounce off of a box.",
+          "Keeping the weight on your heels and pushing your feet and knees out, drive upward off of the box as you lead the movement with your head. Continue upward, maintaining tightness head to toe."
+        ],
+        "category": "powerlifting",
+        "estimatedTime":12
+      },
+      {
+        "gif": "https://homeworkouts.org/wp-content/uploads/anim-dumbbell-goblet-squats.gif",
+        "name": "Goblet Squat",
+        "force": "push",
+        "level": "beginner",
+        "mechanic": "compound",
+        "equipment": "kettlebells",
+        "primaryMuscles": [
+          "quadriceps"
+        ],
+        "secondaryMuscles": [
+          "calves",
+          "glutes",
+          "hamstrings",
+          "shoulders"
+        ],
+        "instructions": [
+          "Stand holding a light kettlebell by the horns close to your chest. This will be your starting position.",
+          "Squat down between your legs until your hamstrings are on your calves. Keep your chest and head up and your back straight.",
+          "At the bottom position, pause and use your elbows to push your knees out. Return to the starting position, and repeat for 10-20 repetitions."
+        ],
+        "category": "strength",
+        "estimatedTime":10
+      },
+      {
+        "gif": "https://www.inspireusafoundation.org/wp-content/uploads/2022/09/barbell-hip-thrust.gif",
+        "name": "Barbell Hip Thrust",
+        "force": "push",
+        "level": "intermediate",
+        "mechanic": "compound",
+        "equipment": "barbell",
+        "primaryMuscles": [
+          "glutes"
+        ],
+        "secondaryMuscles": [
+          "calves",
+          "hamstrings"
+        ],
+        "instructions": [
+          "Begin seated on the ground with a bench directly behind you. Have a loaded barbell over your legs. Using a fat bar or having a pad on the bar can greatly reduce the discomfort caused by this exercise.",
+          "Roll the bar so that it is directly above your hips, and lean back against the bench so that your shoulder blades are near the top of it.",
+          "Begin the movement by driving through your feet, extending your hips vertically through the bar. Your weight should be supported by your shoulder blades and your feet. Extend as far as possible, then reverse the motion to return to the starting position."
+        ],
+        "category": "powerlifting",
+        "estimatedTime":10
+      },
+      {
+        "gif": "https://www.inspireusafoundation.org/wp-content/uploads/2022/09/machine-tricep-extension.gif",
+        "name": "Machine Triceps Extension",
+        "force": "push",
+        "level": "beginner",
+        "mechanic": "isolation",
+        "equipment": "machine",
+        "primaryMuscles": [
+          "triceps"
+        ],
+        "secondaryMuscles": [],
+        "instructions": [
+          "Adjust the seat to the appropriate height and make your weight selection. Place your upper arms against the pads and grasp the handles. This will be your starting position.",
+          "Perform the movement by extending the elbow, pulling your lower arm away from your upper arm.",
+          "Pause at the completion of the movement, and then slowly return the weight to the starting position.",
+          "Avoid returning the weight all the way to the stops until the set is complete to keep tension on the muscles being worked."
+        ],
+        "category": "strength",
+        "estimatedTime":15
+      },
+      {
+        "gif": "https://www.inspireusafoundation.org/wp-content/uploads/2022/04/barbell-bench-press.gif",
+        "name": "Bench Press",
+        "force": "push",
+        "level": "intermediate",
+        "mechanic": "compound",
+        "equipment": "barbell",
+        "primaryMuscles": [
+          "triceps"
+        ],
+        "secondaryMuscles": [
+          "chest",
+          "forearms",
+          "lats",
+          "shoulders"
+        ],
+        "instructions": [
+          "Begin by lying on the bench, getting your head beyond the bar if possible. Tuck your feet underneath you and arch your back. Using the bar to help support your weight, lift your shoulder off the bench and retract them, squeezing the shoulder blades together. Use your feet to drive your traps into the bench. Maintain this tight body position throughout the movement.",
+          "However wide your grip, it should cover the ring on the bar. Pull the bar out of the rack without protracting your shoulders. Focus on squeezing the bar and trying to pull it apart.",
+          "Lower the bar to your lower chest or upper stomach. The bar, wrist, and elbow should stay in line at all times.",
+          "Pause when the barbell touches your torso, and then drive the bar up with as much force as possible. The elbows should be tucked in until lockout."
+        ],
+        "category": "powerlifting",
+        "estimatedTime":15
+      }
+]

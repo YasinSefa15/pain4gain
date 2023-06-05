@@ -1,30 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:pain4gain/components/lists/categories/workout_type.dart';
+import 'package:pain4gain/json/ListJsonController.dart';
 
-class ListCategories extends StatelessWidget {
-  const ListCategories({super.key});
+class ListCategories extends StatefulWidget {
+  final double deviceWidth;
+  final double deviceHeight;
+  final ListJsonController listJsonController;
+  ListCategories({super.key, required this.deviceWidth, required this.deviceHeight, required this.listJsonController});
+
+  @override
+  _ListCategoriesState createState() => _ListCategoriesState();
+}
+
+class _ListCategoriesState extends State<ListCategories>{
+  List<Widget> _categoryList = [];
+
+
+
+  void initCategory(){
+    widget.listJsonController.readCategoryJsonFile().then((value) {
+      //print(value);
+      if(value != null){
+        _categoryList = List.generate(value.length, (index) {
+          return WorkoutType(
+              imagePath: '${value[index.toString()]['imagePath']}',
+              exerciseTitle : value[index.toString()]['title'],
+              workouts : value[index.toString()]['workouts']
+          );
+        });
+      }
+
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _categoryList = [];
-    List<String> _categoryNameList = [
-      'abs',
-      'back',
-      'biceps',
-      'calves',
-      'chest',
-      'glutes',
-      'legs',
-      'shoulders',
-      'traps',
-      'triceps'
-    ];
-
-    _categoryList = List.generate(_categoryNameList.length, (index) {
-      return WorkoutType(
-        imagePath: 'assets/categories/${_categoryNameList[index]}.png',
-      );
+    setState(() {
+      initCategory();
     });
+    //initCategory();
 
     return SingleChildScrollView(
       //KATEGORİLERİN YAN YANA GELMESİ İÇİN

@@ -7,7 +7,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({
     Key? key,
     required this.selectedIndex,
-    required this.onItemTapped,
+    required this.onItemTapped, required IconButton trailing,
   }) : super(key: key);
 
   @override
@@ -36,6 +36,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           icon: Icon(Icons.person),
           label: 'Profile',
         ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite_border),
+          label: 'Favs')       
       ],
       currentIndex: widget.selectedIndex,
       onTap: widget.onItemTapped,

@@ -10,7 +10,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   Future<bool> _checkOnboardingStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //prefs.setBool('onboarding_completed', false);
@@ -40,7 +39,7 @@ class MyApp extends StatelessWidget {
               bool? onboardingCompleted = snapshot.data;
               if (onboardingCompleted == true) {
                 // Onboarding tamamlandıysa AppPage gösterilir.
-                return AppPage();
+                return const AppPage();
               } else {
                 // Onboarding tamamlanmadıysa OnboardingScreen gösterilir.
                 return OnboardingScreen();

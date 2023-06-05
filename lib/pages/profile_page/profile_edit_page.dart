@@ -149,7 +149,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
       return;
     }
 
-    double calorie = _calculateCaloriesPerDay(age!, height!, weight!, _gender, workoutDays!);
+    int calorie = _calculateCaloriesPerDay(age!, height!, weight!, _gender, workoutDays!);
     _changedData = true;
 
     // Save the profile data using shared_preferences
@@ -171,7 +171,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     });
   }
 
-  double _calculateCaloriesPerDay(int age, double height, double weight, String gender, int workoutDays) {
+  int _calculateCaloriesPerDay(int age, double height, double weight, String gender, int workoutDays) {
     double bmr;
     if (gender == 'male') {
       bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
@@ -195,7 +195,7 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
 
     double dailyCalories = bmr * activityFactor;
 
-    return dailyCalories;
+    return int.tryParse(dailyCalories.toStringAsFixed(0))!;
   }
 
   Future<void> _loadProfileData() async {
@@ -210,9 +210,9 @@ class ProfileEditingPageState extends State<ProfileEditingPage> {
     });
   }
 
-  Future<void> _saveProfileData(double calorie) async {
+  Future<void> _saveProfileData(int calorie) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setDouble('calorie', calorie);
+    await prefs.setInt('calorie', calorie);
     await prefs.setString('username', _nameController.text);
     await prefs.setInt('age', int.parse(_ageController.text));
     await prefs.setDouble('height', double.parse(_heightController.text));

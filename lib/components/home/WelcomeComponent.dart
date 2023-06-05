@@ -41,7 +41,7 @@ class _WelcomeComponentState extends State<WelcomeComponent> {
     decoration: BoxDecoration(),
     padding: EdgeInsets.all(20),
     child: SingleChildScrollView(
-      child: Column(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min, 
         children: [
@@ -76,6 +76,7 @@ class _WelcomeComponentState extends State<WelcomeComponent> {
           _isLoading
               ? const CircularProgressIndicator()
               : CircleAvatar(
+            radius: 30,
                   backgroundImage: _profilePhoto.existsSync()
                       ? FileImage(_profilePhoto)
                       : AssetImage('assets/default_user_avatar.png') as ImageProvider<Object>,

@@ -20,11 +20,40 @@ class ExercisePage extends StatefulWidget {
 }
 
 class _ExercisePageState extends State<ExercisePage> {
-    int exerciseIndex = 0;
+  int exerciseIndex = 0;
+
+  void _showPopupDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Well Done!'),
+          content: Text('You Successfully Completed the Exercise!'),
+          actions: [
+            TextButton(
+              child: Text('Return to Main Page'),
+              onPressed: () {
+                // Popup'ta Tamam butonuna basıldığında yapılacak işlemler
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                //todo: kalori hesabı buradan eklenecek shared pref eklenecek
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-
+    String nextStep = "Next Exercise";
+    setState(() {
+      if (exerciseIndex == widget.workoutList.length - 1) {
+        nextStep = "Finish Exercise";
+      }
+    });
 
     return Scaffold(
         appBar: null,
@@ -48,19 +77,22 @@ class _ExercisePageState extends State<ExercisePage> {
                         foregroundColor: Colors.white, // foreground
                       ),
                     ),
+                    Text("${exerciseIndex + 1}/${widget.workoutList.length}"),
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
                           if (exerciseIndex < widget.workoutList.length - 1) {
-                          print(exerciseIndex);
-                          print("length: ${widget.workoutList.length}");
                             exerciseIndex = exerciseIndex + 1;
+                          }
+
+                          if (nextStep == "Finish Exercise"){
+                            _showPopupDialog(context);
                           }
                         });
                         // Düğme tıklandığında gerçekleşecek işlemler
                         //Navigator.pop(context);
                       },
-                      child: Text('Next Exercie'),
+                      child: Text(nextStep),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green, // background
                         foregroundColor: Colors.white, // foreground

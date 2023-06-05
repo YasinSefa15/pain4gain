@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pain4gain/components/home/WelcomeComponent.dart';
+import 'package:pain4gain/components/pedometer/PedometerComponent.dart';
 import '../../components/home/discover/DiscoverWorkoutsComponent.dart';
 import '../../components/home/trace/TraceComponent.dart';
 
@@ -29,6 +30,19 @@ class HomePage extends StatelessWidget {
                   return DiscoverWorkoutsComponent(constraints: constraints);
                 },
               ),
+              LayoutBuilder(builder: (context, constraints) {
+                return ElevatedButton(
+                  child: const Text('Open route'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PedometerComponent(),
+                      ),
+                    );
+                  },
+                );
+              })
             ],
           ),
         ),
