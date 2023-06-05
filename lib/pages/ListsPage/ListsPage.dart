@@ -56,29 +56,83 @@ class _ListsPageState extends State<ListsPage> {
     }).catchError((onError) {
       //print(onError);
     });
+
+
+    void onPressedCreateFunction() {
+      String enteredText = '';
+      // Düğmeye tıklandığında gerçekleştirilecek işlemler burada yer alır.
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Pop-up Başlığı'),
+              content: TextField(
+                onChanged: (text) {
+                  setState(() {
+                    enteredText = text;
+                  });
+                },
+                controller: null,
+                decoration: InputDecoration(
+                  hintText: 'Metin girin',
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Kaydet'),
+                  onPressed: () {
+                    // Girilen metni kullanmak için burada işlemler yapabilirsiniz
+                    listJsonController.writeDefinedListJsonFile(enteredText);
+                    print('Girilen metin: $enteredText');
+                    Navigator.of(context).pop();
+
+                  },
+                ),
+              ],
+            );
+          },
+
+      );
+      print('Düğmeye tıklandı!');
+    }
+
+    void addUserDefinedList ( jsonMap) {
+      for (var key in jsonMap.keys) {
+        Color newColor = Color.fromARGB(255, random.nextInt(256),
+            random.nextInt(256), random.nextInt(256));
+
+        _userDefinedWorkoutList.add(GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    UserExercisePage(
+                        exercise: jsonMap[key], givenColor: newColor),
+              ),
+            );
+          },
+          child: UserDefinedList(
+            workout: jsonMap[key],
+            givenColor: newColor,
+          ),
+        ));
+      }
+    }
     //reads the user defined list
     listJsonController.readDefinedListJsonFile(false).then((jsonMap) {
+      setState(() {
+        _userDefinedWorkoutList.add(Row(children: [
+          ElevatedButton(
+            onPressed: onPressedCreateFunction,
+            child: Text("Create List!!",
+                style: TextStyle(fontSize: 20, color: Colors.white)),
+          ),
+        ]));
+      });
       if (jsonMap != null) {
         setState(() {
-          for (var key in jsonMap.keys) {
-            Color newColor = Color.fromARGB(255, random.nextInt(256),
-                random.nextInt(256), random.nextInt(256));
-            _userDefinedWorkoutList.add(GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UserExercisePage(
-                        exercise: jsonMap[key], givenColor: newColor),
-                  ),
-                );
-              },
-              child: UserDefinedList(
-                workout: jsonMap[key],
-                givenColor: newColor,
-              ),
-            ));
-          }
+          addUserDefinedList(jsonMap);
         });
       }
     }).catchError((onError) {
@@ -96,9 +150,18 @@ class _ListsPageState extends State<ListsPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     double screenHeight =
-        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+        MediaQuery
+            .of(context)
+            .size
+            .height - MediaQuery
+            .of(context)
+            .padding
+            .top;
 
     return Container(
       color: Color(0xFF1D1D1D),
@@ -106,26 +169,24 @@ class _ListsPageState extends State<ListsPage> {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            Row(
-                children:[
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          'Bodypart',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
+            Row(children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Bodypart',
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
-                ]
-            ),
+                ),
+              ),
+            ]),
             SizedBox(height: screenHeight * 0.02),
             ListCategories(
               deviceWidth: screenWidth,
@@ -133,26 +194,24 @@ class _ListsPageState extends State<ListsPage> {
               listJsonController: listJsonController,
             ),
             SizedBox(height: screenHeight * 0.02),
-            Row(
-                children:[
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 116, 124, 175),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          'Workout List',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
+            Row(children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 116, 124, 175),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Workout List',
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
-                ]
-            ),
+                ),
+              ),
+            ]),
             SizedBox(height: screenHeight * 0.02),
             ListOption(
               onOptionChanged: (value) {
