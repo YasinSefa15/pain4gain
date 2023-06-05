@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:pain4gain/json/ListJsonController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CategoryExercisePage extends StatefulWidget {
   final String exerciseTitle;
   final List workouts;
+
   const CategoryExercisePage(
       {Key? key, required this.exerciseTitle, required this.workouts})
       : super(key: key);
@@ -41,14 +43,16 @@ class _CategoryExercisePageState extends State<CategoryExercisePage> {
     List<String> favorites = prefs.getStringList('favorites') ?? [];
     setState(() {
       favoriteWorkouts = favorites
-          .map<Map<String, dynamic>>((w) => Map<String, dynamic>.from(json.decode(w)))
+          .map<Map<String, dynamic>>(
+              (w) => Map<String, dynamic>.from(json.decode(w)))
           .toList();
     });
   }
 
   void _saveFavorites() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> favorites = favoriteWorkouts.map((w) => json.encode(w)).toList();
+    List<String> favorites =
+        favoriteWorkouts.map((w) => json.encode(w)).toList();
     prefs.setStringList('favorites', favorites);
   }
 
@@ -56,8 +60,46 @@ class _CategoryExercisePageState extends State<CategoryExercisePage> {
     return favoriteWorkouts.any((w) => w['name'] == workout['name']);
   }
 
+  ListJsonController listJsonController = ListJsonController();
+  void onPressedAddIcon(workout) async {
+    // Düğmeye tıklandığında gerçekleştirilecek işlemler burada yer alır.
+    List<String> titles = await listJsonController.getUserDefinedWorkoutLists();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Container(
+            width: double.maxFinite,
+            height: 300, // İstediğiniz yüksekliği belirleyebilirsiniz
+            child: ListView.builder(
+              itemCount: titles
+                  .length, // items, göstermek istediğiniz liste öğelerinin bir listesi
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  title: Text(titles[index]),
+                  onTap: () async {
+                    Navigator.of(context).pop();
+                    // Liste öğesine tıklandığında yapılacak aksiyonları burada tanımlayabilirsiniz
+                    // Örneğin:
+                    await listJsonController.addWorkoutToUserList(
+                        titles[index], workout);
+                    print('Tapped item: ${titles[index]}');
+                  },
+                );
+              },
+            ),
+          ),
+          title: Text('Select Desired List to Add'),
+        );
+      },
+    );
+    print('Düğmeye tıklandı!');
+  }
+
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.exerciseTitle),
@@ -133,7 +175,14 @@ class _CategoryExercisePageState extends State<CategoryExercisePage> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 80),
+                            SizedBox(width: 5),
+                            //Add plus icon
+                            IconButton(
+                                onPressed: () {
+                                  onPressedAddIcon(workout);
+                                },
+                                icon: Icon(Icons.add)),
+                            SizedBox(width: screenWidth * 0.1),
                             IconButton(
                               onPressed: () {
                                 if (_isFavorite(workout)) {
@@ -158,8 +207,8 @@ class _CategoryExercisePageState extends State<CategoryExercisePage> {
                     SizedBox(height: 8),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: workout['instructions']
-                          .map<Widget>((instruction) {
+                      children:
+                          workout['instructions'].map<Widget>((instruction) {
                         return ListTile(
                           leading: Icon(Icons.arrow_right_rounded),
                           title: Text(instruction),
@@ -177,5 +226,3 @@ class _CategoryExercisePageState extends State<CategoryExercisePage> {
     );
   }
 }
-
-
