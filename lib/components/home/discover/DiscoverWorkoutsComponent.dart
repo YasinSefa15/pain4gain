@@ -1,20 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:sensors_plus/sensors_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class DiscoverWorkoutsComponent extends StatelessWidget {
+class DiscoverWorkoutsComponent extends StatefulWidget {
   final BoxConstraints constraints;
   const DiscoverWorkoutsComponent({Key? key, required this.constraints}) : super(key: key);
+  @override
+  DiscoverWorkoutsComponentState createState() => DiscoverWorkoutsComponentState();
+}
+
+class DiscoverWorkoutsComponentState extends State<DiscoverWorkoutsComponent> {
+  int stepCount = 0;
+  bool isListening = false;
+
+  @override
+  void initState() {
+    super.initState();
+    loadStepCount();
+    startListening();
+  }
+
+  void loadStepCount() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int savedStepCount = prefs.getInt('stepCount') ?? 0;
+    DateTime savedDate = DateTime.fromMillisecondsSinceEpoch(prefs.getInt('date') ?? DateTime.now().millisecondsSinceEpoch);
+    DateTime currentDate = DateTime.now();
+
+    if (currentDate.year != savedDate.year || currentDate.month != savedDate.month || currentDate.day != savedDate.day) {
+      setState(() {
+        stepCount = 0;
+      });
+      prefs.setInt('stepCount', 0);
+      prefs.setInt('date', currentDate.millisecondsSinceEpoch);
+    } else {
+      setState(() {
+        stepCount = savedStepCount;
+      });
+    }
+  }
+
+  void startListening() {
+    accelerometerEvents.listen((AccelerometerEvent event) {
+      if (event.x > 10.0 || event.y > 10.0 || event.z > 10.0) {
+        setState(() {
+          stepCount++;
+        });
+        _saveStepCount();
+      }
+    });
+    setState(() {
+      isListening = true;
+    });
+  }
+
+  void stopListening() {
+    setState(() {
+      isListening = false;
+    });
+  }
+
+  void _saveStepCount() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('stepCount', stepCount);
+    prefs.setInt('date', DateTime.now().millisecondsSinceEpoch);
+  }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      constraints: BoxConstraints(
-        minWidth: constraints.minWidth,
-        maxWidth: constraints.maxWidth,
-        minHeight: constraints.minHeight,
-        maxHeight: constraints.maxHeight,
-      ),
+
       padding: EdgeInsets.only(left: 20, right: 20),
       child: SizedBox(
         height: screenHeight / 3.5,
@@ -88,7 +144,7 @@ class DiscoverWorkoutsComponent extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "0",
+                                    "$stepCount",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 50,
