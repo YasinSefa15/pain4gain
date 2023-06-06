@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../components/lists/exercise/current_exercise.dart';
 
@@ -21,6 +24,13 @@ class ExercisePage extends StatefulWidget {
 
 class _ExercisePageState extends State<ExercisePage> {
   int exerciseIndex = 0;
+  final startTime = DateTime.now(); // Başlangıç zamanını kaydedin
+
+   // Bitiş zamanını kaydedin
+
+  // Zaman farkını hesaplayın
+
+
 
   void _showPopupDialog(BuildContext context) {
     showDialog(
@@ -34,8 +44,14 @@ class _ExercisePageState extends State<ExercisePage> {
               child: Text('Return to Main Page'),
               onPressed: () {
                 // Popup'ta Tamam butonuna basıldığında yapılacak işlemler
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
+                final endTime = DateTime.now();
+                final duration = endTime.difference(startTime);
+                _saveCompletedWorkoutData(duration.inMinutes).then((_) {
+
+                  // Close the dialog and navigate back twice
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                });
                 //todo: kalori hesabı buradan eklenecek shared pref eklenecek
               },
             ),
@@ -110,5 +126,13 @@ class _ExercisePageState extends State<ExercisePage> {
             ],
           )),
         ));
+  }
+  Future<void> _saveCompletedWorkoutData(final duration) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int completedWorkouts = (prefs.getInt('completedWorkouts') ?? 0) + 1;
+    await prefs.setInt('completedWorkouts', completedWorkouts);
+
+    int totalWorkoutTime = duration; // Calculate total workout time in seconds
+    await prefs.setInt('workoutTime', totalWorkoutTime);
   }
 }
