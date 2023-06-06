@@ -373,7 +373,7 @@ class _RadialProgress extends StatelessWidget {
                 ),
                 const TextSpan(text: "\n"),
                 const TextSpan(
-                  text: "cal",
+                  text: "kcal",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
