@@ -180,8 +180,12 @@ class DietPageState extends State<DietPage> with SingleTickerProviderStateMixin{
                             child: Row(
                               children: <Widget>[
                                 const SizedBox(width: 32),
-                                for (int i = 0; i < kcal2000_MENU2.length; i++)
-                                  _MealCard(meal: kcal2000_MENU2[i]),
+                               if(calorie<=2400)
+                                  for (int i = 0; i < kcal2000_MENU2.length; i++)
+                                     _MealCard(meal: kcal2000_MENU2[i]),
+                                if(calorie>2400)   
+                                  for (int i = 0; i < kcal2500_MENU2.length; i++)
+                                     _MealCard(meal: kcal2500_MENU2[i]),
                               ],
                             ),
                           ),
@@ -190,8 +194,12 @@ class DietPageState extends State<DietPage> with SingleTickerProviderStateMixin{
                             child: Row(
                               children: <Widget>[
                                 const SizedBox(width: 32),
-                                for (int i = 0; i < kcal2000_MENU3.length; i++)
-                                  _MealCard(meal: kcal2000_MENU3[i]),
+                                if(calorie<=2400)
+                                  for (int i = 0; i < kcal2000_MENU3.length; i++)
+                                     _MealCard(meal: kcal2000_MENU3[i]),
+                                if(calorie>2400)   
+                                  for (int i = 0; i < kcal2500_MENU3.length; i++)
+                                     _MealCard(meal: kcal2500_MENU3[i]),
                               ],
                             ),
                           ),
