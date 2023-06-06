@@ -394,6 +394,174 @@ Remove from heat and transfer chicken to a medium bowl. Using two forks, shred c
 Garnish with parsley before serving.
 '''),
 ];
+final kcal2500_MENU2 = [
+  Meal(
+      mealTime: "BREAKFAST",
+      name: "Paneer paratha  ",
+      kiloCaloriesBurnt: "819",
+      timeTaken: "45",
+      imagePath: "assets/paneer paratha.jpeg",
+      ingredients: [
+       "For Whole Wheat Dough",
+"0.89 to 1 cups whole wheat flour 240 grams to 270 grams",
+"0.3 cup water or add as required",
+"0.44 teaspoon Ghee or oil",
+"0.22 teaspoon salt or add as required",
+"",
+"For Paneer Paratha Stuffing",
+"",
+"88.89 grams Paneer (Indian cottage cheese)",
+"0.44 or 0.89 green chilies finely chopped or ½ to 1 teaspoon",
+"0.22 teaspoon red chili powder",
+"0.22 teaspoon Garam Masala",
+"0.22 to 0.33 teaspoon dry mango powder (amchur powder) or add as per your taste",
+"0.22 teaspoon salt or add as required",
+"Ghee or oil as required for roasting parathas",
+      ],
+      preparation:
+          '''Kneading Dough
+Take whole wheat flour, salt, ghee or oil in a mixing bowl.
+Pour ½ cup water first.
+Mix and begin to knead. Add more water if required and knead to a smooth soft dough. Overall I added ⅔ cup water.
+Cover and allow the dough to rest for 20 to 30 minutes.
+Making Paneer Stuffing
+Meanwhile while the dough is resting, prepare the stuffing. Grate the paneer.
+Add the finely chopped green chilies, dry mango powder, punjabi garam masala or garam masala powder, red chili powder and salt. 
+You can add more of the salt, red chili powder or dry mango powder if you prefer.
+Mix everything well so that the spice powders are evenly mixed with the grated paneer.
+Rolling Paneer Paratha
+Pinch two small balls from the dough and roll them in your palms to make them even.
+Dust some flour on the dough balls.
+With a rolling pin, roll the dough balls to a circle of about 4 to 5 inches in diameter.
+Place the paneer stuffing on one of the rolled rounds keeping one inch space around the circumference.
+Cover with the other rolled dough and press the edges well.
+Sprinkle some flour and roll the stuffed paratha to a circle of about 6 to 7 inches in diameter.
+Making Paneer Paratha
+Heat a tava or griddle and then place the rolled paratha on it. The tava should be hot. To check the heat, sprinkle a generous pinch of whole wheat flour on the tawa. If the whole wheat flour becomes brown in some seconds, the tawa is hot enough to roast the parathas.
+Flip when one side is partly cooked. About ¼ cooked.
+Apply ghee on this side with a spoon. Turn over and flip when the second side is half cooked.
+Let the ghee side get cooked now. Spread some ghee on the top. Flip again using a spatula.
+Press the paratha edges with a spatula so that the edges are cooked.
+Flip once or twice till the paratha has golden spots and is evenly cooked.
+Place them in a roti basket or casserole.
+Optionally you can place some butter on top and spread it with a spoon.¼
+Wipe the excess whole wheat flour if any, with a cotton kitchen napkin. So that the browned whole wheat flour does not stick to the parathas. 
+Make all paratha this way on the tawa (griddle).
+Keep on stacking them in the roti basket or casserole. Spread some butter on each paratha while stacking them.
+If not stacking them, then serve paneer paratha hot with some fresh yogurt or pickle and butter. A cup of hot ginger tea will also go very well.'''),
+  Meal(
+      mealTime: "LUNCH",
+      name: "Tuna Salad",
+      kiloCaloriesBurnt: "878",
+      timeTaken: "5",
+      imagePath: "assets/tuna-salad.jpeg",
+      ingredients: [
+   "  2 (5-ounce) cans water-packed tuna fish",
+"2 to 4 tablespoons mayonnaise",
+"1 stalk celery, diced small",
+"1 small shallot or 1/4 red onion, diced small",
+"1 tablespoon freshly squeezed lemon juice (from 1/2 lemon)",
+"1 tablespoon pickle relish (optional)",
+"Salt and pepper",
+      ],
+      preparation:
+          '''Use a can opener to cut open the cans of tuna fish, but leave the lid in place. Holding the cans over the sink or a bowl, press the lid into the tuna fish and tilt the can to drain all the liquid. Remove the lids and transfer the tuna fish to a medium bowl.
+Add 2 tablespoons mayonnaise, the celery, shallot, lemon juice, pickle relish (if using), a sprinkle of salt, and a few cracks of fresh black pepper to the tuna fish. Stir with a fork to combine, breaking up any large chunks of tuna fish as you go. Add more mayo if you'd like smoother, creamier tuna salad. Taste and add more of any of the ingredients to taste. Use immediately or store in a covered container in the refrigerator for up to a week.
+          '''),
+  Meal(
+      mealTime: "DINNER",
+      name: "WHITE BEAN AND\n CHICKEN STIR FRY",
+      kiloCaloriesBurnt: "890",
+      timeTaken: "10",
+      imagePath: "assets/Cut chicken into strips..jpeg",
+      ingredients: [
+       " 10 Oz Chicken Breast",
+ "2 Tbsp Olive Oil",
+ "1 1/3 Cup Mixed Vegetables",
+ "4 Tbsp Soy Sauce",
+ "3 Fl oz Cooking Wine",
+ "1 1/2 Cup White Beans",
+      ],
+      preparation: ''' Cut chicken into strips.
+
+ Heat the oil in a large sauté pan or wak over medium-high heat and fry chicken strips until just about to color.
+
+ Add the chopped vegetables and toss around again until they begin to soften, then add the soy sauce and cooking wine.
+
+ Once the heat is back up and sizzling, add the drained beans and toss everything to coat.
+
+ Serve hot and enjoy!
+'''),
+];
+final kcal2500_MENU3 = [
+  Meal(
+      mealTime: "BREAKFAST",
+      name: "Oatmeal Pancakes ",
+      kiloCaloriesBurnt: "1002",
+      timeTaken: "15",
+      imagePath: "assets/Oatmeal-Pancakes.jpeg",
+      ingredients: [
+       "1 cup old-fashioned rolled oats"
+"1 cup milk, regular or non-dairy",
+"2 large eggs",
+"1 tablespoon unsalted butter, plus more for cooking",
+"1 tablespoon granulated sugar",
+"2/3 cup all-purpose flour",
+"2 teaspoons baking powder",
+"1/4 teaspoon kosher salt",
+"1/4 teaspoon ground cinnamon (optional)",
+      ],
+      preparation:
+          '''Whisk 1 cup rolled oats and 1 cup milk together in a large bowl. Let stand for 10 minutes for the oats to soften. Meanwhile, melt 1 tablespoon unsalted butter and set it aside to cool.
+Add the butter, 2 eggs, and 1 tablespoon granulated sugar to the oats, and whisk to combine. Add 2/3 cup all-purpose flour, 2 teaspoons baking powder, 1/4 teaspoon kosher salt, and 1/4 teaspoon ground cinnamon, if desired, and whisk until just combined; do not overmix. Let stand for 5 minutes more. Meanwhile, heat a large cast iron or nonstick skillet over medium-high heat.
+Add 1 teaspoon butter to the pan and swirl to coat. Drop the batter into the pan in 2-tablespoon portions, cooking 3 at a time. Cook until bubbles appear on the surface, the edges begin to look dry, and the bottoms are golden-brown, about 3 minutes. Flip the pancakes and cook until the other side is golden-brown, 2 to 3 minutes more.
+Transfer the pancakes to a warm oven or plate. Repeat cooking the remaining batter, using 1 teaspoon butter for each batch.'''),
+  Meal(
+      mealTime: "LUNCH",
+      name: "Cottage Fruit Salad",
+      kiloCaloriesBurnt: "747",
+      timeTaken: "40",
+      imagePath: "assets/Cottage Fruit Salad.jpeg",
+      ingredients: [
+   " 2 cups fat-free cottage cheese",
+"2/3 cup Yoplait® 99% Fat Free creamy strawberry banana yogurt (from 2-lb container)",
+"1/4 cup chopped pecans, toasted if desired",
+"Lettuce leaves",
+"6 cups cut-up fresh fruit (peaches, nectarines, pears, bananas, pineapple, raspberries, strawberries and/or blueberries)",
+      ],
+      preparation:
+          '''In medium bowl, stir together cottage cheese and yogurt. Stir in pecans.
+2
+To assemble, line 6 individual plates with lettuce. Arrange 1 cup of the fruit onto each lettuce-lined plate. Spoon 1/2 cup cottage cheese mixture over fruit on each plate. Serve immediately.
+          '''),
+  Meal(
+      mealTime: "DINNER",
+      name: "Tender Tomato \nChicken Breasts",
+      kiloCaloriesBurnt: "1072",
+      timeTaken: "45",
+      imagePath: "assets/Tender Tomato Chicken Breasts.jpeg",
+      ingredients: [
+       " 1 tablespoon olive oil",
+
+"3 skinless, boneless chicken breast halves",
+
+"1 tablespoon ground black pepper, or to taste",
+
+"3 tablespoons onion powder, or to taste",
+
+"1 (28 ounce) can chopped stewed tomatoes, 1/2 the liquid reserved",
+
+"1 (14 ounce) can chicken broth",
+
+"1 (10 ounce) package frozen mixed vegetables",
+
+"¼ cup water",
+      ],
+      preparation: '''Heat oil in a skillet over medium heat. Season chicken breasts on both sides with pepper and onion powder, and arrange in the skillet. Cook 2 minutes on each side, just until browned. Pour tomatoes and reserved liquid over chicken. Pour in broth. Cover skillet, and continue cooking 15 minutes on each side, until chicken juices run clear.
+
+While chicken is cooking, place frozen mixed vegetables and water in a pot. Scoop about 3/4 cup liquid from the skillet, and mix into the pot. Bring to a boil, and cook 5 minutes, or until vegetables are tender; drain. Arrange chicken breasts over vegetables, and drizzle with liquid from the skillet to serve.
+'''),
+];
 
 final meals = [
   Meal(
