@@ -28,21 +28,9 @@ class _UserExercisePageState extends State<UserExercisePage> {
   Timer? timer;
   bool isTimerRunning = false;
   int workoutTime = 0;
-  SharedPreferences? prefs;
+
 
   @override
-  void initState() {
-    super.initState();
-    initializeSharedPreferences();
-  }
-
-  void initializeSharedPreferences() async {
-    prefs = await SharedPreferences.getInstance();
-    setState(() {
-      workoutTime = (prefs?.getInt('workoutTime') ?? 0); // Get workoutTime as seconds
-    });
-  }
-
   void _showPopupDialog(BuildContext context) {
     stopwatch.stop();
     timer?.cancel();
@@ -138,10 +126,11 @@ class _UserExercisePageState extends State<UserExercisePage> {
   }
 
   Future<void> _saveCompletedWorkoutData() async {
-    int completedWorkouts = (prefs?.getInt('completedWorkouts') ?? 0) + 1;
-    await prefs?.setInt('completedWorkouts', completedWorkouts);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int completedWorkouts = (prefs.getInt('completedWorkouts') ?? 0) + 1;
+    await prefs.setInt('completedWorkouts', completedWorkouts);
 
     int totalWorkoutTime = (workoutTime + stopwatch.elapsed.inSeconds)~/60; // Calculate total workout time in seconds
-    await prefs?.setInt('workoutTime', totalWorkoutTime);
+    await prefs.setInt('workoutTime', totalWorkoutTime);
   }
 }
