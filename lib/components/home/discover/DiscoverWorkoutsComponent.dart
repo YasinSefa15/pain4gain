@@ -16,7 +16,6 @@ class DiscoverWorkoutsComponent extends StatelessWidget {
         maxHeight: constraints.maxHeight,
       ),
       padding: EdgeInsets.only(left: 20, right: 20),
-      child: Expanded(
         child: SizedBox(
           height: screenHeight / 3.5,
           width: screenWidth,
@@ -133,7 +132,7 @@ class DiscoverWorkoutsComponent extends StatelessWidget {
             ),
           ),
         ),
-      ),
+      
     );
   }
 }

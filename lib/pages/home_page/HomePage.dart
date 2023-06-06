@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
                   return DiscoverWorkoutsComponent(constraints: constraints);
                 },
               ),
-              LayoutBuilder(builder: (context, constraints) {
+              /*LayoutBuilder(builder: (context, constraints) {
                 return ElevatedButton(
                   child: const Text('Open route'),
                   onPressed: () {
@@ -42,11 +42,12 @@ class HomePage extends StatelessWidget {
                     );
                   },
                 );
-              })
+              })*/
             ],
           ),
         ),
       ),
+      
     );
   }
 }

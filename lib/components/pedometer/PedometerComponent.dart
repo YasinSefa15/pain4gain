@@ -5,21 +5,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PedometerComponent extends StatefulWidget {
   @override
-  _PedometerComponentState createState() => _PedometerComponentState();
+  PedometerComponentState createState() => PedometerComponentState();
 }
 
-class _PedometerComponentState extends State<PedometerComponent> {
-  int _stepCount = 0;
-  bool _isListening = false;
+class PedometerComponentState extends State<PedometerComponent> {
+  int stepCount = 0;
+  bool isListening = false;
 
   @override
   void initState() {
     super.initState();
-    _loadStepCount();
-    _startListening();
+    loadStepCount();
+    startListening();
   }
 
-  void _loadStepCount() async {
+  void loadStepCount() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int savedStepCount = prefs.getInt('stepCount') ?? 0;
     DateTime savedDate = DateTime.fromMillisecondsSinceEpoch(prefs.getInt('date') ?? DateTime.now().millisecondsSinceEpoch);
@@ -27,70 +27,66 @@ class _PedometerComponentState extends State<PedometerComponent> {
     
     if (currentDate.year != savedDate.year || currentDate.month != savedDate.month || currentDate.day != savedDate.day) {
       setState(() {
-        _stepCount = 0;
+        stepCount = 0;
       });
       prefs.setInt('stepCount', 0);
       prefs.setInt('date', currentDate.millisecondsSinceEpoch);
     } else {
       setState(() {
-        _stepCount = savedStepCount;
+        stepCount = savedStepCount;
       });
     }
   }
 
-  void _startListening() {
+  void startListening() {
     accelerometerEvents.listen((AccelerometerEvent event) {
       if (event.x > 10.0 || event.y > 10.0 || event.z > 10.0) {
         setState(() {
-          _stepCount++;
+          stepCount++;
         });
         _saveStepCount();
       }
     });
     setState(() {
-      _isListening = true;
+      isListening = true;
     });
   }
 
-  void _stopListening() {
+  void stopListening() {
     setState(() {
-      _isListening = false;
+      isListening = false;
     });
   }
 
   void _saveStepCount() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('stepCount', _stepCount);
+    prefs.setInt('stepCount', stepCount);
     prefs.setInt('date', DateTime.now().millisecondsSinceEpoch);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Step Counter'),
-      ),
-      body: Center(
+    return Container(
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Steps: $_stepCount',
+              'Steps: $stepCount',
               style: TextStyle(fontSize: 24),
             ),
             SizedBox(height: 16),
             Text(
-              _isListening ? 'Walking' : 'Stop',
+              isListening ? 'Walking' : 'Stop',
               style: TextStyle(fontSize: 18),
+            ),
+            FloatingActionButton(
+              onPressed: isListening ? stopListening : startListening,
+              child: Icon(isListening ? Icons.stop : Icons.play_arrow),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _isListening ? _stopListening : _startListening,
-        child: Icon(_isListening ? Icons.stop : Icons.play_arrow),
-      ),
     );
   }
 }
-
