@@ -23,7 +23,7 @@ class WorkoutListTile extends StatelessWidget {
 
     return ListTile(
       title: Text(name),
-      subtitle: Text("Kaç set tekrar veya dakika?"),
+      subtitle: Text("Set/Min?"),
       leading: Image.network(
         gifPath,
         width: screenWidth * 0.1,

@@ -21,8 +21,6 @@ class _UserWorkoutPageState extends State<UserWorkoutPage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight =
-        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     ListJsonController listJsonController = ListJsonController();
 
     return Scaffold(
