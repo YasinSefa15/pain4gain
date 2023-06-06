@@ -57,40 +57,38 @@ class _ListsPageState extends State<ListsPage> {
       //print(onError);
     });
 
-
     void onPressedCreateFunction() {
       String enteredText = '';
       // Düğmeye tıklandığında gerçekleştirilecek işlemler burada yer alır.
       showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Create List'),
-              content: TextField(
-                onChanged: (text) {
-                  setState(() {
-                    enteredText = text;
-                  });
-                },
-                controller: null,
-                decoration: InputDecoration(
-                  hintText: 'Enter the title of the list',
-                ),
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Create List'),
+            content: TextField(
+              onChanged: (text) {
+                setState(() {
+                  enteredText = text;
+                });
+              },
+              controller: null,
+              decoration: InputDecoration(
+                hintText: 'Enter the title of the list',
               ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text('Kaydet'),
-                  onPressed: () {
-                    // Girilen metni kullanmak için burada işlemler yapabilirsiniz
-                    listJsonController.writeDefinedListJsonFile(enteredText);
-                    print('Girilen metin: $enteredText');
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Kaydet'),
+                onPressed: () {
+                  // Girilen metni kullanmak için burada işlemler yapabilirsiniz
+                  listJsonController.writeDefinedListJsonFile(enteredText);
+                  print('Girilen metin: $enteredText');
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
       );
       print('Düğmeye tıklandı!');
     }
@@ -111,15 +109,11 @@ class _ListsPageState extends State<ListsPage> {
                 random.nextInt(256), random.nextInt(256));
             _userDefinedWorkoutList.add(GestureDetector(
               onTap: () {
-                print(jsonMap[key]['workouts']);
-                print(jsonMap[key]['workouts'].runtimeType);
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        UserWorkoutPage(
-                            exercise: jsonMap[key], givenColor: newColor),
+                    builder: (context) => UserWorkoutPage(
+                        exercise: jsonMap[key], givenColor: newColor),
                   ),
                 );
               },
@@ -146,18 +140,9 @@ class _ListsPageState extends State<ListsPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight =
-        MediaQuery
-            .of(context)
-            .size
-            .height - MediaQuery
-            .of(context)
-            .padding
-            .top;
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
 
     return Container(
       color: Color(0xFF1D1D1D),

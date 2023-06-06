@@ -40,12 +40,6 @@ class _AppPageState extends State<AppPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Pain4Gain'),
-        centerTitle: true,
-        backgroundColor: const Color(0xFF1D1D1D),
-        leading: null,
-      ),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: CustomBottomNavigationBar(
         selectedIndex: _selectedIndex,
