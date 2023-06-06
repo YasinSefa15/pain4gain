@@ -206,7 +206,7 @@ class DietPageState extends State<DietPage> with SingleTickerProviderStateMixin{
                         ],
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 100),
                     Expanded(
                       child: Container(
                         color: Colors.blueAccent,

@@ -101,6 +101,7 @@ class _ListsPageState extends State<ListsPage> {
           child: Text("Create List!!",
               style: TextStyle(fontSize: 20, color: Colors.white)),
         ),
+
       ]));
       if (jsonMap != null) {
         setState(() {
@@ -146,6 +147,7 @@ class _ListsPageState extends State<ListsPage> {
 
     return Container(
       color: Color(0xFF1D1D1D),
+
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -204,8 +206,11 @@ class _ListsPageState extends State<ListsPage> {
             SizedBox(height: screenHeight * 0.02),
             Column(
               children: _workoutList,
-            )
+
+            ),
+
           ],
+
         ),
       ),
     );
