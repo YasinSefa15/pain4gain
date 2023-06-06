@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'JsonFileManager.dart';
@@ -53,9 +51,7 @@ class ListJsonController {
 
       jsonData.values.forEach((entry) {
         String title = entry['title'];
-        if (title != null) {
-          titleList.add(title);
-        }
+        titleList.add(title);
       });
 
       //print("data $jsonData");

@@ -28,11 +28,11 @@ class TraceComponent extends StatelessWidget {
               width: screenWidth / 2 - 10,
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                    image: DecorationImage(
+                    image: const DecorationImage(
                       image: AssetImage("assets/fitness_girl.png"),
                       alignment: Alignment.bottomCenter,
                     ),
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       begin: Alignment.bottomLeft,
                       end: Alignment.topRight,
                       colors: [
@@ -46,7 +46,7 @@ class TraceComponent extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       gradient: LinearGradient(
                           begin: Alignment.bottomRight,
-                          stops: [
+                          stops: const [
                             0.2,
                             0.9
                           ],
@@ -54,7 +54,7 @@ class TraceComponent extends StatelessWidget {
                             Colors.black.withOpacity(.8),
                             Colors.black.withOpacity(.1)
                           ])),
-                  child: Column(
+                  child: const Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
